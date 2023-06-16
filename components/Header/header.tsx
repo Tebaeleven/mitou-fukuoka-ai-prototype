@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Header() {
-    const CustomLink = ({ href, title}) => {
+    const CustomLink = ({ href, title }) => {
         const router = useRouter();
         return (
             <Link

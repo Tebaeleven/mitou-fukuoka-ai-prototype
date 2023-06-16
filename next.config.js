@@ -7,6 +7,9 @@ const nextConfig = {
     // !! WARN !!!
     ignoreBuildErrors: true,
   },
+  devServer: {
+    hot: false,
+  },
 }
 
 module.exports = nextConfig
