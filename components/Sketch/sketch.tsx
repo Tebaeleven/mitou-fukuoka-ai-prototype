@@ -1,22 +1,31 @@
 import dynamic from "next/dynamic";
 import p5Types from "p5";
+import { useState } from "react";
+import { Slider } from "@material-tailwind/react";
 
 const Sketch = dynamic(import("react-p5"), {
-    loading: () =>null,
+    loading: () => null,
     ssr: false,
 });
 
 export const SketchComponent = () => {
-    console.log("dada")
-    const preload = (p5: p5Types) => {
-        // ここは今回使わない
+    const [size, setSize] = useState(100);
+
+    const handleSizeChange = (event) => {
+        setSize(event.target.value);
     };
-    let img;
+    console.log("dada");
+    const [img, setImg] = useState(null);
+
+    const preload = (p5: p5Types) => {
+        p5.loadImage("p5/teba.jpg", (loadedImage) => {
+            setImg(loadedImage);
+            console.log("画像が正しく読み込まれました。");
+        });
+    };
+
     const setup = (p5: p5Types, canvasParentRef: Element) => {
         p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
-        img = p5.loadImage(
-            "p5/teba.jpg"
-        );
     };
 
     const draw = (p5: p5Types) => {
@@ -33,7 +42,7 @@ export const SketchComponent = () => {
         p5.rotateX(p5.frameCount * 0.01);
         p5.rotateY(p5.frameCount * 0.01);
         p5.texture(img);
-        p5.box(100);
+        p5.box(Number(size));
         p5.pop();
 
         p5.push();
@@ -74,20 +83,30 @@ export const SketchComponent = () => {
     };
 
     const windowResized = (p5: p5Types) => {
-        
         p5.resizeCanvas(500, 500);
         console.log("リサイズ");
-
     };
 
     return (
         <>
-            <Sketch
-                preload={preload}
-                setup={setup}
-                draw={draw}
-                windowResized={windowResized}
-            />
+            <div className="relative">
+                <Sketch
+                    preload={preload}
+                    setup={setup}
+                    draw={draw}
+                    windowResized={windowResized}
+                />
+                <div className="w-96 p-5">
+                    <Slider
+                        size="lg"
+                        defaultValue={50}
+                        onChange={handleSizeChange}
+                        value={size}
+                        min={0}
+                        max={100}
+                    />
+                </div>
+            </div>
         </>
     );
 };
