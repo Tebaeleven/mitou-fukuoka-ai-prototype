@@ -99,11 +99,8 @@ export default function Header() {
                     >
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <CustomLink href="/" title="Home" />
-                            <CustomLink href="/about" title="About" />
-                            <CustomLink
-                                href="/Marketplace"
-                                title="Marketplace"
-                            />
+                            <CustomLink href="/p5" title="p5" />
+                            <CustomLink href="/dom" title="DOM" />
                             <CustomLink href="/Features" title="Features" />
                             <CustomLink href="/Team" title="Team" />
                             <CustomLink href="/contact" title="Contact" />

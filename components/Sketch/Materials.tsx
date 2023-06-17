@@ -87,6 +87,7 @@ export const SketchComponent = () => {
         console.log("リサイズ");
     };
 
+    
     return (
         <>
             <div className="relative">
