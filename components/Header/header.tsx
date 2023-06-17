@@ -101,7 +101,7 @@ export default function Header() {
                             <CustomLink href="/" title="Home" />
                             <CustomLink href="/p5" title="p5" />
                             <CustomLink href="/dom" title="DOM" />
-                            <CustomLink href="/Features" title="Features" />
+                            <CustomLink href="/domclass" title="domclass" />
                             <CustomLink href="/Team" title="Team" />
                             <CustomLink href="/contact" title="Contact" />
                         </ul>
