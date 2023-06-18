@@ -11,6 +11,7 @@ export default function Dom() {
         //TODO
         //jsxなどで要素を生成し、それをdomにcloneする
         
+
         // const interval = setInterval(() => {
         //     instance.forEach(function (block) {
         //         block.moveElement();

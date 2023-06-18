@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 
-export default function domClass() {
-    if (typeof window !== "undefined") {
-
+export default function DomClass() {
         useEffect(() => {
             let x = 0
             const container = document.getElementById("root");
@@ -18,7 +16,6 @@ export default function domClass() {
                 clearInterval(interval);
             };
         }, []);
-    }
     return (
         <div
             className="block  bg-white border  rounded-lg shadow border-gray-700 m-auto my-5 h-[700px] w-[1200px] "
