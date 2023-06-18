@@ -22,7 +22,7 @@ export default function DomClass() {
             id="root"
             style={{ position: "relative" }}
         >
-            <div id="b" style={{ position:"absolute",top:0}}>こんにちは</div>
+            <Button id="b" style={{ position:"absolute",top:0}}>こんにちは</Button>
         </div>
     );
 }
