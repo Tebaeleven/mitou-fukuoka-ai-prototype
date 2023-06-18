@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import anime from "animejs";
 
-export default function Line({ x1, y1, x2, y2, wait }) {
+export default function Line({ start,end, wait }) {
+    let x1 = start[0];
+    let y1 = start[1];
+    let x2 = end[0];
+    let y2 = end[1];
+    console.log(x1)
     const lineRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 

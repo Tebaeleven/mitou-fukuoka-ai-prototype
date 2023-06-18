@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
-export default function Neuron ({ children, x, y, r = "60", t, wait }){
+export default function Neuron ({ children,v, r = "100", t, wait }){
     const [isVisible, setIsVisible] = useState(false);
-
+    let x=v[0]
+    let y=v[1];
     useEffect(() => {
         const timeout = setTimeout(() => {
             setIsVisible(true);
