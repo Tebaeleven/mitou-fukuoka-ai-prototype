@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-
 export default function P5Neural() {
     useEffect(() => {
         class Rectangle {

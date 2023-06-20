@@ -107,6 +107,7 @@ export default function Header() {
                                 title="dom-neural network"
                             />
                             <CustomLink href="/p5-neural" title="p5-neural" />
+                            <CustomLink href="/js-canvas" title="js-canvas" />
                         </ul>
                     </div>
                 </div>
