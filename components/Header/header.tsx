@@ -102,8 +102,11 @@ export default function Header() {
                             <CustomLink href="/p5" title="p5" />
                             <CustomLink href="/dom" title="DOM" />
                             <CustomLink href="/domclass" title="domclass" />
-                            <CustomLink href="/dom-neural" title="dom-neural network" />
-                            <CustomLink href="/contact" title="Contact" />
+                            <CustomLink
+                                href="/dom-neural"
+                                title="dom-neural network"
+                            />
+                            <CustomLink href="/p5-neural" title="p5-neural" />
                         </ul>
                     </div>
                 </div>

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Neuron from "@/components/DOM/neuron";
 import Line from "@/components/DOM/line";
-import { Slider } from "@material-tailwind/react";
+import DiscreteSliderLabel from "@/components/Slider/DiscreteSliderLabel";
+import VerticalSlider from "@/components/Slider/VerticalSlider";
 
 export default function P5Neural() {
-    const [X1, setX1] = useState(200);
+    const [X1, setX1] = useState(0);
 
     const handleSizeChange = (event) => {
         setX1(event.target.value);
+        console.log(X1)
     };
     let G = {
         V: [
-            [200, 100], // x1
-            [200, 300], // x2
-            [500, 200], // y
+            [X1+200, 200], // x1
+            [200, 400], // x2
+            [500, 300], // y
         ],
     };
     console.log(G.V[0])
@@ -47,26 +49,30 @@ export default function P5Neural() {
             <Slider color="green" defaultValue={50} className="w-40" />
             <Slider color="amber" defaultValue={50} className="w-40" /> */}
             <div className="flex w-96 flex-col gap-8">
-                <Slider
-                    color="blue"
-                    defaultValue={50}
-                    className="w-65 fadein"
-                    style={{ position: "absolute", top: 100, left: 260 }}
-                />
-                <Slider
-                    color="red"
-                    className="w-65 fadein"
-                    defaultValue={50}
-                    style={{ position: "absolute", top: 300, left: 260 }}
-                />
-                <Slider
-                    color="green"
-                    defaultValue={50}
-                    className="w-65 fadein"
-                    style={{ position: "absolute", top: 200, left: 560 }}
-                />
-                
+                {/* <Slider
+                    onChange={handleSizeChange}
+                    max={100}
+                    value={X1}
+
+                    // style={{ position: "absolute", top: 100, left: 260 }}
+                /> */}
+                <div style={{ position: "absolute", top: 170, left: 300 }}>
+                    <DiscreteSliderLabel></DiscreteSliderLabel>
+                </div>
+                <div style={{ position: "absolute", top: 400, left: 300 }}>
+                    <DiscreteSliderLabel></DiscreteSliderLabel>
+                </div>
+                <div style={{ position: "absolute", top: 150, left: 60 }}>
+                    <VerticalSlider></VerticalSlider>
+                </div>
+                <div style={{ position: "absolute", top: 350, left: 60 }}>
+                    <VerticalSlider></VerticalSlider>
+                </div>
+                <div style={{ position: "absolute", top: 290, left: 570 }}>
+                    <DiscreteSliderLabel></DiscreteSliderLabel>
+                </div>
             </div>
         </div>
     );
 }
+
