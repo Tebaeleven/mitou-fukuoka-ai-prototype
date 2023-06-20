@@ -1,18 +1,30 @@
-import React from "react";
-import Scene from "@/components/canvas";
+import React, { useEffect } from "react";
+import Scene from "@/components/canvas/scene";
+import Object from "@/components/canvas/object";
 
 export default function JsCanvas() {
-    class Test extends Scene {
-        constructor() {
-            super();
-            this.Create("cube",1);
-            this.Create("cube",2);
-            this.Play(2);
+    useEffect(() => {
+        let obj=new Object()
+        class Test extends Scene {
+            constructor() {
+                super("root");
+
+                let square = obj.Square(110,0,50,"green");
+                let square2 = obj.Square(0, 0, 50, "red");
+
+                this.create(square2);
+                this.create(square);
+
+                this.AddPlay(square);
+                this.AddPlay(square2);
+
+                console.log(this.animeTask)
+
+            }
         }
-    }
+        new Test();
+        
+    }, []);
 
-    const test = new Test();
-    console.log("全てのオブジェクト",test.object);
-
-    return <div>js-canvas</div>;
+    return <canvas id="root" width={500} height={500}></canvas>;
 }
