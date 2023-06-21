@@ -16,10 +16,12 @@ export default function JsCanvas() {
                 this.create(square);
 
                 this.AddPlay(square);
+                this.AddWait(60);
                 this.AddPlay(square2);
+                this.AddWait(60);
 
                 this.play()
-                
+
                 console.log(this.animeTask)
 
             }

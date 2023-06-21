@@ -18,26 +18,54 @@ class Scene {
         }
     }
     AddPlay(obj) {
-        let startFrame=0
+        let startFrame = 0;
         if (this.animeTask.length !== 0) {
-            startFrame=this.animeTask.slice(-1)[0].end;
+            startFrame = this.animeTask.slice(-1)[0].end;
         }
         let task = {
             id: obj.id,
             start: startFrame,
-            end:startFrame+60
+            end: startFrame + 60,
         };
-        console.log("スタートフレーム",startFrame)
+        console.log("スタートフレーム", startFrame);
         this.animeTask.push(task);
-        // this.play(obj);
+    }
+    AddWait(frames) {
+        let startFrame = 0;
+        if (this.animeTask.length !== 0) {
+            startFrame = this.animeTask.slice(-1)[0].end;
+        }
+        let task = {
+            id: "wait",
+            start: startFrame,
+            end: startFrame + frames,
+        };
+        this.animeTask.push(task);
     }
     play() {
+        // let frameCount = 0;
+        // let lastTime = performance.now();
 
         const loop = () => {
             // console.log(this.currentFrame); //TODO なぜか2回出力される
+
+            // // フレーム数をカウント
+            // frameCount++;
+
+            // // 経過時間の計算
+            // const currentTime = performance.now();
+            // const deltaTime = currentTime - lastTime;
+            // if (deltaTime >= 1000) {
+            //     // 1秒以上経過した場合
+            //     console.log("FPS:", frameCount);
+
+            //     // フレームカウントと時間をリセット
+            //     frameCount = 0;
+            //     lastTime = currentTime;
+            // }
+            
             let findObj;
             this.currentFrame++;
-            let index = 1;
             for (let i = 0; i < this.animeTask.length; i++) {
                 let id = this.animeTask[i].id;
                 let startFrame = this.animeTask[i].start;
@@ -46,8 +74,10 @@ class Scene {
                 findObj = Object.values(this.object).find(
                     (find) => find.id === id //this.animeTask[0].id
                 );
-
-                if (
+                if (id === "wait") {
+                    this.clear();
+                    this.drawAll();
+                } else if (
                     startFrame <= this.currentFrame &&
                     this.currentFrame <= endFrame
                 ) {
