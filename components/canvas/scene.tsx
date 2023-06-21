@@ -9,6 +9,7 @@ class Scene {
         this.ctx = this.canvas.getContext("2d");
         console.log(this.canvas);
         this.animeTask = [];
+        this.currentFrame = 0;
     }
     create(obj) {
         if (obj.shape === "cube") {
@@ -17,32 +18,47 @@ class Scene {
         }
     }
     AddPlay(obj) {
+        let startFrame=0
+        if (this.animeTask.length !== 0) {
+            startFrame=this.animeTask.slice(-1)[0].end;
+        }
         let task = {
             id: obj.id,
-        }
+            start: startFrame,
+            end:startFrame+60
+        };
+        console.log("スタートフレーム",startFrame)
         this.animeTask.push(task);
-        this.play(obj);
+        // this.play(obj);
     }
-    play(obj) {
-            let findObj = Object.values(this.object).find(
-                (find) => find.id === this.animeTask[0].id
-            );
-            let frames = 30;
-            console.log(frames);
-            const loop = () => {
-                findObj.x -= 1;
-                frames--;
-                this.clear();
-                this.drawAll();
-                if (frames > 0) {
-                    requestAnimationFrame(loop);
-                } else {
-                    this.animeTask.splice(0, 1);
-                    console.log(this.animeTask);
-                }
-            };
+    play() {
 
-            loop();
+        const loop = () => {
+            // console.log(this.currentFrame); //TODO なぜか2回出力される
+            let findObj;
+            this.currentFrame++;
+            let index = 1;
+            for (let i = 0; i < this.animeTask.length; i++) {
+                let id = this.animeTask[i].id;
+                let startFrame = this.animeTask[i].start;
+                let endFrame = this.animeTask[i].end;
+
+                findObj = Object.values(this.object).find(
+                    (find) => find.id === id //this.animeTask[0].id
+                );
+
+                if (
+                    startFrame <= this.currentFrame &&
+                    this.currentFrame <= endFrame
+                ) {
+                    this.clear();
+                    this.drawAll();
+                    findObj.x += 1;
+                }
+            }
+            requestAnimationFrame(loop);
+        };
+        loop();
     }
     drawAll() {
         this.object.forEach((o) => {

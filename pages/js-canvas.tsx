@@ -18,6 +18,8 @@ export default function JsCanvas() {
                 this.AddPlay(square);
                 this.AddPlay(square2);
 
+                this.play()
+                
                 console.log(this.animeTask)
 
             }
