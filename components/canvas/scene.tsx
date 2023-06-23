@@ -10,6 +10,7 @@ class Scene {
         console.log(this.canvas);
         this.animeTask = [];
         this.currentFrame = 0;
+        this.isPlay=false
     }
     create(obj) {
         if (obj.shape === "cube") {
@@ -42,51 +43,52 @@ class Scene {
         };
         this.animeTask.push(task);
     }
+
     play() {
-        // let frameCount = 0;
-        // let lastTime = performance.now();
-
+        console.log("play")
+        let frameCount = 0;
+        let lastTime = performance.now();
         const loop = () => {
-            // console.log(this.currentFrame); //TODO なぜか2回出力される
+            console.log(this.currentFrame); //TODO なぜか2回出力される
 
-            // // フレーム数をカウント
-            // frameCount++;
+            // フレーム数をカウント
+            frameCount++;
 
-            // // 経過時間の計算
-            // const currentTime = performance.now();
-            // const deltaTime = currentTime - lastTime;
-            // if (deltaTime >= 1000) {
-            //     // 1秒以上経過した場合
-            //     console.log("FPS:", frameCount);
+            // 経過時間の計算
+            const currentTime = performance.now();
+            const deltaTime = currentTime - lastTime;
+            if (deltaTime >= 1000) {
+                // 1秒以上経過した場合
+                console.log("FPS:", frameCount);
 
-            //     // フレームカウントと時間をリセット
-            //     frameCount = 0;
-            //     lastTime = currentTime;
-            // }
-            
-            let findObj;
-            this.currentFrame++;
-            for (let i = 0; i < this.animeTask.length; i++) {
-                let id = this.animeTask[i].id;
-                let startFrame = this.animeTask[i].start;
-                let endFrame = this.animeTask[i].end;
-
-                findObj = Object.values(this.object).find(
-                    (find) => find.id === id //this.animeTask[0].id
-                );
-                if (id === "wait") {
-                    this.clear();
-                    this.drawAll();
-                } else if (
-                    startFrame <= this.currentFrame &&
-                    this.currentFrame <= endFrame
-                ) {
-                    this.clear();
-                    this.drawAll();
-                    findObj.x += 1;
-                }
+                // フレームカウントと時間をリセット
+                frameCount = 0;
+                lastTime = currentTime;
             }
-            requestAnimationFrame(loop);
+                let findObj;
+                this.currentFrame++;
+                for (let i = 0; i < this.animeTask.length; i++) {
+                    let id = this.animeTask[i].id;
+                    let startFrame = this.animeTask[i].start;
+                    let endFrame = this.animeTask[i].end;
+
+                    findObj = Object.values(this.object).find(
+                        (find) => find.id === id //this.animeTask[0].id
+                    );
+                    if (id === "wait") {
+                        this.clear();
+                        this.drawAll();
+                    } else if (
+                        startFrame <= this.currentFrame &&
+                        this.currentFrame <= endFrame
+                    ) {
+                        this.clear();
+                        this.drawAll();
+                        findObj.x += 1;
+                    }
+                }
+                    requestAnimationFrame(loop);
+
         };
         loop();
     }

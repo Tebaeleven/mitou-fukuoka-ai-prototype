@@ -1,34 +1,22 @@
+import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
-import Scene from "@/components/canvas/scene";
-import Object from "@/components/canvas/object";
+
+const Canvas = dynamic(() => import("@/components/canvas/Canvas"), {
+    ssr: false,
+});
 
 export default function JsCanvas() {
-    useEffect(() => {
-        let obj=new Object()
-        class Test extends Scene {
-            constructor() {
-                super("root");
-
-                let square = obj.Square(110,0,50,"green");
-                let square2 = obj.Square(0, 0, 50, "red");
-
-                this.create(square2);
-                this.create(square);
-
-                this.AddPlay(square);
-                this.AddWait(60);
-                this.AddPlay(square2);
-                this.AddWait(60);
-
-                this.play()
-
-                console.log(this.animeTask)
-
-            }
-        }
-        new Test();
-        
-    }, []);
-
-    return <canvas id="root" width={500} height={500}></canvas>;
+    //TODO
+    //aタグから移動してきた時はcanvasを取得できるが、linkタグからだとできない
+    return (
+        <div className="">
+            <canvas
+                id="root"
+                height={500}
+                width={500}
+                style={{ background: "red" }}
+            ></canvas>
+            <Canvas></Canvas>
+        </div>
+    );
 }
