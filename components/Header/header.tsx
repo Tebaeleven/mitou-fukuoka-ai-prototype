@@ -6,7 +6,7 @@ export default function Header() {
     const CustomLink = ({ href, title }) => {
         const router = useRouter();
         return (
-            <Link
+            <a
                 href={href}
                 className={`hover:text-primary-700  hover:text-white border-gray-700 relative group 
                     ${
@@ -22,7 +22,7 @@ export default function Header() {
                 >
                     &nbsp;
                 </span>
-            </Link>
+            </a>
         );
     };
     return (

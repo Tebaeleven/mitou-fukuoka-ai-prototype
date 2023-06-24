@@ -13,10 +13,8 @@ class Scene {
         this.isPlay=false
     }
     create(obj) {
-        if (obj.shape === "cube") {
-            this.object.push(obj);
-            this.draw(obj);
-        }
+        this.object.push(obj);
+        this.draw(obj);
     }
     AddPlay(obj) {
         let startFrame = 0;
@@ -103,7 +101,14 @@ class Scene {
                 this.ctx.fillStyle = obj.color;
                 this.ctx.fillRect(obj.x, obj.y, 100, 100);
                 break;
-
+            case "circle":
+                this.ctx.fillStyle = obj.color;
+                this.ctx.strokeStyle = obj.strokeColor;
+                this.ctx.beginPath();
+                this.ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
+                this.ctx.fill();
+                this.ctx.lineWidth = 5;       
+                this.ctx.stroke(); 
             default:
                 break;
         }
