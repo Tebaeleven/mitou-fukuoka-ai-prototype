@@ -17,8 +17,12 @@ export default function Canvas(){
 
     test.AddPlay(square);
     test.AddWait(60);
+
     test.AddPlay(square2);
-    test.AddWait(60);
+
+
+    test.AddPlay(circle);
+
 
     console.log(test.animeTask);
 

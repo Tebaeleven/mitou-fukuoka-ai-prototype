@@ -19,14 +19,23 @@ class Scene {
     AddPlay(obj) {
         let startFrame = 0;
         if (this.animeTask.length !== 0) {
-            startFrame = this.animeTask.slice(-1)[0].end;
+            let bottomTask = this.animeTask.slice(-1)[0];
+            //スタート時間の設定
+            if (bottomTask !== undefined) {
+                //上がwaitだった場合
+                if (bottomTask.id === "wait") {
+                    startFrame = bottomTask.end;
+                } else {
+                    startFrame = bottomTask.start;
+                }
+            }
         }
+
         let task = {
             id: obj.id,
             start: startFrame,
             end: startFrame + 60,
         };
-        console.log("スタートフレーム", startFrame);
         this.animeTask.push(task);
     }
     AddWait(frames) {
@@ -34,6 +43,7 @@ class Scene {
         if (this.animeTask.length !== 0) {
             startFrame = this.animeTask.slice(-1)[0].end;
         }
+        //TODO 強制的に+frameしているが、wait関数が上にあった場合のみwait関数の時間分+するようにする
         let task = {
             id: "wait",
             start: startFrame,
