@@ -36,13 +36,17 @@ class Scene {
             id: obj.id,
             start: startFrame,
             end: startFrame + 60,
+            startX: obj.x,
+            startY:obj.y,
+            goalX: obj.x + 200,
+            goalY:obj.y
         };
         this.animeTask.push(task);
     }
     AddWait(frames) {
         let startFrame = 0;
         if (this.animeTask.length !== 0) {
-            startFrame = this.animeTask.slice(-1)[0].end;
+            startFrame = this.animeTask.slice(-1)[0].start;
         }
         //TODO 強制的に+frameしているが、wait関数が上にあった場合のみwait関数の時間分+するようにする
         let task = {
@@ -74,29 +78,44 @@ class Scene {
                 frameCount = 0;
                 lastTime = currentTime;
             }
-                let findObj;
-                this.currentFrame++;
-                for (let i = 0; i < this.animeTask.length; i++) {
-                    let id = this.animeTask[i].id;
-                    let startFrame = this.animeTask[i].start;
-                    let endFrame = this.animeTask[i].end;
 
-                    findObj = Object.values(this.object).find(
-                        (find) => find.id === id //this.animeTask[0].id
-                    );
-                    if (id === "wait") {
-                        this.clear();
-                        this.drawAll();
-                    } else if (
-                        startFrame <= this.currentFrame &&
-                        this.currentFrame <= endFrame
-                    ) {
-                        this.clear();
-                        this.drawAll();
-                        findObj.x += 1;
-                    }
+            let findObj;
+            this.currentFrame++;
+            for (let i = 0; i < this.animeTask.length; i++) {
+                let id = this.animeTask[i].id;
+                let startFrame = this.animeTask[i].start;
+                let endFrame = this.animeTask[i].end;
+
+                let startX = this.animeTask[i].startX;
+                let goalX = this.animeTask[i].goalX
+
+                let startY = this.animeTask[i].startY;
+                let goalY = this.animeTask[i].goalY;
+                
+                findObj = Object.values(this.object).find(
+                    (find) => find.id === id //this.animeTask[0].id
+                );
+                if (id === "wait") {
+                    this.clear();
+                    this.drawAll();
+                } else if ( //描画できる範囲だったら
+                    startFrame <= this.currentFrame &&
+                    this.currentFrame <= endFrame
+                ) {
+
+                    this.clear();
+                    let moveFrameTime = 60;
+                    let moveFrame=this.currentFrame-startFrame
+                    let t = moveFrame / moveFrameTime;
+                    let dx = goalX - startX
+                    let dy=goalY-startY
+                    findObj.x = easeInOutCubic(t) * dx + startX;
+                    findObj.y = easeInOutCubic(t) * dy + startY;
+                    this.drawAll();
+
                 }
-                    requestAnimationFrame(loop);
+            }
+            requestAnimationFrame(loop);
 
         };
         loop();
@@ -141,4 +160,11 @@ function easeOutQuad(t) {
 // イージング関数: easeInOutQuad
 function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+function easeInOutCubic(t) {
+    if (t < 0.5) {
+        return 4 * t * t * t;
+    } else {
+        return 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
 }

@@ -7,19 +7,23 @@ let obj = new Object();
 
 let test = new Scene("root");
 
-let square = obj.Square(200, 0, 50, "green");
-let square2 = obj.Square(0, 0, 50, "red");
+let square = obj.Square(0, 0, 50, "green");
+let square2 = obj.Square(0, 100, 50, "red");
 let circle = obj.Circle(100, 200, 40, "orange", "black");
 let circle2 = obj.Circle(200, 200, 40, "orange", "black");
 
-// test.create(square2);
 test.create(square);
-// test.create(circle);
+test.create(square2);
+test.create(circle);
 // test.create(circle2);
 
 test.AddPlay(square);
-// test.AddPlay(square2);
-// test.AddPlay(circle);
+test.AddWait(30);
+test.AddPlay(square2);
+test.AddWait(30);
+test.AddPlay(circle);
+
+console.log(test.animeTask)
 // test.AddPlay(circle2);
 
 
@@ -32,14 +36,14 @@ export default function Canvas() {
 
     const playBar = (event) => {
         setFrame(event.target.value);
-        let moveFrame = 200
-        let currentFrame = event.target.value;
+        // let moveFrame = 60
+        // let currentFrame = event.target.value;
 
-        let t = currentFrame / moveFrame
-
-        console.log(t)
-        square.x = easeInOutCubic(t) * 200;
-        square.y = easeInOutCubic(t) * 100;
+        // let t = currentFrame / moveFrame
+        
+        // console.log(t)
+        // square.x = easeInOutCubic(t) * 200;
+        // square.y = easeInOutCubic(t) * 100;
         test.drawAll()
     };
 
