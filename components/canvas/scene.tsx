@@ -10,14 +10,14 @@ class Scene {
         console.log(this.canvas);
         this.animeTask = [];
         this.currentFrame = 0;
-        this.isPlay = false
-        this.clear()
+        this.isPlay = false;
+        this.clear();
     }
     create(obj) {
         this.object.push(obj);
         this.draw(obj);
     }
-    AddPlay(obj) {
+    AddMove(obj,x,y) {
         let startFrame = 0;
         if (this.animeTask.length !== 0) {
             let bottomTask = this.animeTask.slice(-1)[0];
@@ -31,15 +31,14 @@ class Scene {
                 }
             }
         }
-
         let task = {
             id: obj.id,
             start: startFrame,
             end: startFrame + 60,
             startX: obj.x,
-            startY:obj.y,
-            goalX: obj.x + 200,
-            goalY:obj.y
+            startY: obj.y,
+            goalX: x,
+            goalY: y,
         };
         this.animeTask.push(task);
     }
@@ -58,7 +57,7 @@ class Scene {
     }
 
     play() {
-        console.log("play")
+        console.log("play");
         let frameCount = 0;
         let lastTime = performance.now();
         const loop = () => {
@@ -87,41 +86,39 @@ class Scene {
                 let endFrame = this.animeTask[i].end;
 
                 let startX = this.animeTask[i].startX;
-                let goalX = this.animeTask[i].goalX
+                let goalX = this.animeTask[i].goalX;
 
                 let startY = this.animeTask[i].startY;
                 let goalY = this.animeTask[i].goalY;
-                
+
                 findObj = Object.values(this.object).find(
                     (find) => find.id === id //this.animeTask[0].id
                 );
                 if (id === "wait") {
                     this.clear();
                     this.drawAll();
-                } else if ( //描画できる範囲だったら
+                } else if (
+                    //描画できる範囲だったら
                     startFrame <= this.currentFrame &&
                     this.currentFrame <= endFrame
                 ) {
-
                     this.clear();
                     let moveFrameTime = 60;
-                    let moveFrame=this.currentFrame-startFrame
+                    let moveFrame = this.currentFrame - startFrame;
                     let t = moveFrame / moveFrameTime;
-                    let dx = goalX - startX
-                    let dy=goalY-startY
+                    let dx = goalX - startX;
+                    let dy = goalY - startY;
                     findObj.x = easeInOutCubic(t) * dx + startX;
                     findObj.y = easeInOutCubic(t) * dy + startY;
                     this.drawAll();
-
                 }
             }
             requestAnimationFrame(loop);
-
         };
         loop();
     }
     drawAll() {
-        this.clear()
+        this.clear();
         this.object.forEach((o) => {
             this.draw(o);
         });
@@ -129,8 +126,13 @@ class Scene {
     draw(obj) {
         switch (obj.shape) {
             case "cube":
+                this.ctx.beginPath();
                 this.ctx.fillStyle = obj.color;
-                this.ctx.fillRect(obj.x, obj.y, 100, 100);
+                this.ctx.rect(obj.x - 50, obj.y - 50, 100, 100);
+                this.ctx.strokeStyle = "black"
+                this.ctx.lineWidth = 5
+                this.ctx.fill()
+                this.ctx.stroke();
                 break;
             case "circle":
                 this.ctx.fillStyle = obj.color;
@@ -139,7 +141,7 @@ class Scene {
                 this.ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
                 this.ctx.fill();
                 this.ctx.lineWidth = 4;
-                this.ctx.stroke(); 
+                this.ctx.stroke();
             default:
                 break;
         }

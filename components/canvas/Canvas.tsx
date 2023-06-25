@@ -9,7 +9,7 @@ let test = new Scene("root");
 
 let square = obj.Square(0, 0, 50, "green");
 let square2 = obj.Square(0, 100, 50, "red");
-let circle = obj.Circle(100, 200, 40, "orange", "black");
+let circle = obj.Circle(400, 400, 40, "orange", "black");
 let circle2 = obj.Circle(200, 200, 40, "orange", "black");
 
 test.create(square);
@@ -17,11 +17,10 @@ test.create(square2);
 test.create(circle);
 // test.create(circle2);
 
-test.AddPlay(square);
+test.AddMove(square,250,250);
 test.AddWait(30);
-test.AddPlay(square2);
-test.AddWait(30);
-test.AddPlay(circle);
+test.AddMove(square2, 400, 250);
+test.AddMove(circle,100, 250);
 
 console.log(test.animeTask)
 // test.AddPlay(circle2);
