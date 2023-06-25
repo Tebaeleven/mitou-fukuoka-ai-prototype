@@ -102,6 +102,7 @@ class Scene {
         loop();
     }
     drawAll() {
+        this.clear()
         this.object.forEach((o) => {
             this.draw(o);
         });
