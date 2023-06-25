@@ -118,7 +118,7 @@ class Scene {
                 this.ctx.beginPath();
                 this.ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
                 this.ctx.fill();
-                this.ctx.lineWidth = 5;       
+                this.ctx.lineWidth = 4;
                 this.ctx.stroke(); 
             default:
                 break;
