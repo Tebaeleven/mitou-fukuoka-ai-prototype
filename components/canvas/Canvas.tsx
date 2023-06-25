@@ -15,12 +15,13 @@ let circle2 = obj.Circle(200, 200, 40, "orange", "black");
 test.create(square);
 test.create(square2);
 test.create(circle);
-// test.create(circle2);
 
 test.AddMove(square,250,250);
 test.AddWait(30);
 test.AddMove(square2, 400, 250);
+test.AddWait(30);
 test.AddMove(circle,100, 250);
+
 
 console.log(test.animeTask)
 // test.AddPlay(circle2);
@@ -28,22 +29,30 @@ console.log(test.animeTask)
 
 export default function Canvas() {
     const [frame, setFrame] = useState(0);
-
     const handleClick = () => {
-        test.play();
+        let frameCount = 0;
+
+        function animate() {
+            // ここにフレームごとの処理を記述します
+            setFrame(frameCount);
+            test.play(frameCount)
+            // フレームカウントを増やす
+            frameCount++;
+
+            if (frameCount < 200) {
+                // まだ200フレームに達していない場合、次のフレームをリクエスト
+                requestAnimationFrame(animate);
+            }
+        }
+
+        // 最初のフレームをリクエスト
+        requestAnimationFrame(animate);
     };
 
     const playBar = (event) => {
-        setFrame(event.target.value);
-        // let moveFrame = 60
-        // let currentFrame = event.target.value;
-
-        // let t = currentFrame / moveFrame
-        
-        // console.log(t)
-        // square.x = easeInOutCubic(t) * 200;
-        // square.y = easeInOutCubic(t) * 100;
-        test.drawAll()
+        let frame = event.target.value;
+        setFrame(frame);
+        test.play(frame);
     };
 
     function easeInOutCubic(t) {
@@ -63,10 +72,11 @@ export default function Canvas() {
             </button>
             <div className='w-1/2'>
                 <Slider
-                    defaultValue={50}
+                    defaultValue={0}
                     aria-label="Default"
                     valueLabelDisplay="auto"
-                    max={200}
+                    max={100}
+                    step={1}
                     onChange={playBar}
                 />
                 <p>{frame}</p>

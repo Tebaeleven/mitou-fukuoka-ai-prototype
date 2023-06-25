@@ -56,30 +56,10 @@ class Scene {
         this.animeTask.push(task);
     }
 
-    play() {
-        console.log("play");
-        let frameCount = 0;
-        let lastTime = performance.now();
+    play(frame) {
         const loop = () => {
-            console.log(this.currentFrame); //TODO なぜか2回出力される
-
-            // フレーム数をカウント
-            frameCount++;
-
-            // 経過時間の計算
-            const currentTime = performance.now();
-            const deltaTime = currentTime - lastTime;
-            if (deltaTime >= 1000) {
-                // 1秒以上経過した場合
-                console.log("FPS:", frameCount);
-
-                // フレームカウントと時間をリセット
-                frameCount = 0;
-                lastTime = currentTime;
-            }
-
             let findObj;
-            this.currentFrame++;
+            this.currentFrame = frame;
             for (let i = 0; i < this.animeTask.length; i++) {
                 let id = this.animeTask[i].id;
                 let startFrame = this.animeTask[i].start;
