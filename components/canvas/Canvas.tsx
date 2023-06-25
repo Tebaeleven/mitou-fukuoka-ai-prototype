@@ -9,18 +9,18 @@ export default function Canvas(){
 
     let square = obj.Square(110, 0, 50, "green");
     let square2 = obj.Square(0, 0, 50, "red");
-    let circle = obj.Circle(100, 200, 50, "orange","black");
+    let circle = obj.Circle(100, 200, 40, "orange","black");
+    let circle2 = obj.Circle(200, 200, 50, "orange", "black");
 
     test.create(square2);
     test.create(square);
     test.create(circle);
+    test.create(circle2);
 
     test.AddPlay(square);
-    test.AddWait(60);
-
     test.AddPlay(square2);
-
-
+    test.AddWait(30);
+    test.AddPlay(circle);
     test.AddPlay(circle);
 
 

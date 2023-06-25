@@ -10,7 +10,8 @@ class Scene {
         console.log(this.canvas);
         this.animeTask = [];
         this.currentFrame = 0;
-        this.isPlay=false
+        this.isPlay = false
+        this.clear()
     }
     create(obj) {
         this.object.push(obj);
