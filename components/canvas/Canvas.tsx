@@ -7,8 +7,8 @@ let obj = new Object();
 
 let test = new Scene("root");
 
-let square = obj.Square(0, 0, 50, "green");
-let square2 = obj.Square(0, 100, 50, "red");
+let square = obj.Square(100,300, 50, "green");
+let square2 = obj.Square(400, 100, 50, "red");
 let circle = obj.Circle(400, 400, 40, "orange", "black");
 let circle2 = obj.Circle(200, 200, 40, "orange", "black");
 
@@ -16,15 +16,20 @@ test.create(square);
 test.create(square2);
 test.create(circle);
 
-test.AddMove(square,250,250);
-test.AddWait(30);
+test.AddMove(square, 250, 250);
 test.AddMove(square2, 400, 250);
-test.AddWait(30);
-test.AddMove(circle,100, 250);
+test.AddWait(50);
+
+test.AddMove(square, 400, 100);
+test.AddMove(circle, 100, 250);
+test.AddWait(50);
+test.AddMove(square, 100, 100);
+test.AddWait(100);
+
+test.AddMove(circle, 100, 400);
 
 
 console.log(test.animeTask)
-// test.AddPlay(circle2);
 
 
 export default function Canvas() {
@@ -75,7 +80,7 @@ export default function Canvas() {
                     defaultValue={0}
                     aria-label="Default"
                     valueLabelDisplay="auto"
-                    max={100}
+                    max={500}
                     step={1}
                     onChange={playBar}
                 />
