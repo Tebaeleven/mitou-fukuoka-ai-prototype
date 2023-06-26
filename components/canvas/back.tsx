@@ -9,62 +9,56 @@ class Scene {
         this.isPlay = false;
         this.clear();
     }
-    create(obj) {
-        this.object.push(obj.data);
-        this.draw(obj.data);
-    }
-    AddMove(o) {
+    create(o) {
         let obj=o.data
-        let startFrame = 0;
-        if (this.animeTask.length !== 0) {
-            let bottomTask = this.animeTask.slice(-1)[0];
-            //スタート時間の設定
-            if (bottomTask !== undefined) {
-                //上がwaitだった場合
-                if (bottomTask.id === "wait") {
-                    startFrame = bottomTask.end;
-                } else {
-                    startFrame = bottomTask.end;
+        this.object.push(obj);
+        this.draw(obj);
+    }
+    AddMove(...o) {
+        for (let i = 0; i < o.length; i++) {
+            let obj = o[i].data;
+            let startFrame = 0;
+            console.log("o", o);
+            //もし単体だけだったら同期的に動かす
+            if (o.length === 1) {
+                if (this.animeTask.length !== 0) {
+                    let bottomTask = this.animeTask.slice(-1)[0];
+                    //スタート時間の設定
+                    if (bottomTask !== undefined) {
+                        startFrame = bottomTask.end;
+                    }
                 }
             }
-        }
-        
-        let task = {
-            id: obj.id,
-            start: startFrame,
-            end: startFrame + 60,
-            startX: obj.x,
-            startY: obj.y,
-            goalX: obj.goalX,
-            goalY: obj.goalY,
-        };
-        this.animeTask.push(task);
-        let findObj = getItemsById(obj.id, this.animeTask);
-        //もしtaskにあったらその最後の座標にしておく
-        if (findObj.length > 1) {
-            //前に登録されているobjがあったらその座標にする
-            let lastIndex = findObj.length - 1;
-            let beforeX = findObj[lastIndex - 1].goalX;
-            let beforeY = findObj[lastIndex - 1].goalY;
-            findObj[lastIndex].startX = beforeX;
-            findObj[lastIndex].startY = beforeY;
 
-            // //前に登録されているobjがあったらそのframeから続ける
-            // let beforeStart = findObj[lastIndex - 1].start;
-            // let beforeEnd = findObj[lastIndex - 1].end;
-            // let frameTime = beforeEnd - beforeStart;
-            // findObj[lastIndex].start = beforeEnd;
-            // findObj[lastIndex].end = beforeEnd + frameTime;
-        }
-        function getItemsById(id, array) {
-            const result = [];
-            for (let i = 0; i < array.length; i++) {
-                if (array[i].id === id) {
-                    result.push(array[i]);
-                }
+            let task = {
+                id: obj.id,
+                start: startFrame,
+                end: startFrame + obj.animateTime,
+                startX: obj.x,
+                startY: obj.y,
+                goalX: obj.goalX,
+                goalY: obj.goalY,
+            };
+            this.animeTask.push(task);
+            let findObj = getItemsById(obj.id, this.animeTask);
+            //もしtaskにあったらその最後の座標にしておく
+            if (findObj.length > 1) {
+                //前に登録されているobjがあったらその座標にする
+                let lastIndex = findObj.length - 1;
+                let beforeX = findObj[lastIndex - 1].goalX;
+                let beforeY = findObj[lastIndex - 1].goalY;
+                findObj[lastIndex].startX = beforeX;
+                findObj[lastIndex].startY = beforeY;
+
+                // //前に登録されているobjがあったらそのframeから続ける
+                // let beforeStart = findObj[lastIndex - 1].start;
+                // let beforeEnd = findObj[lastIndex - 1].end;
+                // let frameTime = beforeEnd - beforeStart;
+                // findObj[lastIndex].start = beforeEnd;
+                // findObj[lastIndex].end = beforeEnd + frameTime;
             }
-            return result;
         }
+
     }
     AddWait(frames) {
         let startFrame = 0;
@@ -99,6 +93,8 @@ class Scene {
                 let startY = this.animeTask[i].startY;
                 let goalY = this.animeTask[i].goalY;
 
+                let animateTime = endFrame - startFrame;
+
                 findObj = Object.values(this.object).find(
                     (find) => find.id === id //this.animeTask[0].id
                 );
@@ -111,7 +107,7 @@ class Scene {
                     this.currentFrame <= endFrame
                 ) {
                     this.clear();
-                    let moveFrameTime = 60;
+                    let moveFrameTime = animateTime;
                     let moveFrame = this.currentFrame - startFrame;
                     let t = moveFrame / moveFrameTime;
                     let dx = goalX - startX;
@@ -177,3 +173,13 @@ function easeInOutCubic(t) {
         return 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 }
+
+        function getItemsById(id, array) {
+            const result = [];
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].id === id) {
+                    result.push(array[i]);
+                }
+            }
+            return result;
+        }

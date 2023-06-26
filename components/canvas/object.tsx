@@ -4,8 +4,11 @@ class Square {
     constructor(x, y, size, color) {
         this.id = Square.idCounter++;
         this.x = x
-        this.y=y
-        this.color=color
+        this.y = y
+        this.goalX = 0
+        this.goalY=0
+        this.color = color
+        this.animateTime=60
         this.data = {
             id: this.id,
             shape: "cube",
@@ -15,18 +18,30 @@ class Square {
         };
     }
     move(x, y) {
+        this.goalX =x
+        this.goalY = y;
+        this.setData()
 
+        return this
+    }
+    time(t) {
+        this.animateTime=t
+        this.setData();
+        this.animateTime =60
+        return this;
+        
+    }
+    setData() {
         this.data = {
             id: this.id,
             shape: "cube",
             x: this.x,
             y: this.y,
-            goalX: x,
-            goalY: y,
+            goalX: this.goalX,
+            goalY: this.goalY,
             color: this.color,
+            animateTime: this.animateTime,
         };
-
-        return this
     }
 
 

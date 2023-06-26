@@ -12,9 +12,12 @@ let red = new Square(400, 400, 50, "red");
 test.create(green);
 test.create(red);
 
-test.AddMove(green.move(400, 400));
-test.AddMove(red.move(100, 400));
+test.AddMove(
+    green.move(400, 400).time(30),
+    red.move(100, 400),
+);
 test.AddMove(green.move(400, 100));
+test.AddMove(red.move(100, 100).time(10));
 
 console.log(test.animeTask)
 // test.AddMove(square.move(100, 100));

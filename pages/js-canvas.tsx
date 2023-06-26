@@ -15,7 +15,7 @@ export default function JsCanvas() {
                 <canvas
                     id="root"
                     height={500}
-                    width={500}
+                    width={700}
                     className="border-collapse border-2 border-black rounded-xl drop-shadow-2xl"
                     style={{ background: "white" }}
                 ></canvas>
