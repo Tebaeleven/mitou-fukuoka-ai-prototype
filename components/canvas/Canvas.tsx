@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import Scene from "@/components/canvas/scene";
-import Object from "@/components/canvas/object";
+import Scene from "@/components/canvas/back";
+import Square from "@/components/canvas/object";
 import { Slider } from '@mui/material';
 
-let obj = new Object();
 
 let test = new Scene("root");
 
-let square = obj.Square(100,300, 50, "green");
-let square2 = obj.Square(400, 100, 50, "red");
-let circle = obj.Circle(400, 400, 40, "orange", "black");
-let circle2 = obj.Circle(200, 200, 40, "orange", "black");
+let green = new Square(100, 100, 50, "green");
+let red = new Square(400, 400, 50, "red");
 
-test.create(square);
-test.create(square2);
-test.create(circle);
+test.create(green);
+test.create(red);
+
+test.AddMove(green.move(400, 400));
+test.AddMove(red.move(100, 400));
+test.AddMove(green.move(400, 100));
+
+console.log(test.animeTask)
+// test.AddMove(square.move(100, 100));
+// let square2 = obj.Square(400, 100, 50, "red");
+// let circle = obj.Circle(400, 400, 40, "orange", "black");
+// let circle2 = obj.Circle(200, 200, 40, "orange", "black");
+// console.log("da",square)
+// test.create(square);
+
+// test.create(square2);
+// test.create(circle);
 
 /**
  * TODO
@@ -33,14 +44,15 @@ test.create(circle);
  * //同期的に行う処理
  * test.AddMove(circle);
  */
-test.AddMove(square, 250, 250)
-test.AddMove(square2, 400, 250);
-test.AddMove(square2, 0, 0);
-test.AddMove(square2, 400, 400);
+
+// test.AddMove(square, 250, 250)
+// test.AddMove(square2, 400, 250);
+// test.AddMove(square2, 0, 0);
+// test.AddMove(square2, 400, 400);
 // test.AddWait(50);
 
-test.AddMove(square, 400, 100);
-test.AddMove(circle, 100, 250);
+// test.AddMove(square, 400, 100);
+// test.AddMove(circle, 100, 250);
 // test.AddWait(50);
 // test.AddMove(square, 100, 100);
 // test.AddWait(100);
@@ -48,7 +60,6 @@ test.AddMove(circle, 100, 250);
 // test.AddMove(circle, 100, 400);
 
 
-console.log(test.animeTask)
 
 
 export default function Canvas() {

@@ -1,9 +1,5 @@
 class Scene {
-    object: never[];
-    canvas: HTMLElement | null;
-    ctx: any;
-    animeTask: never[];
-    constructor(canvasID: string) {
+    constructor(canvasID) {
         this.object = [];
         this.canvas = document.getElementById(canvasID);
         this.ctx = this.canvas.getContext("2d");
@@ -14,10 +10,11 @@ class Scene {
         this.clear();
     }
     create(obj) {
-        this.object.push(obj);
-        this.draw(obj);
+        this.object.push(obj.data);
+        this.draw(obj.data);
     }
-    AddMove(obj, x, y) {
+    AddMove(o) {
+        let obj=o.data
         let startFrame = 0;
         if (this.animeTask.length !== 0) {
             let bottomTask = this.animeTask.slice(-1)[0];
@@ -31,15 +28,15 @@ class Scene {
                 }
             }
         }
-
+        
         let task = {
             id: obj.id,
             start: startFrame,
             end: startFrame + 60,
             startX: obj.x,
             startY: obj.y,
-            goalX: x,
-            goalY: y,
+            goalX: obj.goalX,
+            goalY: obj.goalY,
         };
         this.animeTask.push(task);
         let findObj = getItemsById(obj.id, this.animeTask);
@@ -162,8 +159,7 @@ class Scene {
     }
 }
 
-
-export default Scene
+export default Scene;
 
 // イージング関数: easeOutQuad
 function easeOutQuad(t) {
