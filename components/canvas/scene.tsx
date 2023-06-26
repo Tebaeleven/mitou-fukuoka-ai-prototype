@@ -27,7 +27,7 @@ class Scene {
                 if (bottomTask.id === "wait") {
                     startFrame = bottomTask.end;
                 } else {
-                    startFrame = bottomTask.start;
+                    startFrame = bottomTask.end;
                 }
             }
         }
@@ -52,12 +52,12 @@ class Scene {
             findObj[lastIndex].startX = beforeX;
             findObj[lastIndex].startY = beforeY;
 
-            //前に登録されているobjがあったらそのframeから続ける
-            let beforeStart = findObj[lastIndex - 1].start;
-            let beforeEnd = findObj[lastIndex - 1].end;
-            let frameTime = beforeEnd - beforeStart;
-            findObj[lastIndex].start = beforeEnd;
-            findObj[lastIndex].end = beforeEnd + frameTime;
+            // //前に登録されているobjがあったらそのframeから続ける
+            // let beforeStart = findObj[lastIndex - 1].start;
+            // let beforeEnd = findObj[lastIndex - 1].end;
+            // let frameTime = beforeEnd - beforeStart;
+            // findObj[lastIndex].start = beforeEnd;
+            // findObj[lastIndex].end = beforeEnd + frameTime;
         }
         function getItemsById(id, array) {
             const result = [];
@@ -74,11 +74,15 @@ class Scene {
         if (this.animeTask.length !== 0) {
             startFrame = this.animeTask.slice(-1)[0].start;
         }
+        let endFrame = 0;
+        if (this.animeTask.length !== 0) {
+            endFrame = this.animeTask.slice(-1)[0].end;
+        }
         //TODO 強制的に+frameしているが、wait関数が上にあった場合のみwait関数の時間分+するようにする
         let task = {
             id: "wait",
-            start: startFrame,
-            end: startFrame + frames,
+            start: endFrame,
+            end: endFrame + frames,
         };
         this.animeTask.push(task);
     }

@@ -16,17 +16,36 @@ test.create(square);
 test.create(square2);
 test.create(circle);
 
-test.AddMove(square, 250, 250);
+/**
+ * TODO
+ * 同じ時間から動かすものは配列でまとめて記載する。まとめて書かれて
+ * ないものはその動作が終わってから動かすことにする。
+ *
+ * 今まで：
+ * test.AddMove(square, 400, 100);
+ * test.AddMove(circle, 100, 250);
+ * 
+ * 改良案：
+ * test.AddMove(
+ *  [square, 400, 100],
+ *  [circle, 100, 250]
+ * );
+ * //同期的に行う処理
+ * test.AddMove(circle);
+ */
+test.AddMove(square, 250, 250)
 test.AddMove(square2, 400, 250);
-test.AddWait(50);
+test.AddMove(square2, 0, 0);
+test.AddMove(square2, 400, 400);
+// test.AddWait(50);
 
 test.AddMove(square, 400, 100);
 test.AddMove(circle, 100, 250);
-test.AddWait(50);
-test.AddMove(square, 100, 100);
-test.AddWait(100);
+// test.AddWait(50);
+// test.AddMove(square, 100, 100);
+// test.AddWait(100);
 
-test.AddMove(circle, 100, 400);
+// test.AddMove(circle, 100, 400);
 
 
 console.log(test.animeTask)
@@ -44,7 +63,7 @@ export default function Canvas() {
             // フレームカウントを増やす
             frameCount++;
 
-            if (frameCount < 200) {
+            if (frameCount < 500) {
                 // まだ200フレームに達していない場合、次のフレームをリクエスト
                 requestAnimationFrame(animate);
             }
