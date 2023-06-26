@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import Scene from "@/components/canvas/back";
-import Square from "@/components/canvas/object";
+import Square from "@/components/canvas/Objects/Square";
+
 import { Slider } from '@mui/material';
+import Circle from "@/components/canvas/Objects/Circle";
 
 
 let test = new Scene("root");
 
-let green = new Square(100, 100, 50, "green");
-let red = new Square(400, 400, 50, "red");
+let green = new Circle(100, 100, 50, "green");
+let red = new Square(100, 100, 50, "red");
 
-test.create(green);
 test.create(red);
 
+test.create(green);
+
 test.AddMove(
-    green.move(400, 400).time(30),
+    green.move(400, 400),
     red.move(100, 400),
 );
 test.AddMove(green.move(400, 100));
-test.AddMove(red.move(100, 100).time(10));
+test.AddMove(red.move(100, 100));
 
 console.log(test.animeTask)
 // test.AddMove(square.move(100, 100));

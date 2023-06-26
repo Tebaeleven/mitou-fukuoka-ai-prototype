@@ -1,8 +1,9 @@
-class Square {
-    static idCounter = 1;
+import Object from "@/components/canvas/Objects/Object"
+
+class Square extends Object{
 
     constructor(x, y, size, color) {
-        this.id = Square.idCounter++;
+        super();
         this.x = x
         this.y = y
         this.goalX = 0
@@ -44,20 +45,6 @@ class Square {
         };
     }
 
-
-    // Circle(x,y,r,color,strokeColor) {
-    //     this.id++;
-    //     let circleObject = {
-    //         id: this.id,
-    //         shape: "circle",
-    //         x: x,
-    //         y: y,
-    //         r: r,
-    //         color: color,
-    //         strokeColor: strokeColor,
-    //     };
-    //     return circleObject;
-    // }
 }
 
 export default Square;
