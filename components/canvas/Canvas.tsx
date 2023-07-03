@@ -22,7 +22,13 @@ test.AddMove(
 test.AddMove(green.move(400, 100));
 test.AddMove(red.move(100, 100));
 
+test.AddMove(
+    green.move(400, 400),
+    red.move(100, 400),
+);
+test.AddMove(green.move(100, 100), red.move(100, 100));
 console.log(test.animeTask)
+
 // test.AddMove(square.move(100, 100));
 // let square2 = obj.Square(400, 100, 50, "red");
 // let circle = obj.Circle(400, 400, 40, "orange", "black");
@@ -80,7 +86,7 @@ export default function Canvas() {
             // フレームカウントを増やす
             frameCount++;
 
-            if (frameCount < 500) {
+            if (frameCount < test.getFrameLength()) {
                 // まだ200フレームに達していない場合、次のフレームをリクエスト
                 requestAnimationFrame(animate);
             }
@@ -111,17 +117,17 @@ export default function Canvas() {
             >
                 Play
             </button>
-            <div className=''>
-                <Slider
-                    defaultValue={0}
-                    aria-label="Default"
-                    valueLabelDisplay="auto"
-                    max={500}
-                    step={1}
-                    onChange={playBar}
-                />
+            <div className="">
                 <p>{frame}</p>
             </div>
+            <input
+                type="range"
+                style={{ width: "47%" }}
+                defaultValue={0}
+                value={frame}
+                onChange={playBar}
+                max={test.getFrameLength()}
+            />
         </>
     );
 };

@@ -1,4 +1,10 @@
 class Scene {
+    object: never[];
+    canvas: HTMLElement | null;
+    ctx: any;
+    animeTask: never[];
+    currentFrame: number;
+    isPlay: boolean;
     constructor(canvasID) {
         this.object = [];
         this.canvas = document.getElementById(canvasID);
@@ -15,18 +21,24 @@ class Scene {
         this.draw(obj);
     }
     AddMove(...o) {
+        let startFrame=0
+        if (o.length !== 1 && this.animeTask.length !== 0) {
+            let bottomTask = this.animeTask.slice(-1)[0];
+            //スタート時間の設定
+            if (bottomTask !== undefined) {
+                startFrame = bottomTask.end;
+            }
+            console.log("開始時刻",startFrame)
+        }
         for (let i = 0; i < o.length; i++) {
             let obj = o[i].data;
-            let startFrame = 0;
             console.log("o", o);
             //もし単体だけだったら同期的に動かす
-            if (o.length === 1) {
-                if (this.animeTask.length !== 0) {
-                    let bottomTask = this.animeTask.slice(-1)[0];
-                    //スタート時間の設定
-                    if (bottomTask !== undefined) {
-                        startFrame = bottomTask.end;
-                    }
+            if (o.length === 1 && this.animeTask.length !== 0) {
+                let bottomTask = this.animeTask.slice(-1)[0];
+                //スタート時間の設定
+                if (bottomTask !== undefined) {
+                    startFrame = bottomTask.end;
                 }
             }
 
@@ -152,6 +164,10 @@ class Scene {
     }
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    getFrameLength() {
+        return this.animeTask.slice(-1)[0].end;
     }
 }
 
