@@ -8,7 +8,7 @@ import Circle from "@/components/canvas/Objects/Circle";
 
 let test = new Scene("root");
 
-let green = new Circle(100, 100, 50, "green");
+let green = new Circle(100, 100, 50, "white");
 let red = new Square(100, 100, 50, "red");
 
 test.create(red);
@@ -109,9 +109,9 @@ export default function Canvas() {
                 onClick={handleClick}
                 className="font-bold text-lg bg-blue-500 p-3 rounded-lg text-white active:bg-blue-700 absolute bottom-20 left-5"
             >
-                推してね
+                Play
             </button>
-            <div className='w-1/2'>
+            <div className=''>
                 <Slider
                     defaultValue={0}
                     aria-label="Default"

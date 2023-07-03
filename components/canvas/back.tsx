@@ -131,20 +131,20 @@ class Scene {
         switch (obj.shape) {
             case "cube":
                 this.ctx.beginPath();
-                this.ctx.fillStyle = obj.color;
+                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
                 this.ctx.rect(obj.x - 50, obj.y - 50, 100, 100);
-                this.ctx.strokeStyle = "black";
-                this.ctx.lineWidth = 5;
+                this.ctx.strokeStyle = "white";
+                this.ctx.lineWidth = 3;
                 this.ctx.fill();
                 this.ctx.stroke();
                 break;
             case "circle":
-                this.ctx.fillStyle = obj.color;
-                this.ctx.strokeStyle = obj.strokeColor;
+                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+                this.ctx.strokeStyle = "white";
                 this.ctx.beginPath();
                 this.ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
                 this.ctx.fill();
-                this.ctx.lineWidth = 4;
+                this.ctx.lineWidth = 3;
                 this.ctx.stroke();
             default:
                 break;
