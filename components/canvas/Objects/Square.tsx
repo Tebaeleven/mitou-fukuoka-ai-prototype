@@ -18,6 +18,16 @@ class Square extends Object{
             color: color,
         };
     }
+    
+    drawObj(ctx, obj) {
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        ctx.rect(obj.x - 50, obj.y - 50, 100, 100);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 3;
+        ctx.fill();
+        ctx.stroke();
+    }
 
     //チェーンメソッド
     move(x, y) {

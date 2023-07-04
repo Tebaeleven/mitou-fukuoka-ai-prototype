@@ -12,10 +12,9 @@ let green = new Circle(100, 100, 50, "white");
 let red = new Square(100, 100, 50, "red");
 let line = new Line(100, 100, 200, 200)
 
-test.create(line)
-test.AddMove(line.move1(300, 300));
+test.create(red);
+test.AddMove(red.move(300, 300));
 console.log("アニメタスク",test.animeTask)
-
 // test.create(red);
 
 // test.create(green);

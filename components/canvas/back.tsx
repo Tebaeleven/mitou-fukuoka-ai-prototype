@@ -16,8 +16,9 @@ class Scene {
         this.clear();
     }
     create(o) {
-        let obj = o.data
+        let obj = o
         this.object.push(obj);
+        console.log(obj)
         this.draw(obj);
     }
     AddMove(...o) {
@@ -154,57 +155,7 @@ class Scene {
         });
     }
     draw(obj) {
-        switch (obj.shape) {
-            case "cube":
-                this.ctx.beginPath();
-                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
-                this.ctx.rect(obj.x - 50, obj.y - 50, 100, 100);
-                this.ctx.strokeStyle = "white";
-                this.ctx.lineWidth = 3;
-                this.ctx.fill();
-                this.ctx.stroke();
-                break;
-            case "circle":
-                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
-                this.ctx.strokeStyle = "white";
-                this.ctx.beginPath();
-                this.ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
-                this.ctx.fill();
-                this.ctx.lineWidth = 3;
-                this.ctx.stroke();
-                break;
-            case "line":
-                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
-                this.ctx.strokeStyle = "white";
-                this.ctx.beginPath();
-                this.ctx.arc(
-                    obj.x1,
-                    obj.y1,
-                    40,
-                    0,
-                    2 * Math.PI
-                );
-                this.ctx.fill();
-                this.ctx.lineWidth = 3;
-                this.ctx.stroke();
-
-                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
-                this.ctx.strokeStyle = "white";
-                this.ctx.beginPath();
-                this.ctx.arc(
-                    obj.x2,
-                    obj.y2,
-                    40,
-                    0,
-                    2 * Math.PI
-                );
-                this.ctx.fill();
-                this.ctx.lineWidth = 3;
-                this.ctx.stroke();
-                break;
-            default:
-                break;
-        }
+        obj.drawObj(this.ctx, obj);
     }
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
