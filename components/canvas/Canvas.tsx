@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Scene from "@/components/canvas/back";
 import Square from "@/components/canvas/Objects/Square";
-
+import Line from "@/components/canvas/Objects/Line"
 import { Slider } from '@mui/material';
 import Circle from "@/components/canvas/Objects/Circle";
 
@@ -10,24 +10,28 @@ let test = new Scene("root");
 
 let green = new Circle(100, 100, 50, "white");
 let red = new Square(100, 100, 50, "red");
+let line = new Line(100, 100, 200, 200)
 
-test.create(red);
+test.create(line)
+test.AddMove(line.move1(300, 300));
+console.log("アニメタスク",test.animeTask)
 
-test.create(green);
+// test.create(red);
 
-test.AddMove(
-    green.move(400, 400),
-    red.move(100, 400),
-);
-test.AddMove(green.move(400, 100));
-test.AddMove(red.move(100, 100));
+// test.create(green);
 
-test.AddMove(
-    green.move(400, 400),
-    red.move(100, 400),
-);
-test.AddMove(green.move(100, 100), red.move(100, 100));
-console.log(test.animeTask)
+// test.AddMove(
+//     green.move(400, 400),
+//     red.move(100, 400),
+// );
+// test.AddMove(green.move(400, 100));
+// test.AddMove(red.move(100, 100));
+
+// test.AddMove(
+//     green.move(400, 400),
+//     red.move(100, 400),
+// );
+// test.AddMove(green.move(100, 100), red.move(100, 100));
 
 // test.AddMove(square.move(100, 100));
 // let square2 = obj.Square(400, 100, 50, "red");

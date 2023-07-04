@@ -16,12 +16,12 @@ class Scene {
         this.clear();
     }
     create(o) {
-        let obj=o.data
+        let obj = o.data
         this.object.push(obj);
         this.draw(obj);
     }
     AddMove(...o) {
-        let startFrame=0
+        let startFrame = 0
         if (o.length !== 1 && this.animeTask.length !== 0) {
             let bottomTask = this.animeTask.slice(-1)[0];
             //スタート時間の設定
@@ -41,16 +41,30 @@ class Scene {
                     startFrame = bottomTask.end;
                 }
             }
+            let task={}
+            if (obj.shape==="line") {
+                task = {
+                    id: obj.id,
+                    start: startFrame,
+                    end: startFrame + obj.animateTime,
+                    startX: obj.x1,
+                    startY: obj.y1,
+                    goalX1: obj.goalX1,
+                    goalY1: obj.goalY1,
+                };
+            } else {
+                task = {
+                    id: obj.id,
+                    start: startFrame,
+                    end: startFrame + obj.animateTime,
+                    startX: obj.x,
+                    startY: obj.y,
+                    goalX: obj.goalX,
+                    goalY: obj.goalY,
+                };
+            }
+            console.log(obj.shape)
 
-            let task = {
-                id: obj.id,
-                start: startFrame,
-                end: startFrame + obj.animateTime,
-                startX: obj.x,
-                startY: obj.y,
-                goalX: obj.goalX,
-                goalY: obj.goalY,
-            };
             this.animeTask.push(task);
             let findObj = getItemsById(obj.id, this.animeTask);
             //もしtaskにあったらその最後の座標にしておく
@@ -158,6 +172,36 @@ class Scene {
                 this.ctx.fill();
                 this.ctx.lineWidth = 3;
                 this.ctx.stroke();
+                break;
+            case "line":
+                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+                this.ctx.strokeStyle = "white";
+                this.ctx.beginPath();
+                this.ctx.arc(
+                    obj.x1,
+                    obj.y1,
+                    40,
+                    0,
+                    2 * Math.PI
+                );
+                this.ctx.fill();
+                this.ctx.lineWidth = 3;
+                this.ctx.stroke();
+
+                this.ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+                this.ctx.strokeStyle = "white";
+                this.ctx.beginPath();
+                this.ctx.arc(
+                    obj.x2,
+                    obj.y2,
+                    40,
+                    0,
+                    2 * Math.PI
+                );
+                this.ctx.fill();
+                this.ctx.lineWidth = 3;
+                this.ctx.stroke();
+                break;
             default:
                 break;
         }

@@ -18,11 +18,12 @@ class Square extends Object{
             color: color,
         };
     }
+
+    //チェーンメソッド
     move(x, y) {
         this.goalX =x
         this.goalY = y;
         this.setData()
-
         return this
     }
     time(t) {
@@ -30,8 +31,8 @@ class Square extends Object{
         this.setData();
         this.animateTime =60
         return this;
-        
     }
+    
     setData() {
         this.data = {
             id: this.id,
