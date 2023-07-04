@@ -13,16 +13,15 @@ let red = new Square(100, 100, 50, "red");
 let line = new Line(100, 100, 200, 200)
 
 test.create(red);
-test.AddMove(red.move(300, 300));
+test.create(line);
+// test.create(green);
+
+test.AddMove(line.move1(400, 400),red.move(400,500));
 console.log("アニメタスク",test.animeTask)
-// test.create(red);
 
 // test.create(green);
 
-// test.AddMove(
-//     green.move(400, 400),
-//     red.move(100, 400),
-// );
+
 // test.AddMove(green.move(400, 100));
 // test.AddMove(red.move(100, 100));
 

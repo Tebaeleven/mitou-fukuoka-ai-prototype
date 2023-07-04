@@ -43,18 +43,34 @@ class Line extends Object {
             y2: this.y2,
         };
     }
+    drawObj(ctx, obj) {
+        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.arc(obj.x1, obj.y1, 40, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.arc(obj.x2, obj.y2, 40, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
     move1(x1: number, y1: number) {
         this.goalX1 = x1;
         this.goalY1 = y1;
         this.setData();
-        return this
+        return this;
     }
     move2(x2: number, y2: number) {
         this.goalX2 = x2;
         this.goalY2 = y2;
         this.setData();
         return this;
-
     }
 
     setData() {

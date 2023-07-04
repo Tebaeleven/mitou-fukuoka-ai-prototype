@@ -1,7 +1,6 @@
 import Object from "@/components/canvas/Objects/Object";
 
 class Circle extends Object {
-
     constructor(x, y, r, color) {
         super();
         this.x = x;
@@ -16,9 +15,18 @@ class Circle extends Object {
             shape: "circle",
             x: x,
             y: y,
-            r:r,
+            r: r,
             color: color,
         };
+    }
+    drawObj(ctx, obj) {
+        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.stroke();
     }
     move(x, y) {
         this.goalX = x;
