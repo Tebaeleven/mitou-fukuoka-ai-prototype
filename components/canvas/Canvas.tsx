@@ -14,32 +14,33 @@ let height = 400;
 let left = 280;
 let r=60
 for (let i = 0; i < 2; i++) {
-    lines.push(new Line(left, i * height + 150));
-    lines.push(new Line(left, i * height + 150));
+    // lines.push(new Line(left, i * height + 150));
+    // lines.push(new Line(left, i * height + 150));
     nodes.push(new Circle(left, i * height + 150, r, "white"));
 }
 for (let i = 0; i < 2; i++) {
-    lines.push(new Line(left * 2.4, i * height + 150));
+    // lines.push(new Line(left * 2.4, i * height + 150));
     nodes.push(new Circle(left * 2.4, i * height + 150, r, "white"));
 }
 
 nodes.push(new Circle(left*3.7, height-50, r, "white"));
 
-lines.forEach(element => {
-    test.create(element);
-});
+// lines.forEach(element => {
+//     test.create(element);
+// });
 
 nodes.forEach((element) => {
     test.create(element);
 });
+test.AddMove(nodes[0].move(500,500));
 
-test.AddMove(lines[0].move2(nodes[2].x, nodes[2].y));
-test.AddMove(lines[1].move2(nodes[3].x, nodes[3].y));
-test.AddMove(lines[2].move2(nodes[2].x, nodes[2].y));
-test.AddMove(lines[3].move2(nodes[3].x, nodes[3].y));
+// test.AddMove(lines[0].move2(nodes[2].x, nodes[2].y));
+// test.AddMove(lines[1].move2(nodes[3].x, nodes[3].y));
+// test.AddMove(lines[2].move2(nodes[2].x, nodes[2].y));
+// test.AddMove(lines[3].move2(nodes[3].x, nodes[3].y));
 
-test.AddMove(lines[4].move2(nodes[4].x, nodes[4].y));
-test.AddMove(lines[5].move2(nodes[4].x, nodes[4].y));
+// test.AddMove(lines[4].move2(nodes[4].x, nodes[4].y));
+// test.AddMove(lines[5].move2(nodes[4].x, nodes[4].y));
 
 
 

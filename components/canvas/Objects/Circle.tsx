@@ -1,6 +1,17 @@
 import Object from "@/components/canvas/Objects/Object";
+import { easeInOutCubic } from "@/components/canvas/easing/easeInOutCubic";
 
 class Circle extends Object {
+    x: any;
+    y: any;
+    r: any;
+    goalX: number;
+    goalY: number;
+    color: any;
+    animateTime: number;
+    data: { id: any; shape: string; x: any; y: any; r: any; color: any };
+    id: any;
+    firstAnimationFrame: number;
     constructor(x, y, r, color) {
         super();
         this.x = x;
@@ -18,12 +29,33 @@ class Circle extends Object {
             r: r,
             color: color,
         };
+        this.firstAnimationFrame = 0;
     }
-    drawObj(ctx, obj) {
+    firstDraw(ctx) {
+        let frame=0
+        const loop = () => {
+            ctx.fillStyle = "#888888";
+            ctx.strokeStyle = "white";
+            ctx.beginPath();
+            frame++
+            let t = frame / 60;
+            ctx.arc(this.x, this.y, this.r, 0, easeInOutCubic(t)*2 * Math.PI);
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            if (frame<60) {
+                requestAnimationFrame(loop);
+                
+            }
+
+        }
+        requestAnimationFrame(loop)
+    }
+    drawObj(ctx) {
         ctx.fillStyle = "#888888";
         ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         ctx.fill();
         ctx.lineWidth = 3;
         ctx.stroke();

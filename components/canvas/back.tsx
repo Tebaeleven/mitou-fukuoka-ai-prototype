@@ -1,3 +1,5 @@
+import { easeInOutCubic } from "./easing/easeInOutCubic";
+
 class Scene {
     object: never[];
     canvas: HTMLElement | null;
@@ -19,7 +21,8 @@ class Scene {
         let obj = o
         this.object.push(obj);
         console.log(obj)
-        this.draw(obj);
+        // this.draw(obj);
+        obj.firstDraw(this.ctx);
     }
     AddMove(...o) {
         let startFrame = 0
@@ -204,7 +207,7 @@ class Scene {
         });
     }
     draw(obj) {
-        obj.drawObj(this.ctx, obj);
+        obj.drawObj(this.ctx);
     }
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -226,20 +229,13 @@ function easeOutQuad(t) {
 function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 }
-function easeInOutCubic(t) {
-    if (t < 0.5) {
-        return 4 * t * t * t;
-    } else {
-        return 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-}
 
-        function getItemsById(id, array) {
-            const result = [];
-            for (let i = 0; i < array.length; i++) {
-                if (array[i].id === id) {
-                    result.push(array[i]);
-                }
-            }
-            return result;
+function getItemsById(id, array) {
+    const result = [];
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id === id) {
+            result.push(array[i]);
         }
+    }
+    return result;
+}
