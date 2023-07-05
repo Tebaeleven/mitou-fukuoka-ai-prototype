@@ -8,23 +8,22 @@ import Circle from "@/components/canvas/Objects/Circle";
 
 let test = new Scene("root");
 
-let green = new Circle(100, 100, 50, "white");
-let red = new Square(500, 100, 50, "red");
-let line = new Line(500, 500)
 let lines = []
-let nodes=[]
+let nodes = []
+let height = 400;
+let left = 280;
+let r=60
+for (let i = 0; i < 2; i++) {
+    lines.push(new Line(left, i * height + 150));
+    lines.push(new Line(left, i * height + 150));
+    nodes.push(new Circle(left, i * height + 150, r, "white"));
+}
+for (let i = 0; i < 2; i++) {
+    lines.push(new Line(left * 2.4, i * height + 150));
+    nodes.push(new Circle(left * 2.4, i * height + 150, r, "white"));
+}
 
-// test.create(green);
-for (let i = 0; i < 2; i++) {
-    lines.push(new Line(150, i * 200 + 150));
-    lines.push(new Line(150, i * 200 + 150));
-    nodes.push(new Circle(150, i * 200 + 150, 50, "white"));
-}
-for (let i = 0; i < 2; i++) {
-    lines.push(new Line(380, i * 200 + 150));
-    nodes.push(new Circle(380, i * 200 + 150, 50, "white"));
-}
-nodes.push(new Circle(600, 250, 50, "white"));
+nodes.push(new Circle(left*3.7, height-50, r, "white"));
 
 lines.forEach(element => {
     test.create(element);

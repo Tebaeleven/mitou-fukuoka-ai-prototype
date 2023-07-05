@@ -20,7 +20,7 @@ class Circle extends Object {
         };
     }
     drawObj(ctx, obj) {
-        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        ctx.fillStyle = "#888888";
         ctx.strokeStyle = "white";
         ctx.beginPath();
         ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);

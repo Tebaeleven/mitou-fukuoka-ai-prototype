@@ -22,8 +22,9 @@ class Line extends Object {
         goalY2: number;
         animateTime: number;
     };
+    color: undefined;
 
-    constructor(x1: number, y1: number, x2: number=x1, y2: number=y1) {
+    constructor(x1: number, y1: number, x2: number=x1, y2: number=y1,color: String="white") {
         super();
         this.x1 = x1;
         this.x2 = x2;
@@ -34,6 +35,7 @@ class Line extends Object {
         this.goalX2 = x2;
         this.goalY1 = y1;
         this.goalY2 = y2;
+        this.color=color
         this.data = {
             id: this.id,
             shape: "line",
@@ -48,27 +50,27 @@ class Line extends Object {
         ctx.beginPath();
         ctx.moveTo(obj.x1, obj.y1);
         ctx.lineTo(obj.x2, obj.y2);
-        ctx.lineWidth = 10;
-        ctx.strokeStyle = "red";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = this.color;
         ctx.stroke();
 
-        //1つ目の点
-        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
-        ctx.strokeStyle = "white";
-        ctx.beginPath();
-        ctx.arc(obj.x1, obj.y1, 10, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.stroke();
+        // //1つ目の点
+        // ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        // ctx.strokeStyle = "white";
+        // ctx.beginPath();
+        // ctx.arc(obj.x1, obj.y1, 5, 0, 2 * Math.PI);
+        // ctx.fill();
+        // ctx.lineWidth = 3;
+        // ctx.stroke();
 
-        //2つ目の点
-        ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
-        ctx.strokeStyle = "white";
-        ctx.beginPath();
-        ctx.arc(obj.x2, obj.y2, 10, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.stroke();
+        // //2つ目の点
+        // ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
+        // ctx.strokeStyle = "white";
+        // ctx.beginPath();
+        // ctx.arc(obj.x2, obj.y2, 5, 0, 2 * Math.PI);
+        // ctx.fill();
+        // ctx.lineWidth = 3;
+        // ctx.stroke();
     }
     move1(x1: number, y1: number) {
         this.goalX1 = x1;
