@@ -11,26 +11,39 @@ let test = new Scene("root");
 let green = new Circle(100, 100, 50, "white");
 let red = new Square(500, 100, 50, "red");
 let line = new Line(500, 500)
-let lines=[]
-test.create(red);
-test.create(line);
+let lines = []
+let nodes=[]
+
 // test.create(green);
-for (let i = 0; i < 5; i++) {
-    lines.push(new Line(100, i*100+50));    
+for (let i = 0; i < 2; i++) {
+    lines.push(new Line(150, i * 200 + 150));
+    lines.push(new Line(150, i * 200 + 150));
+    nodes.push(new Circle(150, i * 200 + 150, 50, "white"));
 }
+for (let i = 0; i < 2; i++) {
+    lines.push(new Line(380, i * 200 + 150));
+    nodes.push(new Circle(380, i * 200 + 150, 50, "white"));
+}
+nodes.push(new Circle(600, 250, 50, "white"));
 
 lines.forEach(element => {
     test.create(element);
 });
 
-test.AddMove(
-    line.move2(500, 100),
-    red.move(400, 500)
-);
-lines.forEach(element => {
-test.AddMove(element.move2(500, 100));
-    
+nodes.forEach((element) => {
+    test.create(element);
 });
+
+test.AddMove(lines[0].move2(nodes[2].x, nodes[2].y));
+test.AddMove(lines[1].move2(nodes[3].x, nodes[3].y));
+test.AddMove(lines[2].move2(nodes[2].x, nodes[2].y));
+test.AddMove(lines[3].move2(nodes[3].x, nodes[3].y));
+
+test.AddMove(lines[4].move2(nodes[4].x, nodes[4].y));
+test.AddMove(lines[5].move2(nodes[4].x, nodes[4].y));
+
+
+
 console.log("アニメタスク",test.animeTask)
 
 // test.create(green);
