@@ -92,6 +92,7 @@ export default function Canvas() {
                 // まだ200フレームに達していない場合、次のフレームをリクエスト
                 requestAnimationFrame(animate);
             }
+            console.log("アニメーション")
         }
 
         // 最初のフレームをリクエスト
