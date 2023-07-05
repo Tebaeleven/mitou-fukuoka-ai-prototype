@@ -20,16 +20,16 @@ class Scene {
     create(o) {
         let obj = o
         this.object.push(obj);
-        console.log(obj)
+        console.log("da",obj)
         // this.draw(obj);
-        obj.firstDraw(this.ctx);
+        // obj.firstDraw(this.ctx);
     }
     AddMove(...o) {
         let startFrame = 0
         if (o.length !== 1 && this.animeTask.length !== 0) {
             let bottomTask = this.animeTask.slice(-1)[0];
             //スタート時間の設定
-            if (bottomTask !== undefined) {
+            if (bottomTask !== undefined ) {
                 startFrame = bottomTask.end;
             }
             console.log("開始時刻",startFrame)
@@ -77,15 +77,18 @@ class Scene {
 
             this.animeTask.push(task);
             let findObj = getItemsById(obj.id, this.animeTask);
+            console.log()
             //もしtaskにあったらその最後の座標にしておく
             if (findObj.length > 1) {
                 //前に登録されているobjがあったらその座標にする
                 let lastIndex = findObj.length - 1;
-                let beforeX = findObj[lastIndex - 1].goalX;
-                let beforeY = findObj[lastIndex - 1].goalY;
-                findObj[lastIndex].startX = beforeX;
-                findObj[lastIndex].startY = beforeY;
-
+                //shapeがfirstanimationの場合、goalXなど存在しないので
+                if (findObj[lastIndex - 1].goalX !== undefined) {
+                    let beforeX = findObj[lastIndex - 1].goalX;
+                    let beforeY = findObj[lastIndex - 1].goalY;
+                    findObj[lastIndex].startX = beforeX;
+                    findObj[lastIndex].startY = beforeY;
+                }
                 // //前に登録されているobjがあったらそのframeから続ける
                 // let beforeStart = findObj[lastIndex - 1].start;
                 // let beforeEnd = findObj[lastIndex - 1].end;
@@ -113,10 +116,44 @@ class Scene {
         };
         this.animeTask.push(task);
     }
+    AddFirstAnimation(...o) {
+        let startFrame = 0;
+        if (o.length !== 1 && this.animeTask.length !== 0) {
+            let bottomTask = this.animeTask.slice(-1)[0];
+            //スタート時間の設定
+            if (bottomTask !== undefined) {
+                startFrame = bottomTask.end;
+            }
+            console.log("anime開始時刻", startFrame);
+        }
+        for (let i = 0; i < o.length; i++) {
+            let obj = o[i].data;
+            console.log("o", o);
+            //もし単体だけだったら同期的に動かす
+            if (o.length === 1 && this.animeTask.length !== 0) {
+                let bottomTask = this.animeTask.slice(-1)[0];
+                //スタート時間の設定
+                if (bottomTask !== undefined) {
+                    startFrame = bottomTask.end;
+                }
+            }
+            let task = {};
+            task = {
+                id: obj.id,
+                shape: "firstAnimation",
+                start: startFrame,
+                end: startFrame + 60
+            };
+            this.animeTask.push(task);
+            let findObj = getItemsById(obj.id, this.animeTask);
+        }
+
+    }
 
     play(frame) {
         let findObj;
-        this.currentFrame = frame;
+            this.currentFrame = frame;
+        
         for (let i = 0; i < this.animeTask.length; i++) {
             let id = this.animeTask[i].id;
             let shape = this.animeTask[i].shape
@@ -139,10 +176,7 @@ class Scene {
                 findObj = Object.values(this.object).find(
                     (find) => find.id === id //this.animeTask[0].id
                 );
-                if (id === "wait") {
-                    this.clear();
-                    this.drawAll();
-                } else if (
+                if (
                     //描画できる範囲だったら
                     startFrame <= this.currentFrame &&
                     this.currentFrame <= endFrame
@@ -163,6 +197,45 @@ class Scene {
                     findObj.y2 = easeInOutCubic(t) * dy2 + startY2;
                     this.drawAll();
                 }
+            } else if (shape === "firstAnimation") {
+                let startFrame = this.animeTask[i].start;
+                let endFrame = this.animeTask[i].end;
+                let animateTime = endFrame - startFrame;
+
+                let moveFrameTime = animateTime;
+                let moveFrame = this.currentFrame - startFrame;
+                if (
+                    //描画できる範囲だったら
+                    startFrame <= this.currentFrame &&
+                    this.currentFrame <= endFrame
+                ) { 
+                    findObj = Object.values(this.object).find(
+                        (find) => find.id === id //this.animeTask[0].id
+                    );
+                    findObj.isShow = "show";
+                    this.clear();
+                    findObj.firstAnime = moveFrame;
+                    this.drawAll()
+                } else if (this.currentFrame <= endFrame) {
+                    findObj = Object.values(this.object).find(
+                        (find) => find.id === id //this.animeTask[0].id
+                    );
+                    findObj.isShow = "hide";
+                    this.clear()
+                    this.drawAll();
+                }
+
+            } else if (id === "wait") {
+                let startFrame = this.animeTask[i].start;
+                let endFrame = this.animeTask[i].end;
+                if (
+                    //描画できる範囲だったら
+                    startFrame <= this.currentFrame &&
+                    this.currentFrame <= endFrame
+                ) {
+                    this.clear();
+                    this.drawAll();
+                }
             } else {
                 let startFrame = this.animeTask[i].start;
                 let endFrame = this.animeTask[i].end;
@@ -178,10 +251,7 @@ class Scene {
                 findObj = Object.values(this.object).find(
                     (find) => find.id === id //this.animeTask[0].id
                 );
-                if (id === "wait") {
-                    this.clear();
-                    this.drawAll();
-                } else if (
+                if (
                     //描画できる範囲だったら
                     startFrame <= this.currentFrame &&
                     this.currentFrame <= endFrame

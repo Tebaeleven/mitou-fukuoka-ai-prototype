@@ -45,15 +45,14 @@ class Line extends Object {
             y2: this.y2,
         };
     }
-    drawObj(ctx, obj) {
+    drawObj(ctx) {
         //線の描画
         ctx.beginPath();
-        ctx.moveTo(obj.x1, obj.y1);
-        ctx.lineTo(obj.x2, obj.y2);
+        ctx.moveTo(this.x1, this.y1);
+        ctx.lineTo(this.x2, this.y2);
         ctx.lineWidth = 5;
         ctx.strokeStyle = this.color;
         ctx.stroke();
-
         // //1つ目の点
         // ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
         // ctx.strokeStyle = "white";

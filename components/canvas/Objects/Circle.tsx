@@ -11,7 +11,8 @@ class Circle extends Object {
     animateTime: number;
     data: { id: any; shape: string; x: any; y: any; r: any; color: any };
     id: any;
-    firstAnimationFrame: number;
+    isShow: string;
+    firstAnime: number;
     constructor(x, y, r, color) {
         super();
         this.x = x;
@@ -29,33 +30,22 @@ class Circle extends Object {
             r: r,
             color: color,
         };
-        this.firstAnimationFrame = 0;
-    }
-    firstDraw(ctx) {
-        let frame=0
-        const loop = () => {
-            ctx.fillStyle = "#888888";
-            ctx.strokeStyle = "white";
-            ctx.beginPath();
-            frame++
-            let t = frame / 60;
-            ctx.arc(this.x, this.y, this.r, 0, easeInOutCubic(t)*2 * Math.PI);
-            ctx.fill();
-            ctx.lineWidth = 3;
-            ctx.stroke();
-            if (frame<60) {
-                requestAnimationFrame(loop);
-                
-            }
-
-        }
-        requestAnimationFrame(loop)
+        this.isShow = "hide";
+        this.firstAnime=0
     }
     drawObj(ctx) {
+        let animationTime = 60;
         ctx.fillStyle = "#888888";
         ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+        let t = this.firstAnime / animationTime;
+        ctx.arc(
+            this.x,
+            this.y,
+            this.r,
+            0,
+            easeInOutCubic(t) * 2 * Math.PI
+        );
         ctx.fill();
         ctx.lineWidth = 3;
         ctx.stroke();
