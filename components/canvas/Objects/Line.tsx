@@ -23,7 +23,7 @@ class Line extends Object {
         animateTime: number;
     };
 
-    constructor(x1: number, y1: number, x2: number, y2: number) {
+    constructor(x1: number, y1: number, x2: number=x1, y2: number=y1) {
         super();
         this.x1 = x1;
         this.x2 = x2;
@@ -56,7 +56,7 @@ class Line extends Object {
         ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
         ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.arc(obj.x1, obj.y1, 40, 0, 2 * Math.PI);
+        ctx.arc(obj.x1, obj.y1, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.lineWidth = 3;
         ctx.stroke();
@@ -65,7 +65,7 @@ class Line extends Object {
         ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
         ctx.strokeStyle = "white";
         ctx.beginPath();
-        ctx.arc(obj.x2, obj.y2, 40, 0, 2 * Math.PI);
+        ctx.arc(obj.x2, obj.y2, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.lineWidth = 3;
         ctx.stroke();

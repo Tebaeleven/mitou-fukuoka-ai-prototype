@@ -10,18 +10,27 @@ let test = new Scene("root");
 
 let green = new Circle(100, 100, 50, "white");
 let red = new Square(500, 100, 50, "red");
-let line = new Line(100, 100, 200, 200)
-
+let line = new Line(500, 500)
+let lines=[]
 test.create(red);
 test.create(line);
 // test.create(green);
+for (let i = 0; i < 5; i++) {
+    lines.push(new Line(100, i*100+50));    
+}
+
+lines.forEach(element => {
+    test.create(element);
+});
 
 test.AddMove(
-    line
-        .move1(200,400)
-        .move2(500, 100),
+    line.move2(500, 100),
     red.move(400, 500)
 );
+lines.forEach(element => {
+test.AddMove(element.move2(500, 100));
+    
+});
 console.log("アニメタスク",test.animeTask)
 
 // test.create(green);
