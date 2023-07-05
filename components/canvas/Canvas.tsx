@@ -9,7 +9,7 @@ import Circle from "@/components/canvas/Objects/Circle";
 let test = new Scene("root");
 
 let green = new Circle(100, 100, 50, "white");
-let red = new Square(100, 100, 50, "red");
+let red = new Square(500, 100, 50, "red");
 let line = new Line(100, 100, 200, 200)
 
 test.create(red);
@@ -17,8 +17,11 @@ test.create(line);
 // test.create(green);
 
 test.AddMove(
-    line.move1(500, 200),
-    red.move(400, 500));
+    line
+        .move1(200,400)
+        .move2(500, 100),
+    red.move(400, 500)
+);
 console.log("アニメタスク",test.animeTask)
 
 // test.create(green);

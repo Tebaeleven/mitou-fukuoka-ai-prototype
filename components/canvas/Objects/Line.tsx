@@ -44,6 +44,15 @@ class Line extends Object {
         };
     }
     drawObj(ctx, obj) {
+        //線の描画
+        ctx.beginPath();
+        ctx.moveTo(obj.x1, obj.y1);
+        ctx.lineTo(obj.x2, obj.y2);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+
+        //1つ目の点
         ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
         ctx.strokeStyle = "white";
         ctx.beginPath();
@@ -52,6 +61,7 @@ class Line extends Object {
         ctx.lineWidth = 3;
         ctx.stroke();
 
+        //2つ目の点
         ctx.fillStyle = "rgba(256, 256, 256, 0.5)";
         ctx.strokeStyle = "white";
         ctx.beginPath();
