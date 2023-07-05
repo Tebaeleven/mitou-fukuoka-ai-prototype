@@ -46,16 +46,22 @@ class Scene {
             if (obj.shape==="line") {
                 task = {
                     id: obj.id,
+                    shape:"line",
                     start: startFrame,
                     end: startFrame + obj.animateTime,
-                    startX: obj.x1,
-                    startY: obj.y1,
+                    startX1: obj.x1,
+                    startY1: obj.y1,
+                    startX2: obj.x2,
+                    startY2: obj.y2,
                     goalX1: obj.goalX1,
                     goalY1: obj.goalY1,
+                    goalX2: obj.goalX2,
+                    goalY2: obj.goalY2,
                 };
             } else {
                 task = {
                     id: obj.id,
+                    shape: "obj",
                     start: startFrame,
                     end: startFrame + obj.animateTime,
                     startX: obj.x,
@@ -110,38 +116,85 @@ class Scene {
         this.currentFrame = frame;
         for (let i = 0; i < this.animeTask.length; i++) {
             let id = this.animeTask[i].id;
-            let startFrame = this.animeTask[i].start;
-            let endFrame = this.animeTask[i].end;
+            let shape = this.animeTask[i].shape
+            if (shape === "line") {
+                let startFrame = this.animeTask[i].start;
+                let endFrame = this.animeTask[i].end;
 
-            let startX = this.animeTask[i].startX;
-            let goalX = this.animeTask[i].goalX;
+                let startX1 = this.animeTask[i].startX1;
+                let startY1 = this.animeTask[i].startY1;
+                let goalX1 = this.animeTask[i].goalX1;
+                let goalY1 = this.animeTask[i].goalY1;
 
-            let startY = this.animeTask[i].startY;
-            let goalY = this.animeTask[i].goalY;
+                let startX2 = this.animeTask[i].startX2;
+                let startY2 = this.animeTask[i].startY2;
+                let goalX2 = this.animeTask[i].goalX2;
+                let goalY2 = this.animeTask[i].goalY2;
 
-            let animateTime = endFrame - startFrame;
+                let animateTime = endFrame - startFrame;
 
-            findObj = Object.values(this.object).find(
-                (find) => find.id === id //this.animeTask[0].id
-            );
-            if (id === "wait") {
-                this.clear();
-                this.drawAll();
-            } else if (
-                //描画できる範囲だったら
-                startFrame <= this.currentFrame &&
-                this.currentFrame <= endFrame
-            ) {
-                this.clear();
-                let moveFrameTime = animateTime;
-                let moveFrame = this.currentFrame - startFrame;
-                let t = moveFrame / moveFrameTime;
-                let dx = goalX - startX;
-                let dy = goalY - startY;
-                findObj.x = easeInOutCubic(t) * dx + startX;
-                findObj.y = easeInOutCubic(t) * dy + startY;
-                this.drawAll();
+                findObj = Object.values(this.object).find(
+                    (find) => find.id === id //this.animeTask[0].id
+                );
+                if (id === "wait") {
+                    this.clear();
+                    this.drawAll();
+                } else if (
+                    //描画できる範囲だったら
+                    startFrame <= this.currentFrame &&
+                    this.currentFrame <= endFrame
+                ) {
+                    this.clear();
+                    let moveFrameTime = animateTime;
+                    let moveFrame = this.currentFrame - startFrame;
+                    let t = moveFrame / moveFrameTime;
+                    let dx1 = goalX1 - startX1;
+                    let dy1 = goalY1 - startY1;
+
+                    let dx2 = goalX2 - startX2;
+                    let dy2 = goalY2 - startY2;
+                    findObj.x1 = easeInOutCubic(t) * dx1 + startX1;
+                    findObj.y1 = easeInOutCubic(t) * dy1 + startY1;
+
+                    findObj.x2 = easeInOutCubic(t) * dx2 + startX2;
+                    findObj.y2 = easeInOutCubic(t) * dy2 + startY2;
+                    this.drawAll();
+                }
+            } else {
+                let startFrame = this.animeTask[i].start;
+                let endFrame = this.animeTask[i].end;
+
+                let startX = this.animeTask[i].startX;
+                let goalX = this.animeTask[i].goalX;
+
+                let startY = this.animeTask[i].startY;
+                let goalY = this.animeTask[i].goalY;
+
+                let animateTime = endFrame - startFrame;
+
+                findObj = Object.values(this.object).find(
+                    (find) => find.id === id //this.animeTask[0].id
+                );
+                if (id === "wait") {
+                    this.clear();
+                    this.drawAll();
+                } else if (
+                    //描画できる範囲だったら
+                    startFrame <= this.currentFrame &&
+                    this.currentFrame <= endFrame
+                ) {
+                    this.clear();
+                    let moveFrameTime = animateTime;
+                    let moveFrame = this.currentFrame - startFrame;
+                    let t = moveFrame / moveFrameTime;
+                    let dx = goalX - startX;
+                    let dy = goalY - startY;
+                    findObj.x = easeInOutCubic(t) * dx + startX;
+                    findObj.y = easeInOutCubic(t) * dy + startY;
+                    this.drawAll();
+                }
             }
+
         }
     }
     drawAll() {

@@ -16,7 +16,9 @@ test.create(red);
 test.create(line);
 // test.create(green);
 
-test.AddMove(line.move1(400, 400),red.move(400,500));
+test.AddMove(
+    line.move1(500, 200),
+    red.move(400, 500));
 console.log("アニメタスク",test.animeTask)
 
 // test.create(green);
@@ -126,7 +128,7 @@ export default function Canvas() {
             <input
                 type="range"
                 style={{ width: "47%" }}
-                defaultValue={0}
+                min={0}
                 value={frame}
                 onChange={playBar}
                 max={test.getFrameLength()}

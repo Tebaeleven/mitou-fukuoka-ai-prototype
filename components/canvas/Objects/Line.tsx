@@ -30,10 +30,10 @@ class Line extends Object {
         this.y1 = y1;
         this.y2 = y2;
 
-        this.goalX1 = 0;
-        this.goalX2 = 0;
-        this.goalY1 = 0;
-        this.goalY2 = 0;
+        this.goalX1 = x1;
+        this.goalX2 = x2;
+        this.goalY1 = y1;
+        this.goalY2 = y2;
         this.data = {
             id: this.id,
             shape: "line",
