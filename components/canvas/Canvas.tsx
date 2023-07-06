@@ -247,33 +247,3 @@ export default function Canvas() {
     );
     
 };
-const Button = ({ id }) => {
-    const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
-
-    const handleClick = (event) => {
-        const { clientX, clientY } = event;
-        setCoordinates({ x: clientX, y: clientY });
-    };
-
-    return (
-        <>
-            <button onClick={handleClick} className="bg-white rounded-md p-3">
-                Button {id} {coordinates.x}
-            </button>
-        </>
-    );
-};
-const buttons = [];
-const buttonContainer = document.getElementById("rootDiv");
-console.log(buttonContainer)
-// ボタンを追加するための関数
-const addButton = () => {
-    const buttonId = buttons.length + 1;
-    const button = <Button key={buttonId} id={buttonId} />;
-    buttons.push(button);
-    ReactDOM.createRoot(buttonContainer).render(buttons);
-};
-
-
-// 最初のボタンを追加
-addButton();

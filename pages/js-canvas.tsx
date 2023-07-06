@@ -18,16 +18,7 @@ export default function JsCanvas() {
                 }}
                 className="m-auto"
             >
-                <div
-                    id="rootDiv"
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        zIndex:1,
-                        width: "1280px",
-                        height:"728px",
-                    }}
-                ></div>
+
                 <canvas
                     id="root"
                     width={1280}
