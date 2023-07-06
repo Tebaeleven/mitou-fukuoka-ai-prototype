@@ -154,10 +154,36 @@ export default function Canvas() {
             <div className="">
                 <p>{frame}</p>
             </div>
-            <NumberCounter></NumberCounter>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 100,
+                    left: 400,
+                }}
+            >
+                <NumberCounter color="#59C4DC"></NumberCounter>
+            </div>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 500,
+                    left: 400,
+                }}
+            >
+                <NumberCounter color="#FCFC06"></NumberCounter>
+            </div>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 500,
+                    left:800,
+                }}
+            >
+                <NumberCounter color="#83C066"></NumberCounter>
+            </div>
             <input
                 type="range"
-                style={{ width: "47%" }}
+                style={{ width: "100%" }}
                 min={0}
                 value={frame}
                 onChange={playBar}
