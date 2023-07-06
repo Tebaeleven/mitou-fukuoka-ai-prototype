@@ -11,27 +11,31 @@ export default function JsCanvas() {
     return (
         <div className="p-10 ">
             <div
-                style={{ position: "relative", width: "1280px" }}
-                className=" bg-red-800 m-auto "
+                style={{
+                    position: "relative",
+                    width: "1280px",
+                    backgroundColor: "#323233",
+                }}
+                className="m-auto"
             >
                 <canvas
                     id="root"
                     width={1280}
                     height={720}
-                    className="border-collapse border-2 border-black  drop-shadow-2xl "
-                    style={{ background: "black" }}
+                    className="drop-shadow-2xl"
+                    style={{ background: "black", }}
                 ></canvas>
 
-                <div
+                {/* <div
                     style={{
                         position: "absolute",
                         top: 0,
                         left: 0,
                     }}
-                    className="bg-white"
+                    className="bg-white rounded-md m-2 p-2"
                 >
-                    dadada
-                </div>
+                    Neural Network XOR
+                </div> */}
                 <Canvas></Canvas>
             </div>
         </div>

@@ -151,8 +151,8 @@ export default function Canvas() {
             >
                 Play
             </button>
-            <div className="">
-                <p>{frame}</p>
+            <div className="text-white text-xl inline-block">
+                <p className="">{frame}</p>
             </div>
             <div
                 style={{
@@ -176,10 +176,19 @@ export default function Canvas() {
                 style={{
                     position: "absolute",
                     top: 500,
-                    left:800,
+                    left: 800,
                 }}
             >
                 <NumberCounter color="#83C066"></NumberCounter>
+            </div>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 150,
+                    left: 800,
+                }}
+            >
+                <NumberCounter color="#F06259"></NumberCounter>
             </div>
             <input
                 type="range"
