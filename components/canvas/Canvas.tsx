@@ -5,9 +5,11 @@ import Line from "@/components/canvas/Objects/Line"
 import { Slider } from '@mui/material';
 import Circle from "@/components/canvas/Objects/Circle";
 import NumberCounter from "./GUI/Number";
+import ReactDOM from "react-dom/client";
 
 
 let test = new Scene("root");
+
 
 let lines = []
 let nodes = []
@@ -105,7 +107,6 @@ console.log("アニメタスク",test.animeTask)
 
 
 
-
 export default function Canvas() {
     const [frame, setFrame] = useState(0);
     const handleClick = () => {
@@ -145,60 +146,134 @@ export default function Canvas() {
     
     return (
         <>
-            <button
-                onClick={handleClick}
-                className="font-bold text-lg bg-blue-500 p-3 rounded-lg text-white active:bg-blue-700 absolute bottom-20 left-5"
-            >
-                Play
-            </button>
-            <div className="text-white text-xl inline-block">
-                <p className="">{frame}</p>
+            <div id="canvasTop">
+                <button
+                    onClick={handleClick}
+                    className="font-bold text-lg bg-blue-500 p-3 rounded-lg text-white active:bg-blue-700 absolute bottom-20 left-5"
+                >
+                    Play
+                </button>
+                <div className="text-white text-xl inline-block">
+                    <p className="">{frame}</p>
+                </div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 100,
+                        left: 400,
+                    }}
+                >
+                    <NumberCounter color="#59C4DC"></NumberCounter>
+                </div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 500,
+                        left: 400,
+                    }}
+                >
+                    <NumberCounter color="#FCFC06"></NumberCounter>
+                </div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 500,
+                        left: 800,
+                    }}
+                >
+                    <NumberCounter color="#83C066"></NumberCounter>
+                </div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 150,
+                        left: 800,
+                    }}
+                >
+                    <NumberCounter color="#F06259"></NumberCounter>
+                </div>
+
+                {/* 入力値 */}
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 120,
+                        left: 225,
+                    }}
+                >
+                    <NumberCounter color="black" size={40}></NumberCounter>
+                </div>
+
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 515,
+                        left: 228,
+                    }}
+                >
+                    <NumberCounter color="black" size={50}></NumberCounter>
+                </div>
+
+                {/* 中間層の値 */}
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 115,
+                        left: 620,
+                    }}
+                >
+                    <NumberCounter color="white" size={50}></NumberCounter>
+                </div>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 515,
+                        left: 620,
+                    }}
+                >
+                    <NumberCounter color="black" size={50}></NumberCounter>
+                </div>
+
+                <input
+                    type="range"
+                    style={{ width: "100%" }}
+                    min={0}
+                    value={frame}
+                    onChange={playBar}
+                    max={test.getFrameLength()}
+                />
             </div>
-            <div
-                style={{
-                    position: "absolute",
-                    top: 100,
-                    left: 400,
-                }}
-            >
-                <NumberCounter color="#59C4DC"></NumberCounter>
-            </div>
-            <div
-                style={{
-                    position: "absolute",
-                    top: 500,
-                    left: 400,
-                }}
-            >
-                <NumberCounter color="#FCFC06"></NumberCounter>
-            </div>
-            <div
-                style={{
-                    position: "absolute",
-                    top: 500,
-                    left: 800,
-                }}
-            >
-                <NumberCounter color="#83C066"></NumberCounter>
-            </div>
-            <div
-                style={{
-                    position: "absolute",
-                    top: 150,
-                    left: 800,
-                }}
-            >
-                <NumberCounter color="#F06259"></NumberCounter>
-            </div>
-            <input
-                type="range"
-                style={{ width: "100%" }}
-                min={0}
-                value={frame}
-                onChange={playBar}
-                max={test.getFrameLength()}
-            />
         </>
     );
     
 };
+const Button = ({ id }) => {
+    const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
+
+    const handleClick = (event) => {
+        const { clientX, clientY } = event;
+        setCoordinates({ x: clientX, y: clientY });
+    };
+
+    return (
+        <>
+            <button onClick={handleClick} className="bg-white rounded-md p-3">
+                Button {id} {coordinates.x}
+            </button>
+        </>
+    );
+};
+const buttons = [];
+const buttonContainer = document.getElementById("rootDiv");
+console.log(buttonContainer)
+// ボタンを追加するための関数
+const addButton = () => {
+    const buttonId = buttons.length + 1;
+    const button = <Button key={buttonId} id={buttonId} />;
+    buttons.push(button);
+    ReactDOM.createRoot(buttonContainer).render(buttons);
+};
+
+
+// 最初のボタンを追加
+addButton();

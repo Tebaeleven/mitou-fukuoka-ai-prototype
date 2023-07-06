@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./Number.module.css";
 
-const NumberCounter = ({ color = "#59C4DC" }) => {
+const NumberCounter = ({ color = "#59C4DC", size=30}) => {
     const [number, setNumber] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
@@ -24,10 +24,12 @@ const NumberCounter = ({ color = "#59C4DC" }) => {
 
             setNumber((prevNumber) => {
                 let updatedNumber = prevNumber + result;
-                if (updatedNumber > 1) {
-                    updatedNumber = 1;
-                } else if (updatedNumber < -1) {
-                    updatedNumber = -1;
+                let min = -2
+                let max=2
+                if (updatedNumber > max) {
+                    updatedNumber = max;
+                } else if (updatedNumber < min) {
+                    updatedNumber = min;
                 } else if (point(updatedNumber, 2) === 0) {
                     updatedNumber = 0;
                 }
@@ -67,19 +69,22 @@ const NumberCounter = ({ color = "#59C4DC" }) => {
             onMouseDown={handleMouseDown}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`inline-block text-4xl rounded-md`}
+            className={`inline-block rounded-md`}
+            style={{ fontSize: size }}
         >
             <p
                 style={{
                     color: color,
                 }}
                 className={`${
-                    isHovered || isMouseDown
-                        ? `${classes.forcusShadow}`
-                        : ""
+                    isHovered || isMouseDown ? `${classes.forcusShadow}` : ""
                 } font-serif hover:cursor-col-resize`}
             >
-                {number.toFixed(2)}
+                {number > 0
+                    ? `+${number.toFixed(2)}`
+                    : number < 0
+                    ? `−${Math.abs(number).toFixed(2)}`
+                    : "±0.00"}
             </p>
         </div>
     );
