@@ -1,0 +1,10 @@
+.forcusShadow{
+    text-shadow: rgb(153, 153, 153) 0px 0px 10px,
+            rgb(153, 153, 153) 0px 0px 20px,
+            rgb(153, 153, 153) 0px 0px 30px,
+            0px 0px 40px,
+            0px 0px 70px,
+            0px 0px 80px,
+            0px 0px 100px,
+            0px 0px 150px !important;
+}

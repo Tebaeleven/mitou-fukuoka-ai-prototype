@@ -4,6 +4,7 @@ import Square from "@/components/canvas/Objects/Square";
 import Line from "@/components/canvas/Objects/Line"
 import { Slider } from '@mui/material';
 import Circle from "@/components/canvas/Objects/Circle";
+import NumberCounter from "./GUI/Number";
 
 
 let test = new Scene("root");
@@ -117,7 +118,7 @@ export default function Canvas() {
             // フレームカウントを増やす
             frameCount++;
 
-            if (frameCount < test.getFrameLength()) {
+            if (frameCount <= test.getFrameLength()) {
                 // まだ200フレームに達していない場合、次のフレームをリクエスト
                 requestAnimationFrame(animate);
             }
@@ -141,6 +142,7 @@ export default function Canvas() {
             return 1 - Math.pow(-2 * t + 2, 3) / 2;
         }
     }
+    
     return (
         <>
             <button
@@ -152,6 +154,7 @@ export default function Canvas() {
             <div className="">
                 <p>{frame}</p>
             </div>
+            <NumberCounter></NumberCounter>
             <input
                 type="range"
                 style={{ width: "47%" }}
@@ -162,5 +165,5 @@ export default function Canvas() {
             />
         </>
     );
+    
 };
-
