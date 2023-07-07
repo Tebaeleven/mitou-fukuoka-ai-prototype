@@ -21,8 +21,6 @@ class Scene {
         let obj = o
         this.object.push(obj);
         console.log("da",obj)
-        // this.draw(obj);
-        // obj.firstDraw(this.ctx);
     }
     AddMove(...o) {
         let startFrame = 0
@@ -128,7 +126,6 @@ class Scene {
         }
         for (let i = 0; i < o.length; i++) {
             let obj = o[i].data;
-            console.log("o", o);
             //もし単体だけだったら同期的に動かす
             if (o.length === 1 && this.animeTask.length !== 0) {
                 let bottomTask = this.animeTask.slice(-1)[0];
@@ -145,7 +142,6 @@ class Scene {
                 end: startFrame + 60
             };
             this.animeTask.push(task);
-            let findObj = getItemsById(obj.id, this.animeTask);
         }
 
     }

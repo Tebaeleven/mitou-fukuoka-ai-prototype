@@ -1,0 +1,9 @@
+.input {
+    background-color: white;
+    /* opacity: 0;
+    transition: opacity 0.3s ease; */
+}
+
+.input:hover {
+    opacity: 1;
+}

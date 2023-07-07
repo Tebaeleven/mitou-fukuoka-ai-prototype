@@ -6,13 +6,15 @@ import { Slider } from '@mui/material';
 import Circle from "@/components/canvas/Objects/Circle";
 import NumberCounter from "./GUI/Number";
 import Text from "@/components/canvas/Objects/Text";
-
+import { text } from 'stream/consumers';
+import COLOR from "@/components/canvas/COLOR/colors";
+console.log(COLOR.RED);
 let test = new Scene("root");
-
+import classes from "./Canvas.module.css"
 
 let lines = []
-let nodes = []
-let texts=[]
+let nodes: Circle[] | { x: number; }[] = []
+let texts: any[]=[]
 let height = 400;
 let left = 280;
 let r = 60
@@ -26,13 +28,27 @@ for (let i = 0; i < 2; i++) {
     lines.push(new Line(left * 2.4, i * height + 150));
     nodes.push(new Circle(left * 2.4, i * height + 150, r, "white"));
 }
+nodes.push(new Circle(left * 3.7, height - 50, r, "white"));
 
 //テキスト
-texts.push(new Text(nodes[0].x,nodes[0].y,"red"))
+for (let i = 0; i < nodes.length; i++) {
+    let randomNum = Math.random() * 2 - 1;
+
+    texts.push(
+        new Text(nodes[i].x, nodes[i].y, randomNum.toFixed(2), 40, "white")
+    );
+
+}
+texts.push(new Text(nodes[0].x + 190, nodes[0].y - 30, 1, 40, COLOR.BLUE));
+texts.push(new Text(nodes[0].x + 100, nodes[0].y + 150, 1, 40, COLOR.BLUE));
+
+texts.push(new Text(nodes[1].x + 190, nodes[1].y + 30, 1, 40, COLOR.RED));
+texts.push(new Text(nodes[0].x + 100, nodes[1].y - 150, 1, 40, COLOR.RED));
+
+texts.push(new Text(nodes[2].x + 190, nodes[2].y + 70, 1, 40, COLOR.YELLOW));
+texts.push(new Text(nodes[3].x + 190, nodes[3].y - 70, 1, 40, COLOR.GREEN));
 
 
-
-nodes.push(new Circle(left*3.7, height-50, r, "white"));
 
 lines.forEach(element => {
     test.create(element);
@@ -41,11 +57,15 @@ lines.forEach(element => {
 nodes.forEach((element) => {
     test.create(element);
 });
+texts.forEach((element) => {
+    test.create(element);
+});
+texts.forEach((element) => {
+    test.AddFirstAnimation(element);
+});
 nodes.forEach((element) => {
     test.AddFirstAnimation(element);
 });
-
-test.create(texts[0]);
 
 test.AddMove(lines[0].move2(nodes[2].x, nodes[2].y));
 test.AddMove(lines[1].move2(nodes[3].x, nodes[3].y));
@@ -138,20 +158,36 @@ export default function Canvas() {
         requestAnimationFrame(animate);
     };
 
-    const playBar = (event) => {
+    const playBar = (event: { target: { value: any; }; }) => {
         let frame = event.target.value;
         setFrame(frame);
         test.play(frame);
     };
 
-    function easeInOutCubic(t) {
+    function easeInOutCubic(t: number) {
         if (t<0.5) {
             return 4 * t * t * t;
         } else {
             return 1 - Math.pow(-2 * t + 2, 3) / 2;
         }
     }
-    
+    let w1 = texts[5]
+    let w2 = texts[6]
+    let s1 = texts[2]
+    let x1 = texts[0]
+    let x2 = texts[1];
+    function X1(e: { target: { value: any; }; }) {
+        let value = e.target.value
+        x1.text = value
+        s1.text = point(x1.text * w1.text + x2.text*w2.text,2)
+        test.drawAll()
+    }
+    function X2(e: { target: { value: any; }; }) {
+        let value = e.target.value;
+        x2.text = value;
+        s1.text = point(x1.text * w1.text + x2.text * w2.text, 2);
+        test.drawAll();
+    }
     return (
         <>
             <div id="canvasTop">
@@ -161,9 +197,37 @@ export default function Canvas() {
                 >
                     Play
                 </button>
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[0].y + 70,
+                        left: nodes[0].x - 65,
+                    }}
+                    type="range"
+                    onChange={X1}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[1].y + 70,
+                        left: nodes[1].x - 65,
+                    }}
+                    type="range"
+                    onChange={X2}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+
                 <div className="text-white text-xl inline-block">
                     <p className="">{frame}</p>
                 </div>
+
                 {/* <div
                     style={{
                         position: "absolute",
@@ -252,4 +316,8 @@ export default function Canvas() {
         </>
     );
     
+};
+let point = function (num: number, digit: number) {
+    let time = Math.pow(10, digit);
+    return Math.floor(num * time) / time;
 };

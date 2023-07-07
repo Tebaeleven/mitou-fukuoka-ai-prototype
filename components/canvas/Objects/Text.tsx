@@ -1,4 +1,5 @@
 import Object from "@/components/canvas/Objects/Object";
+import { easeInOutCubic } from "../easing/easeInOutCubic";
 
 class Text extends Object {
     x: any;
@@ -10,10 +11,20 @@ class Text extends Object {
     id: any;
     isShow: string;
     firstAnime: number;
-    constructor(x, y, color) {
+    size: any;
+    text: any;
+    constructor(
+        x: number,
+        y: number,
+        text: number | string= 1.0,
+        size: number,
+        color: string
+    ) {
         super();
         this.x = x;
         this.y = y;
+        this.text = text;
+        this.size = size;
         this.goalX = 0;
         this.goalY = 0;
         this.color = color;
@@ -28,15 +39,28 @@ class Text extends Object {
         this.isShow = "hide";
         this.firstAnime = 0;
     }
-    drawObj(ctx) {
-        let text = "1.00";
-        const mesure = ctx.measureText(text);
+    drawObj(ctx: {
+        fillStyle: any;
+        font: string;
+        measureText: (arg0: any) => any;
+        fillText: (arg0: any, arg1: number, arg2: any) => void;
+    }) {
+        let animationTime = 60;
+        ctx.fillStyle = this.color;
+
+        let t = this.firstAnime / animationTime;
+        let fontSize = easeInOutCubic(t) * this.size;
+        ctx.font = `${fontSize}px serif`;
+        let mesure = ctx.measureText(this.text);
         let textWidth = mesure.width;
         let textHeight =
             mesure.actualBoundingBoxAscent + mesure.actualBoundingBoxDescent;
-        ctx.font = "48px serif";
-        ctx.fillStyle = this.color;
-        ctx.fillText(text, this.x - textWidth / 2, this.y + textHeight/2);
+
+        ctx.fillText(
+            this.text,
+            this.x - textWidth / 2,
+            this.y + textHeight / 2
+        );
     }
 }
 
