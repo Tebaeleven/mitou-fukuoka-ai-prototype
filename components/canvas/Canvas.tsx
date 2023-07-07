@@ -30,25 +30,29 @@ for (let i = 0; i < 2; i++) {
 }
 nodes.push(new Circle(left * 3.7, height - 50, r, "white"));
 
-//テキスト
+//nodeの値
 for (let i = 0; i < nodes.length; i++) {
     let randomNum = Math.random() * 2 - 1;
-
     texts.push(
         new Text(nodes[i].x, nodes[i].y, randomNum.toFixed(2), 40, "white")
     );
-
 }
-texts.push(new Text(nodes[0].x + 190, nodes[0].y - 30, 1, 40, COLOR.BLUE));
-texts.push(new Text(nodes[0].x + 100, nodes[0].y + 150, 1, 40, COLOR.BLUE));
-
-texts.push(new Text(nodes[1].x + 190, nodes[1].y + 30, 1, 40, COLOR.RED));
-texts.push(new Text(nodes[0].x + 100, nodes[1].y - 150, 1, 40, COLOR.RED));
-
-texts.push(new Text(nodes[2].x + 190, nodes[2].y + 70, 1, 40, COLOR.YELLOW));
-texts.push(new Text(nodes[3].x + 190, nodes[3].y - 70, 1, 40, COLOR.GREEN));
 
 
+
+texts.push(new Text(nodes[0].x + 190, nodes[0].y - 30, 0.5, 40, COLOR.BLUE));
+texts.push(new Text(nodes[0].x + 100, nodes[0].y + 150, -0.5, 40, COLOR.BLUE));
+
+texts.push(new Text(nodes[1].x + 190, nodes[1].y + 30, -0.5, 40, COLOR.RED));
+texts.push(new Text(nodes[0].x + 100, nodes[1].y - 150, 0.5, 40, COLOR.RED));
+
+texts.push(new Text(nodes[2].x + 190, nodes[2].y + 70, 0.5, 40, COLOR.YELLOW));
+texts.push(new Text(nodes[3].x + 190, nodes[3].y - 70, 0.5, 40, COLOR.GREEN));
+
+//活性関数
+texts.push(new Text(nodes[2].x + 100, nodes[2].y, 1, 40, COLOR.BLUE));
+texts.push(new Text(nodes[3].x + 100, nodes[3].y, 0, 40, COLOR.BLUE));
+texts.push(new Text(nodes[4].x + 100, nodes[4].y, 0, 40, COLOR.BLUE));
 
 lines.forEach(element => {
     test.create(element);
@@ -173,19 +177,85 @@ export default function Canvas() {
     }
     let w1 = texts[5]
     let w2 = texts[6]
+    let w3 = texts[8]
+    let w4 = texts[7];
+    let w5=texts[9]
+    let w6 = texts[10];
+    
     let s1 = texts[2]
+    let s2=texts[3]
     let x1 = texts[0]
     let x2 = texts[1];
+    let y = texts[4]
+    let f1 = texts[11];
+    let f2 = texts[12];
+    let f3 = texts[13];
+    function calcAll() {
+        s1.text = point(x1.text * w1.text + x2.text * w3.text - 0.2, 2);
+        s2.text = point(x1.text * w2.text + x2.text * w4.text +0.7, 2);
+        y.text = point(f1.text * w5.text + f2.text * w6.text - 0.8, 2);
+        if (s1.text>0) {
+            f1.text=1
+        } else {
+            f1.text=0
+        }
+        if (s2.text > 0) {
+            f2.text = 1;
+        } else {
+            f2.text = 0;
+        }
+        if (y.text > 0) {
+            f3.text = 1;
+        } else {
+            f3.text = 0;
+        }
+    }
     function X1(e: { target: { value: any; }; }) {
         let value = e.target.value
         x1.text = value
-        s1.text = point(x1.text * w1.text + x2.text*w2.text,2)
+        calcAll()
         test.drawAll()
     }
     function X2(e: { target: { value: any; }; }) {
         let value = e.target.value;
         x2.text = value;
-        s1.text = point(x1.text * w1.text + x2.text * w2.text, 2);
+        calcAll();
+        test.drawAll();
+    }
+    function W1(e: { target: { value: any } }) {
+        let value = e.target.value;
+        w1.text = value;
+        calcAll();
+        test.drawAll();
+    }
+    function W2(e: { target: { value: any } }) {
+        let value = e.target.value;
+        w2.text = value;
+        calcAll();
+        test.drawAll();
+    }
+    function W3(e: { target: { value: any } }) {
+        let value = e.target.value;
+        w3.text = value;
+        calcAll();
+        test.drawAll();
+    }
+    function W4(e: { target: { value: any } }) {
+        let value = e.target.value;
+        w4.text = value;
+        calcAll();
+        test.drawAll();
+    }
+    function W5(e: { target: { value: any } }) {
+        let value = e.target.value;
+        w5.text = value;
+        calcAll();
+        test.drawAll();
+    }
+    function W6(e: { target: { value: any } }) {
+        let value = e.target.value;
+        w6.text = value;
+        calcAll();
         test.drawAll();
     }
     return (
@@ -205,7 +275,7 @@ export default function Canvas() {
                     }}
                     type="range"
                     onChange={X1}
-                    min={-1}
+                    min={0}
                     max={1}
                     step={0.01}
                     className={classes.input}
@@ -218,12 +288,89 @@ export default function Canvas() {
                     }}
                     type="range"
                     onChange={X2}
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[0].y - 80,
+                        left: nodes[0].x + 130,
+                    }}
+                    type="range"
+                    onChange={W1}
                     min={-1}
                     max={1}
                     step={0.01}
                     className={classes.input}
                 />
-
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[0].y + 170,
+                        left: nodes[0].x + 30,
+                    }}
+                    type="range"
+                    onChange={W2}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[1].y - 100,
+                        left: nodes[1].x + 30,
+                    }}
+                    type="range"
+                    onChange={W3}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[1].y + 70,
+                        left: nodes[1].x + 125,
+                    }}
+                    type="range"
+                    onChange={W4}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[2].y + 30,
+                        left: nodes[2].x + 125,
+                    }}
+                    type="range"
+                    onChange={W5}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
+                <input
+                    style={{
+                        position: "absolute",
+                        top: nodes[3].y -50,
+                        left: nodes[3].x + 125,
+                    }}
+                    type="range"
+                    onChange={W6}
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    className={classes.input}
+                />
                 <div className="text-white text-xl inline-block">
                     <p className="">{frame}</p>
                 </div>
