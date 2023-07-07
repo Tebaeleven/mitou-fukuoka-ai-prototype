@@ -5,17 +5,18 @@ import Line from "@/components/canvas/Objects/Line"
 import { Slider } from '@mui/material';
 import Circle from "@/components/canvas/Objects/Circle";
 import NumberCounter from "./GUI/Number";
-import ReactDOM from "react-dom/client";
-
+import Text from "@/components/canvas/Objects/Text";
 
 let test = new Scene("root");
 
 
 let lines = []
 let nodes = []
+let texts=[]
 let height = 400;
 let left = 280;
-let r=60
+let r = 60
+
 for (let i = 0; i < 2; i++) {
     lines.push(new Line(left, i * height + 150));
     lines.push(new Line(left, i * height + 150));
@@ -25,6 +26,11 @@ for (let i = 0; i < 2; i++) {
     lines.push(new Line(left * 2.4, i * height + 150));
     nodes.push(new Circle(left * 2.4, i * height + 150, r, "white"));
 }
+
+//テキスト
+texts.push(new Text(nodes[0].x,nodes[0].y,"red"))
+
+
 
 nodes.push(new Circle(left*3.7, height-50, r, "white"));
 
@@ -38,6 +44,8 @@ nodes.forEach((element) => {
 nodes.forEach((element) => {
     test.AddFirstAnimation(element);
 });
+
+test.create(texts[0]);
 
 test.AddMove(lines[0].move2(nodes[2].x, nodes[2].y));
 test.AddMove(lines[1].move2(nodes[3].x, nodes[3].y));
@@ -156,7 +164,7 @@ export default function Canvas() {
                 <div className="text-white text-xl inline-block">
                     <p className="">{frame}</p>
                 </div>
-                <div
+                {/* <div
                     style={{
                         position: "absolute",
                         top: 100,
@@ -193,7 +201,6 @@ export default function Canvas() {
                     <NumberCounter color="#F06259"></NumberCounter>
                 </div>
 
-                {/* 入力値 */}
                 <div
                     style={{
                         position: "absolute",
@@ -214,7 +221,6 @@ export default function Canvas() {
                     <NumberCounter color="black" size={50}></NumberCounter>
                 </div>
 
-                {/* 中間層の値 */}
                 <div
                     style={{
                         position: "absolute",
@@ -232,7 +238,7 @@ export default function Canvas() {
                     }}
                 >
                     <NumberCounter color="black" size={50}></NumberCounter>
-                </div>
+                </div> */}
 
                 <input
                     type="range"
