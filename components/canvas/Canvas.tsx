@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import Scene from "@/components/canvas/back";
+import React, { useEffect, useState } from "react";
+import Scene from "@/components/canvas/scene";
 import Square from "@/components/canvas/Objects/Square";
-import Line from "@/components/canvas/Objects/Line"
-import { Slider } from '@mui/material';
+import Line from "@/components/canvas/Objects/Line";
+import { Slider } from "@mui/material";
 import Circle from "@/components/canvas/Objects/Circle";
 import NumberCounter from "./GUI/Number";
 import Text from "@/components/canvas/Objects/Text";
-import { text } from 'stream/consumers';
+import { text } from "stream/consumers";
 import COLOR from "@/components/canvas/COLOR/colors";
-console.log(COLOR.RED);
-let test = new Scene("root");
-import classes from "./Canvas.module.css"
+import classes from "./Canvas.module.css";
+import point from "@/components/canvas/utils/point"
 
-let lines = []
-let nodes: Circle[] | { x: number; }[] = []
-let texts: any[]=[]
+let test = new Scene("root");
+
+let lines = [];
+let nodes: Circle[] | { x: number }[] = [];
+let texts: any[] = [];
 let height = 400;
 let left = 280;
-let r = 60
+let r = 60;
 
 for (let i = 0; i < 2; i++) {
     lines.push(new Line(left, i * height + 150));
@@ -31,30 +32,28 @@ for (let i = 0; i < 2; i++) {
 nodes.push(new Circle(left * 3.7, height - 50, r, "white"));
 
 //nodeの値
-for (let i = 0; i < nodes.length; i++) {
-    let randomNum = Math.random() * 2 - 1;
-    texts.push(
-        new Text(nodes[i].x, nodes[i].y, randomNum.toFixed(2), 40, "white")
-    );
+for (let i = 0; i < 2; i++) {
+    texts.push(new Text(nodes[i].x, nodes[i].y, "1.00", 40, "white"));
 }
-
-
+texts.push(new Text(nodes[2].x, nodes[2].y, 0.8, 40, "white"));
+texts.push(new Text(nodes[3].x, nodes[3].y, -0.3, 40, "white"));
+texts.push(new Text(nodes[4].x, nodes[4].y, -0.3, 40, "white"));
 
 texts.push(new Text(nodes[0].x + 190, nodes[0].y - 30, 0.5, 40, COLOR.BLUE));
 texts.push(new Text(nodes[0].x + 100, nodes[0].y + 150, -0.5, 40, COLOR.BLUE));
 
-texts.push(new Text(nodes[1].x + 190, nodes[1].y + 30, -0.5, 40, COLOR.RED));
-texts.push(new Text(nodes[0].x + 100, nodes[1].y - 150, 0.5, 40, COLOR.RED));
+texts.push(new Text(nodes[1].x + 190, nodes[1].y + 30, -0.5, 40, COLOR.BLUE));
+texts.push(new Text(nodes[1].x + 100, nodes[1].y - 150, 0.5, 40, COLOR.BLUE));
 
-texts.push(new Text(nodes[2].x + 190, nodes[2].y + 70, 0.5, 40, COLOR.YELLOW));
-texts.push(new Text(nodes[3].x + 190, nodes[3].y - 70, 0.5, 40, COLOR.GREEN));
+texts.push(new Text(nodes[2].x + 190, nodes[2].y + 70, 0.5, 40, COLOR.BLUE));
+texts.push(new Text(nodes[3].x + 190, nodes[3].y - 70, 0.5, 40, COLOR.BLUE));
 
 //活性関数
-texts.push(new Text(nodes[2].x + 100, nodes[2].y, 1, 40, COLOR.BLUE));
-texts.push(new Text(nodes[3].x + 100, nodes[3].y, 0, 40, COLOR.BLUE));
-texts.push(new Text(nodes[4].x + 100, nodes[4].y, 0, 40, COLOR.BLUE));
+texts.push(new Text(nodes[2].x + 100, nodes[2].y, 1, 40, COLOR.YELLOW));
+texts.push(new Text(nodes[3].x + 100, nodes[3].y, 0, 40, COLOR.YELLOW));
+texts.push(new Text(nodes[4].x + 100, nodes[4].y, 0, 40, COLOR.YELLOW));
 
-lines.forEach(element => {
+lines.forEach((element) => {
     test.create(element);
 });
 
@@ -64,27 +63,29 @@ nodes.forEach((element) => {
 texts.forEach((element) => {
     test.create(element);
 });
-texts.forEach((element) => {
-    test.AddFirstAnimation(element);
-});
+
 nodes.forEach((element) => {
     test.AddFirstAnimation(element);
 });
 
-test.AddMove(lines[0].move2(nodes[2].x, nodes[2].y));
-test.AddMove(lines[1].move2(nodes[3].x, nodes[3].y));
-test.AddMove(lines[2].move2(nodes[2].x, nodes[2].y));
-test.AddMove(lines[3].move2(nodes[3].x, nodes[3].y));
-
+test.AddMove(
+    lines[0].move2(nodes[2].x, nodes[2].y),
+    lines[1].move2(nodes[3].x, nodes[3].y)
+);
+test.AddMove(
+    lines[2].move2(nodes[2].x, nodes[2].y),
+    lines[3].move2(nodes[3].x, nodes[3].y)
+);
 test.AddMove(lines[4].move2(nodes[4].x, nodes[4].y));
 test.AddMove(lines[5].move2(nodes[4].x, nodes[4].y));
 
+texts.forEach((element) => {
+    test.AddFirstAnimation(element);
+});
 
-
-console.log("アニメタスク",test.animeTask)
+console.log("アニメタスク", test.animeTask);
 
 // test.create(green);
-
 
 // test.AddMove(green.move(400, 100));
 // test.AddMove(red.move(100, 100));
@@ -113,7 +114,7 @@ console.log("アニメタスク",test.animeTask)
  * 今まで：
  * test.AddMove(square, 400, 100);
  * test.AddMove(circle, 100, 250);
- * 
+ *
  * 改良案：
  * test.AddMove(
  *  [square, 400, 100],
@@ -137,8 +138,6 @@ console.log("アニメタスク",test.animeTask)
 
 // test.AddMove(circle, 100, 400);
 
-
-
 export default function Canvas() {
     const [frame, setFrame] = useState(0);
     const handleClick = () => {
@@ -147,7 +146,7 @@ export default function Canvas() {
         function animate() {
             // ここにフレームごとの処理を記述します
             setFrame(frameCount);
-            test.play(frameCount)
+            test.play(frameCount);
             // フレームカウントを増やす
             frameCount++;
 
@@ -155,49 +154,42 @@ export default function Canvas() {
                 // まだ200フレームに達していない場合、次のフレームをリクエスト
                 requestAnimationFrame(animate);
             }
-            console.log("アニメーション")
+            console.log("アニメーション");
         }
 
         // 最初のフレームをリクエスト
         requestAnimationFrame(animate);
     };
 
-    const playBar = (event: { target: { value: any; }; }) => {
+    const playBar = (event: { target: { value: any } }) => {
         let frame = event.target.value;
         setFrame(frame);
         test.play(frame);
     };
 
-    function easeInOutCubic(t: number) {
-        if (t<0.5) {
-            return 4 * t * t * t;
-        } else {
-            return 1 - Math.pow(-2 * t + 2, 3) / 2;
-        }
-    }
-    let w1 = texts[5]
-    let w2 = texts[6]
-    let w3 = texts[8]
+    let w1 = texts[5];
+    let w2 = texts[6];
+    let w3 = texts[8];
     let w4 = texts[7];
-    let w5=texts[9]
+    let w5 = texts[9];
     let w6 = texts[10];
-    
-    let s1 = texts[2]
-    let s2=texts[3]
-    let x1 = texts[0]
+
+    let s1 = texts[2];
+    let s2 = texts[3];
+    let x1 = texts[0];
     let x2 = texts[1];
-    let y = texts[4]
+    let y = texts[4];
     let f1 = texts[11];
     let f2 = texts[12];
     let f3 = texts[13];
     function calcAll() {
         s1.text = point(x1.text * w1.text + x2.text * w3.text - 0.2, 2);
-        s2.text = point(x1.text * w2.text + x2.text * w4.text +0.7, 2);
+        s2.text = point(x1.text * w2.text + x2.text * w4.text + 0.7, 2);
         y.text = point(f1.text * w5.text + f2.text * w6.text - 0.8, 2);
-        if (s1.text>0) {
-            f1.text=1
+        if (s1.text > 0) {
+            f1.text = 1;
         } else {
-            f1.text=0
+            f1.text = 0;
         }
         if (s2.text > 0) {
             f2.text = 1;
@@ -210,13 +202,13 @@ export default function Canvas() {
             f3.text = 0;
         }
     }
-    function X1(e: { target: { value: any; }; }) {
-        let value = e.target.value
-        x1.text = value
-        calcAll()
-        test.drawAll()
+    function X1(e: { target: { value: any } }) {
+        let value = e.target.value;
+        x1.text = value;
+        calcAll();
+        test.drawAll();
     }
-    function X2(e: { target: { value: any; }; }) {
+    function X2(e: { target: { value: any } }) {
         let value = e.target.value;
         x2.text = value;
         calcAll();
@@ -296,7 +288,7 @@ export default function Canvas() {
                 <input
                     style={{
                         position: "absolute",
-                        top: nodes[0].y - 80,
+                        top: nodes[0].y - 70,
                         left: nodes[0].x + 130,
                     }}
                     type="range"
@@ -310,7 +302,7 @@ export default function Canvas() {
                     style={{
                         position: "absolute",
                         top: nodes[0].y + 170,
-                        left: nodes[0].x + 30,
+                        left: nodes[0].x + 40,
                     }}
                     type="range"
                     onChange={W2}
@@ -322,8 +314,8 @@ export default function Canvas() {
                 <input
                     style={{
                         position: "absolute",
-                        top: nodes[1].y - 100,
-                        left: nodes[1].x + 30,
+                        top: nodes[1].y - 130,
+                        left: nodes[1].x + 40,
                     }}
                     type="range"
                     onChange={W3}
@@ -335,8 +327,8 @@ export default function Canvas() {
                 <input
                     style={{
                         position: "absolute",
-                        top: nodes[1].y + 70,
-                        left: nodes[1].x + 125,
+                        top: nodes[1].y + 50,
+                        left: nodes[1].x + 130,
                     }}
                     type="range"
                     onChange={W4}
@@ -361,7 +353,7 @@ export default function Canvas() {
                 <input
                     style={{
                         position: "absolute",
-                        top: nodes[3].y -50,
+                        top: nodes[3].y - 50,
                         left: nodes[3].x + 125,
                     }}
                     type="range"
@@ -375,82 +367,6 @@ export default function Canvas() {
                     <p className="">{frame}</p>
                 </div>
 
-                {/* <div
-                    style={{
-                        position: "absolute",
-                        top: 100,
-                        left: 400,
-                    }}
-                >
-                    <NumberCounter color="#59C4DC"></NumberCounter>
-                </div>
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 500,
-                        left: 400,
-                    }}
-                >
-                    <NumberCounter color="#FCFC06"></NumberCounter>
-                </div>
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 500,
-                        left: 800,
-                    }}
-                >
-                    <NumberCounter color="#83C066"></NumberCounter>
-                </div>
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 150,
-                        left: 800,
-                    }}
-                >
-                    <NumberCounter color="#F06259"></NumberCounter>
-                </div>
-
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 120,
-                        left: 225,
-                    }}
-                >
-                    <NumberCounter color="black" size={40}></NumberCounter>
-                </div>
-
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 515,
-                        left: 228,
-                    }}
-                >
-                    <NumberCounter color="black" size={50}></NumberCounter>
-                </div>
-
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 115,
-                        left: 620,
-                    }}
-                >
-                    <NumberCounter color="white" size={50}></NumberCounter>
-                </div>
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 515,
-                        left: 620,
-                    }}
-                >
-                    <NumberCounter color="black" size={50}></NumberCounter>
-                </div> */}
-
                 <input
                     type="range"
                     style={{ width: "100%" }}
@@ -462,9 +378,4 @@ export default function Canvas() {
             </div>
         </>
     );
-    
-};
-let point = function (num: number, digit: number) {
-    let time = Math.pow(10, digit);
-    return Math.floor(num * time) / time;
-};
+}
