@@ -61,8 +61,13 @@ texts.forEach((element) => {
 numberLine.forEach((e) => {
     test.AddMove(e.move2(1000, e.y1));
 });
+let nx1 = numberLine[0].x1
+let ng2 = numberLine[0].goalX2
+console.log("数直線の長さ",nx1)
+console.log("数直線の長さ", ng2);
+console.log("数直線の長さ", ng2-nx1);
 
-test.AddMove(arrows[0].move2(numberLine[0].x1+500, arrows[0].y1));
+test.AddMove(arrows[0].move2(numberLine[0].x1+720, arrows[0].y1));
 test.AddMove(arrows[1].move2(numberLine[0].x1+200, arrows[1].y1));
 
 // nodes.forEach((element) => {

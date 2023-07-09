@@ -56,24 +56,34 @@ class Allow extends Object {
     drawObj(ctx) {
         ctx.beginPath();
 
-        if (Math.floor(this.x2 - this.x1) !== 0) {
-            //左
-            // ctx.moveTo(this.x1, this.y1);
-            // ctx.lineTo(this.x1 + 20, this.y1 + 20);
-            // ctx.moveTo(this.x1, this.y1);
-            // ctx.lineTo(this.x1 + 20, this.y1 - 20);
-            ctx.moveTo(this.x2, this.y2);
-            ctx.lineTo(this.x2 - 20, this.y2 + 20);
-            ctx.moveTo(this.x2, this.y2);
-            ctx.lineTo(this.x2 - 20, this.y2 - 20);
-        }
-        if (Math.floor(this.x2 - this.x1) > 30) {
-            //右
-        }
-        ctx.moveTo(this.x1, this.y1);
-        ctx.lineTo(this.x2, this.y2);
+        // if (Math.floor(this.x2 - this.x1) >120) {
+        //     //左
+        //     ctx.moveTo(this.x1+20, this.y1+10); //最初の点の場所
+        //     ctx.lineTo(this.x1+this.width/2, this.y1); //2番目の点の場所
+        //     ctx.lineTo(this.x1 + 20, this.y1 - 10);
+        //     ctx.closePath();
+        //     ctx.fillStyle = this.color;
+        //     ctx.fill();
 
-        ctx.lineWidth = this.width
+        //     ctx.moveTo(this.x2 - 20, this.y2 + 10); //最初の点の場所
+        //     ctx.lineTo(this.x2 - this.width / 2, this.y2); //2番目の点の場所
+        //     ctx.lineTo(this.x2 - 20, this.y2 - 10);
+        //     ctx.closePath();
+        //     ctx.fillStyle = this.color;
+        //     ctx.fill();
+        // }
+
+        
+    let margin = 50;
+    let availableLength = this.goalX2 - this.x1;
+    let startX = this.x1 + margin;
+    let endX =
+        startX +
+        ((this.x2 - this.x1) * (availableLength - margin * 2)) / availableLength;
+
+    ctx.moveTo(startX, this.y1);
+    ctx.lineTo(endX, this.y2);
+        ctx.lineWidth = this.width;
         ctx.strokeStyle = this.color;
         ctx.stroke();
         ctx.beginPath();
