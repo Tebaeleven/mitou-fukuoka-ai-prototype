@@ -20,7 +20,8 @@ let nodes = [];
 let arrows = []
 let numberLine=[]
 let height =200;
-let left = 280;
+let left = 230;
+let distanceText=[]
 let r = 60;
 for (let i = 0; i <3; i++) {
     // lines.push(new Line(left, i * height + 150));
@@ -37,8 +38,7 @@ arrows.push(
 arrows.push(
     new Arrow(numberLine[2].x1, numberLine[2].y1).set_color(COLOR.RED)
 );
-// texts.push(new Text(lines[0].x1, lines[0].y1-50, "スタート", 40, "white"));
-// texts.push(new Text(1000, lines[0].y1 - 50, "ゴール", 40, "white"));
+
 
 // texts.push(new Text(lines[1].x1-50, lines[1].y1, "弟", 40, "white"));
 // texts.push(new Text(lines[1].x1, lines[1].y1+50, "分速80m", 40, COLOR.GREEN));
@@ -55,27 +55,70 @@ arrows.forEach((element) => {
 // nodes.forEach((element) => {
 //     test.create(element);
 // });
+
+numberLine.forEach((e) => {
+    test.AddMove(e.move2(e.x1+800, e.y1));
+});
+
+
+texts.push(new Text(numberLine[0].x1, numberLine[0].y1 - 50, "スタート", 40, "white"));
+texts.push(new Text(numberLine[0].goalX2, numberLine[0].y1 - 50, "ゴール", 40, "white"));
+texts.push(
+    new Text(numberLine[1].x1 - 50, numberLine[1].y1, "弟", 40,COLOR.GREEN)
+);
+texts.push(
+    new Text(
+        numberLine[1].goalX2 + 110,
+        numberLine[1].y1,
+        "分速80m",
+        40,
+        COLOR.GREEN
+    )
+);
+
+texts.push(
+    new Text(numberLine[2].x1 - 50, numberLine[2].y1, "兄", 40, COLOR.RED)
+);
+texts.push(
+    new Text(numberLine[2].goalX2+110, numberLine[2].y1, "分速240m", 40, COLOR.RED)
+);
 texts.forEach((element) => {
     test.create(element);
 });
-numberLine.forEach((e) => {
-    test.AddMove(e.move2(1000, e.y1));
-});
-let nx1 = numberLine[0].x1
-let ng2 = numberLine[0].goalX2
-console.log("数直線の長さ",nx1)
-console.log("数直線の長さ", ng2);
-console.log("数直線の長さ", ng2-nx1);
-
-test.AddMove(arrows[0].move2(numberLine[0].x1+720, arrows[0].y1));
-test.AddMove(arrows[1].move2(numberLine[0].x1+200, arrows[1].y1));
-
-// nodes.forEach((element) => {
-//     test.AddFirstAnimation(element);
-// });
 texts.forEach((element) => {
     test.AddFirstAnimation(element);
 });
+test.AddMove(arrows[0].move2(numberLine[0].x1 + 400, arrows[0].y1));
+test.AddMove(arrows[1].move2(numberLine[0].x1 + 200, arrows[1].y1));
+
+distanceText.push(
+    new Text(
+        arrows[0].x1+(arrows[0].goalX2 - arrows[0].x1) / 2,
+        arrows[0].y1 + 50,
+        "80×(10+x)",
+        40,
+        COLOR.GREEN
+    )
+);
+distanceText.push(
+    new Text(
+        arrows[0].x1+(arrows[1].goalX2 - arrows[1].x1) / 2,
+        arrows[1].y1 + 50,
+        "240×x",
+        40,
+        COLOR.RED
+    )
+);
+console.log("距離", arrows[1].goalX2 - arrows[1].x1);
+console.log("x2", arrows[1].goalX2);
+console.log("x1", arrows[1].x1);
+distanceText.forEach((element) => {
+    test.create(element);
+});
+distanceText.forEach((element) => {
+    test.AddFirstAnimation(element);
+});
+
 export default function Canvas() {
     const [frame, setFrame] = useState(0);
     const handleClick = () => {

@@ -62,7 +62,7 @@ class Allow extends Object {
             startX +
             ((this.x2 - this.x1) * (availableLength - margin * 2)) /
                 availableLength;
-        if (Math.floor(this.x2 - this.x1) >0) {
+        if (Math.floor(this.x2 - this.x1) >10) {
             //左
             ctx.moveTo(this.x1 + margin, this.y1 + 10); //最初の点の場所
             ctx.lineTo(this.x1 +10, this.y1); //2番目の点の場所
