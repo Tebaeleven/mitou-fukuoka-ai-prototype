@@ -3,5 +3,6 @@ let COLOR = {
     YELLOW: "#FCFC06",
     BLUE: "#59C4DC",
     GREEN: "#83C066",
+    WHITE:"white"
 };
 export default COLOR;

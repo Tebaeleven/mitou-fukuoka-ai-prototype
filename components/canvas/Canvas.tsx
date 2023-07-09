@@ -9,7 +9,7 @@ import Text from "@/components/canvas/Objects/Text";
 import { text } from "stream/consumers";
 import COLOR from "@/components/canvas/COLOR/colors";
 import classes from "./Canvas.module.css";
-import point from "@/components/canvas/utils/point"
+import { point } from "@/components/canvas/utils/point";
 
 let test = new Scene("root");
 

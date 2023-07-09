@@ -1,4 +1,5 @@
-import { easeInOutCubic } from "./easing/easeInOutCubic";
+import { easeInOutCubic } from "./Easing/easing";
+import { getItemsById } from "./utils/Arrays";
 
 class Scene {
     object: never[];
@@ -18,19 +19,19 @@ class Scene {
         this.clear();
     }
     create(o) {
-        let obj = o
+        let obj = o;
         this.object.push(obj);
-        console.log("da",obj)
+        console.log("da", obj);
     }
     AddMove(...o) {
-        let startFrame = 0
+        let startFrame = 0;
         if (o.length !== 1 && this.animeTask.length !== 0) {
             let bottomTask = this.animeTask.slice(-1)[0];
             //スタート時間の設定
-            if (bottomTask !== undefined ) {
+            if (bottomTask !== undefined) {
                 startFrame = bottomTask.end;
             }
-            console.log("開始時刻",startFrame)
+            console.log("開始時刻", startFrame);
         }
         for (let i = 0; i < o.length; i++) {
             let obj = o[i].data;
@@ -43,11 +44,11 @@ class Scene {
                     startFrame = bottomTask.end;
                 }
             }
-            let task={}
-            if (obj.shape==="line") {
+            let task = {};
+            if (obj.shape === "line") {
                 task = {
                     id: obj.id,
-                    shape:"line",
+                    shape: "line",
                     start: startFrame,
                     end: startFrame + obj.animateTime,
                     startX1: obj.x1,
@@ -71,11 +72,11 @@ class Scene {
                     goalY: obj.goalY,
                 };
             }
-            console.log(obj.shape)
+            console.log(obj.shape);
 
             this.animeTask.push(task);
             let findObj = getItemsById(obj.id, this.animeTask);
-            console.log()
+            console.log();
             //もしtaskにあったらその最後の座標にしておく
             if (findObj.length > 1) {
                 //前に登録されているobjがあったらその座標にする
@@ -95,7 +96,6 @@ class Scene {
                 // findObj[lastIndex].end = beforeEnd + frameTime;
             }
         }
-
     }
     AddWait(frames) {
         let startFrame = 0;
@@ -139,20 +139,19 @@ class Scene {
                 id: obj.id,
                 shape: "firstAnimation",
                 start: startFrame,
-                end: startFrame + 60
+                end: startFrame + 60,
             };
             this.animeTask.push(task);
         }
-
     }
 
     play(frame) {
         let findObj;
-            this.currentFrame = frame;
-        
+        this.currentFrame = frame;
+
         for (let i = 0; i < this.animeTask.length; i++) {
             let id = this.animeTask[i].id;
-            let shape = this.animeTask[i].shape
+            let shape = this.animeTask[i].shape;
             if (shape === "line") {
                 let startFrame = this.animeTask[i].start;
                 let endFrame = this.animeTask[i].end;
@@ -204,23 +203,22 @@ class Scene {
                     //描画できる範囲だったら
                     startFrame <= this.currentFrame &&
                     this.currentFrame <= endFrame
-                ) { 
+                ) {
                     findObj = Object.values(this.object).find(
                         (find) => find.id === id //this.animeTask[0].id
                     );
                     findObj.isShow = "show";
                     this.clear();
                     findObj.firstAnime = moveFrame;
-                    this.drawAll()
+                    this.drawAll();
                 } else if (this.currentFrame <= endFrame) {
                     findObj = Object.values(this.object).find(
                         (find) => find.id === id //this.animeTask[0].id
                     );
                     findObj.isShow = "hide";
-                    this.clear()
+                    this.clear();
                     this.drawAll();
                 }
-
             } else if (id === "wait") {
                 let startFrame = this.animeTask[i].start;
                 let endFrame = this.animeTask[i].end;
@@ -263,7 +261,6 @@ class Scene {
                     this.drawAll();
                 }
             }
-
         }
     }
     drawAll() {
@@ -278,30 +275,10 @@ class Scene {
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-    
+
     getFrameLength() {
         return this.animeTask.slice(-1)[0].end;
     }
 }
 
 export default Scene;
-
-// イージング関数: easeOutQuad
-function easeOutQuad(t) {
-    return t * (2 - t);
-}
-
-// イージング関数: easeInOutQuad
-function easeInOutQuad(t) {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-}
-
-function getItemsById(id, array) {
-    const result = [];
-    for (let i = 0; i < array.length; i++) {
-        if (array[i].id === id) {
-            result.push(array[i]);
-        }
-    }
-    return result;
-}

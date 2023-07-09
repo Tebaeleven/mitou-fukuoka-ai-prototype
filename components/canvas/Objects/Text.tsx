@@ -1,5 +1,5 @@
 import Object from "@/components/canvas/Objects/Object";
-import { easeInOutCubic } from "../easing/easeInOutCubic";
+import { easeInOutCubic } from "../Easing/easing";
 
 class Text extends Object {
     x: any;

@@ -1,5 +1,5 @@
 import Object from "@/components/canvas/Objects/Object";
-import { easeInOutCubic } from "@/components/canvas/easing/easeInOutCubic";
+import { easeInOutCubic } from "@/components/canvas/Easing/easing";
 
 class Circle extends Object {
     x: any;
