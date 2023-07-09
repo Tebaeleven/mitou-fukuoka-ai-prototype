@@ -114,7 +114,7 @@ distanceText.push(
 distanceText.push(
     new Text(
         numberLine[0].x1 + (numberLine[0].goalX2 - numberLine[0].x1) / 2,
-        numberLine[0].y1 + 50,
+        numberLine[0].y1 + 60,
         "",
         40,
         COLOR.YELLOW
@@ -190,8 +190,8 @@ export default function Canvas() {
                     style={{
                         width: "63%",
                         position: "absolute",
-                        top: 160,
-                        left:228,
+                        top: 175,
+                        left:225,
                         
                     }}
                     min={0}
