@@ -36,7 +36,9 @@ arrows.push(
         .set_width(10)
 );
 arrows.push(
-    new Arrow(numberLine[2].x1, numberLine[2].y1).set_color(COLOR.RED)
+    new Arrow(numberLine[2].x1, numberLine[2].y1)
+        .set_color(COLOR.RED)
+        .set_width(10)
 );
 
 
@@ -61,8 +63,8 @@ numberLine.forEach((e) => {
 });
 
 
-texts.push(new Text(numberLine[0].x1, numberLine[0].y1 - 50, "スタート", 40, "white"));
-texts.push(new Text(numberLine[0].goalX2, numberLine[0].y1 - 50, "ゴール", 40, "white"));
+texts.push(new Text(numberLine[0].x1, numberLine[0].y1 - 50, "t=0", 40, "white"));
+texts.push(new Text(numberLine[0].goalX2, numberLine[0].y1 - 50, "t=9", 40, "white"));
 texts.push(
     new Text(numberLine[1].x1 - 50, numberLine[1].y1, "弟", 40,COLOR.GREEN)
 );
@@ -95,7 +97,7 @@ distanceText.push(
     new Text(
         arrows[0].x1+(arrows[0].goalX2 - arrows[0].x1) / 2,
         arrows[0].y1 + 50,
-        "80×(10+x)",
+        "80×(10+t)",
         40,
         COLOR.GREEN
     )
@@ -104,14 +106,20 @@ distanceText.push(
     new Text(
         arrows[0].x1+(arrows[1].goalX2 - arrows[1].x1) / 2,
         arrows[1].y1 + 50,
-        "240×x",
+        "240×t",
         40,
         COLOR.RED
     )
 );
-console.log("距離", arrows[1].goalX2 - arrows[1].x1);
-console.log("x2", arrows[1].goalX2);
-console.log("x1", arrows[1].x1);
+distanceText.push(
+    new Text(
+        numberLine[0].x1 + (numberLine[0].goalX2 - numberLine[0].x1) / 2,
+        numberLine[0].y1 + 50,
+        "",
+        40,
+        COLOR.YELLOW
+    )
+);
 distanceText.forEach((element) => {
     test.create(element);
 });
@@ -148,6 +156,26 @@ export default function Canvas() {
         test.play(frame);
     };
 
+    function calcTime(e) {
+        let value = e.target.value
+
+        arrows[1].goalX2 = numberLine[0].x1 + 400;
+        let b1 = value * 80 + 800
+        let b2 = value * 240
+        b1=b1 / 1.95
+        b2 = b2 / 1.95
+        console.log(b2)
+        if (b2 < 244) {
+            b2 = 244;
+        }
+        arrows[0].x2 = b1;
+        arrows[1].x2 = b2;
+
+        distanceText[2].text = "t=" + value
+
+        test.drawAll()
+    }
+
     return (
         <>
             <div id="canvasTop">
@@ -157,7 +185,20 @@ export default function Canvas() {
                 >
                     Play
                 </button>
-
+                <input
+                    type="range"
+                    style={{
+                        width: "63%",
+                        position: "absolute",
+                        top: 160,
+                        left:228,
+                        
+                    }}
+                    min={0}
+                    step={0.1}
+                    onChange={calcTime}
+                    max={9}
+                />
                 <input
                     type="range"
                     style={{ width: "100%" }}

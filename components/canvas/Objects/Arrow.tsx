@@ -55,6 +55,7 @@ class Allow extends Object {
     }
     drawObj(ctx) {
         ctx.beginPath();
+
         let margin = 30;
         let availableLength = this.goalX2 - this.x1;
         let startX = this.x1 + margin;
