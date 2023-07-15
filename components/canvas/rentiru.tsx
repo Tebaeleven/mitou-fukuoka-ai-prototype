@@ -1,52 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Scene from "@/components/canvas/scene";
-import Square from "@/components/canvas/Objects/Square";
-import Line from "@/components/canvas/Objects/Line";
-import { Slider } from "@mui/material";
-import Circle from "@/components/canvas/Objects/Circle";
-import NumberCounter from "./GUI/Number";
 import Text from "@/components/canvas/Objects/Text";
-import { text } from "stream/consumers";
 import COLOR from "@/components/canvas/COLOR/colors";
-import classes from "./Canvas.module.css";
-import { point } from "@/components/canvas/utils/point";
 import NumberLine from "./Objects/NumberLine";
 import Arrow from "./Objects/Arrow";
+
 let test = new Scene("root");
 
-let lines = [];
 let texts = [];
-let nodes = [];
-let arrows = []
-let numberLine=[]
-let height =200;
+let arrows = [];
+let numberLine = [];
+let height = 200;
 let left = 230;
-let distanceText=[]
+let distanceText = [];
 let r = 60;
-for (let i = 0; i <3; i++) {
-    // lines.push(new Line(left, i * height + 150));
+for (let i = 0; i < 3; i++) {
     numberLine.push(
         new NumberLine(left, i * height + 150).set_color(COLOR.WHITE)
     );
-
 }
-arrows.push(
-    new Arrow(numberLine[1].x1, numberLine[1].y1)
-        .set_color(COLOR.GREEN)
-        .set_width(10)
-);
-arrows.push(
-    new Arrow(numberLine[2].x1, numberLine[2].y1)
-        .set_color(COLOR.RED)
-        .set_width(10)
-);
-
-
-// texts.push(new Text(lines[1].x1-50, lines[1].y1, "弟", 40, "white"));
-// texts.push(new Text(lines[1].x1, lines[1].y1+50, "分速80m", 40, COLOR.GREEN));
-// texts.push(new Text(lines[2].x1 - 50, lines[2].y1, "兄", 40, "white"));
-
-
+arrows.push(new Arrow(numberLine[1].x1, numberLine[1].y1).set_color(COLOR.GREEN).set_width(10));
+arrows.push(new Arrow(numberLine[2].x1, numberLine[2].y1).set_color(COLOR.RED).set_width(10));
 
 numberLine.forEach((element) => {
     test.create(element);
@@ -54,36 +28,24 @@ numberLine.forEach((element) => {
 arrows.forEach((element) => {
     test.create(element);
 });
-// nodes.forEach((element) => {
-//     test.create(element);
-// });
 
 numberLine.forEach((e) => {
-    test.AddMove(e.move2(e.x1+800, e.y1));
+    test.AddMove(e.move2(e.x1 + 800, e.y1));
 });
 
+texts.push(
+    new Text(numberLine[0].x1, numberLine[0].y1 - 50, "t=0", 40, "white")
+);
+texts.push(
+    new Text(numberLine[0].goalX2, numberLine[0].y1 - 50, "t=9", 40, "white")
+);
+texts.push(
+    new Text(numberLine[1].x1 - 50, numberLine[1].y1, "弟", 40, COLOR.GREEN)
+);
+texts.push(new Text(numberLine[1].goalX2 + 110, numberLine[1].y1,"分速80m",40,COLOR.GREEN));
+texts.push(new Text(numberLine[2].x1 - 50, numberLine[2].y1, "兄", 40, COLOR.RED));
+texts.push(new Text(numberLine[2].goalX2 + 110, numberLine[2].y1, "分速240m", 40, COLOR.RED));
 
-texts.push(new Text(numberLine[0].x1, numberLine[0].y1 - 50, "t=0", 40, "white"));
-texts.push(new Text(numberLine[0].goalX2, numberLine[0].y1 - 50, "t=9", 40, "white"));
-texts.push(
-    new Text(numberLine[1].x1 - 50, numberLine[1].y1, "弟", 40,COLOR.GREEN)
-);
-texts.push(
-    new Text(
-        numberLine[1].goalX2 + 110,
-        numberLine[1].y1,
-        "分速80m",
-        40,
-        COLOR.GREEN
-    )
-);
-
-texts.push(
-    new Text(numberLine[2].x1 - 50, numberLine[2].y1, "兄", 40, COLOR.RED)
-);
-texts.push(
-    new Text(numberLine[2].goalX2+110, numberLine[2].y1, "分速240m", 40, COLOR.RED)
-);
 texts.forEach((element) => {
     test.create(element);
 });
@@ -93,33 +55,10 @@ texts.forEach((element) => {
 test.AddMove(arrows[0].move2(numberLine[0].x1 + 400, arrows[0].y1));
 test.AddMove(arrows[1].move2(numberLine[0].x1 + 200, arrows[1].y1));
 
-distanceText.push(
-    new Text(
-        arrows[0].x1+(arrows[0].goalX2 - arrows[0].x1) / 2,
-        arrows[0].y1 + 50,
-        "80×(10+t)",
-        40,
-        COLOR.GREEN
-    )
-);
-distanceText.push(
-    new Text(
-        arrows[0].x1+(arrows[1].goalX2 - arrows[1].x1) / 2,
-        arrows[1].y1 + 50,
-        "240×t",
-        40,
-        COLOR.RED
-    )
-);
-distanceText.push(
-    new Text(
-        numberLine[0].x1 + (numberLine[0].goalX2 - numberLine[0].x1) / 2,
-        numberLine[0].y1 + 60,
-        "",
-        40,
-        COLOR.YELLOW
-    )
-);
+distanceText.push(new Text( arrows[0].x1 + (arrows[0].goalX2 - arrows[0].x1) / 2,arrows[0].y1 + 50, "80×(10+t)",40,COLOR.GREEN));
+distanceText.push(new Text(arrows[0].x1 + (arrows[1].goalX2 - arrows[1].x1) / 2,arrows[1].y1 + 50,"240×t",40,COLOR.RED));
+distanceText.push(new Text(numberLine[0].x1 + (numberLine[0].goalX2 - numberLine[0].x1) / 2,numberLine[0].y1 + 60,"",40,COLOR.YELLOW));
+
 distanceText.forEach((element) => {
     test.create(element);
 });
@@ -157,23 +96,23 @@ export default function Canvas() {
     };
 
     function calcTime(e) {
-        let value = e.target.value
+        let value = e.target.value;
 
         arrows[1].goalX2 = numberLine[0].x1 + 400;
-        let b1 = value * 80 + 800
-        let b2 = value * 240
-        b1=b1 / 1.95
-        b2 = b2 / 1.95
-        console.log(b2)
+        let b1 = value * 80 + 800;
+        let b2 = value * 240;
+        b1 = b1 / 1.95;
+        b2 = b2 / 1.95;
+        console.log(b2);
         if (b2 < 244) {
             b2 = 244;
         }
         arrows[0].x2 = b1;
         arrows[1].x2 = b2;
 
-        distanceText[2].text = "t=" + value
+        distanceText[2].text = "t=" + value;
 
-        test.drawAll()
+        test.drawAll();
     }
 
     return (
@@ -191,8 +130,7 @@ export default function Canvas() {
                         width: "63%",
                         position: "absolute",
                         top: 175,
-                        left:225,
-                        
+                        left: 225,
                     }}
                     min={0}
                     step={0.1}
