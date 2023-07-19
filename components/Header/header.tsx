@@ -27,7 +27,7 @@ export default function Header() {
     };
     return (
         <header>
-            <nav className=" border-gray-200 px-4 lg:px-6 py-2.5 bg-white drop-shadow-sm">
+            <nav className=" border-gray-200 px-6 py-4 bg-white drop-shadow-sm">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link href="/" className="flex items-center">
                         {/* <img

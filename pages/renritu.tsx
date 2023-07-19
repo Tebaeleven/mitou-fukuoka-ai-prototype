@@ -9,7 +9,7 @@ export default function JsCanvas() {
     //TODO
     //aタグから移動してきた時はcanvasを取得できるが、linkタグからだとできない
     return (
-        <div className="p-10 flex bg-gray-100">
+        <div className="pt-5 pb-20 px-10 flex bg-gray-100">
             <div className="bg-white p-6 rounded-xl shadow-md w-1/4 border-solid border-2 border-gray-300">
                 <h1 className="text-3xl font-bold mb-4">誤差逆伝播法の仕組み</h1>
                 <p className="mb-4">先ほどの動画で分かる通り、誤差逆伝播法は合成関数の特性を使い、後ろ向きから各パラメーターの変化量を求めていました。</p>
