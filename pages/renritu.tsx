@@ -19,12 +19,12 @@ export default function JsCanvas() {
                     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">どのパラメーターが最も変化量が大きいですか？</h5>
                     <p className="font-normal text-gray-700 ">誤差逆伝播を使って、実際にどのパラメーターが一番変化するか調べてみましょう。</p>
                     <button
-                            className="text-white bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4"
+                            className="text-white bg-gray-900 hover:bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4"
                         >
                             ヒント💡
                     </button>
                     <button
-                            className="text-white bg-green-600 rounded-md text-sm px-5 py-2.5 mt-5"
+                            className="text-white bg-green-600 hover:bg-green-800 rounded-md text-sm px-5 py-2.5 mt-5"
                         >
                             できた！
                     </button>
@@ -34,12 +34,12 @@ export default function JsCanvas() {
                     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">W11の重みを知るためにはどのような手順を踏めば良いですか？</h5>
                     <p className="font-normal text-gray-700 ">誤差逆伝播で、この重みの変化量を調べるためにはどのような手順を踏めば良いのでしょうか？実際に手を動かして変化量を求める式を導出してみましょう💪</p>
                     <button
-                            className="text-white bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4"
+                            className="text-white bg-gray-900 hover:bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4"
                         >
                             ヒント💡
                     </button>
                     <button
-                            className="text-white bg-green-600 rounded-md text-sm px-5 py-2.5 mt-5 "
+                            className="text-white bg-green-600 hover:bg-green-800 rounded-md text-sm px-5 py-2.5 mt-5 "
                         >
                             できた！
                     </button>
