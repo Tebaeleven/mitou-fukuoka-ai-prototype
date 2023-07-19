@@ -42,13 +42,13 @@ export default function Header() {
                     <div className="flex items-center lg:order-2">
                         <a
                             href="#"
-                            className="text-black rounded-md text-sm px-5 py-2.5 mr-2 hover:bg-gray-300"
+                            className="text-black rounded-full text-sm px-5 py-2.5 mr-2 hover:bg-gray-300"
                         >
                             ログイン
                         </a>
                         <a
                             href="#"
-                            className="text-white bg-blue-500 rounded-md text-sm px-5 py-2.5 mr-2 hover:bg-blue-600  "
+                            className="text-white bg-gradient-to-r from-green-400 to-green-600 hover:bg-green-700  rounded-full text-sm px-5 py-2.5 mr-2   "
                         >
                             新規登録
                         </a>
@@ -94,6 +94,7 @@ export default function Header() {
                             <CustomLink href="/" title="ホーム" />
                             <CustomLink href="/renritu" title="コース一覧" />
                             <CustomLink href="/dashboard" title="ダッシュボード" />
+                            <CustomLink href="/search" title="検索" />
                             {/* <CustomLink href="/p5" title="p5" />
                             <CustomLink href="/dom" title="DOM" />
                             <CustomLink href="/domclass" title="domclass" />
