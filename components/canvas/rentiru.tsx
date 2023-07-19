@@ -120,7 +120,7 @@ export default function Canvas() {
             <div id="canvasTop">
                 <button
                     onClick={handleClick}
-                    className="font-bold text-lg bg-blue-500 p-3 rounded-lg text-white active:bg-blue-700 absolute bottom-20 left-5"
+                    className="font-bold text-lg bg-blue-500 p-3 rounded-lg text-white active:bg-blue-700 absolute bottom-10 left-5"
                 >
                     Play
                 </button>

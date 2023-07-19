@@ -8,15 +8,15 @@ export default function Header() {
         return (
             <a
                 href={href}
-                className={`hover:text-primary-700  hover:text-white border-gray-700 relative group 
+                className={`hover:text-primary-700  hover:text-gray-800 border-gray-700 relative group 
                     ${
-                        router.asPath === href ? "text-white" : "text-gray-400 "
+                        router.asPath === href ? "text-black" : " text-gray-800"
                     }`}
             >
                 {title}
                 <span
                     className={`
-                        h-[3px] inline-block bg-white absolute left-0 -bottom-2 group-hover:w-full transition-[width] ease duration-700
+                        h-[3px] inline-block bg-black absolute left-0 -bottom-2 group-hover:w-full transition-[width] ease duration-700
                         ${router.asPath === href ? "w-full" : "w-0"}
                     `}
                 >
@@ -27,7 +27,7 @@ export default function Header() {
     };
     return (
         <header>
-            <nav className=" border-gray-200 px-4 lg:px-6 py-2.5 bg-gray-800">
+            <nav className=" border-gray-200 px-4 lg:px-6 py-2.5 bg-white drop-shadow-sm">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link href="/" className="flex items-center">
                         {/* <img
@@ -35,20 +35,20 @@ export default function Header() {
                             className="mr-3 h-6 sm:h-9"
                             alt="Flowbite Logo"
                         /> */}
-                        <span className="self-center text-xl font-semibold whitespace-nowrap text-white">
+                        <span className="self-center text-xl font-semibold whitespace-nowrap text-black">
                             未踏福岡プロトタイプ
                         </span>
                     </Link>
                     <div className="flex items-center lg:order-2">
                         <a
                             href="#"
-                            className="text-gray-800 dark:text-white  focus:ring-4  font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800"
+                            className="text-black rounded-md text-sm px-5 py-2.5 mr-2 hover:bg-gray-300"
                         >
                             ログイン
                         </a>
                         <a
                             href="#"
-                            className="text-gray-800 dark:text-white  focus:ring-4  font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800"
+                            className="text-white bg-blue-500 rounded-md text-sm px-5 py-2.5 mr-2 hover:bg-blue-600  "
                         >
                             新規登録
                         </a>
@@ -91,8 +91,10 @@ export default function Header() {
                         id="mobile-menu-2"
                     >
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                            <CustomLink href="/" title="Home" />
-                            <CustomLink href="/p5" title="p5" />
+                            <CustomLink href="/" title="ホーム" />
+                            <CustomLink href="/renritu" title="コース一覧" />
+                            <CustomLink href="/dashboard" title="ダッシュボード" />
+                            {/* <CustomLink href="/p5" title="p5" />
                             <CustomLink href="/dom" title="DOM" />
                             <CustomLink href="/domclass" title="domclass" />
                             <CustomLink
@@ -101,7 +103,7 @@ export default function Header() {
                             />
                             <CustomLink href="/p5-neural" title="p5-neural" />
                             <CustomLink href="/js-canvas" title="XOR NN" />
-                            <CustomLink href="/renritu" title="連立方程式" />
+                            <CustomLink href="/renritu" title="連立方程式" /> */}
                         </ul>
                     </div>
                 </div>
