@@ -21,7 +21,7 @@ export default function JsCanvas() {
                     <button
                             className="text-white bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4"
                         >
-                            ヒント
+                            ヒント💡
                     </button>
                     <button
                             className="text-white bg-green-600 rounded-md text-sm px-5 py-2.5 mt-5"
@@ -36,7 +36,7 @@ export default function JsCanvas() {
                     <button
                             className="text-white bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4"
                         >
-                            ヒント
+                            ヒント💡
                     </button>
                     <button
                             className="text-white bg-green-600 rounded-md text-sm px-5 py-2.5 mt-5 "
@@ -54,14 +54,14 @@ export default function JsCanvas() {
                     width: "1280px",
                     backgroundColor: "#323233",
                 }}
-                className="m-auto"
+                
+                className="m-auto rounded-xl shadow-xl"
             >
                 <canvas
                     id="root"
                     width={1280}
                     height={720}
-                    className="drop-shadow-2xl"
-                    style={{ background: "black" }}
+                    className="drop-shadow-2xl rounded-2xl bg-black shadow-xl"
                 ></canvas>
 
                 {/* <div
