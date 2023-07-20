@@ -10,7 +10,7 @@ function course() {
                 
                 <div className="grid grid-cols-2 gap-5 mb-10">
                     <CourseCard
-                        href={"/js-canvas"}
+                        href={"/perceptron"}
                         title={"ニューラルネットワークの仕組み"}
                         desc={"脳を模倣して作られたニューラルネットワークについて"}
                     />
@@ -31,7 +31,7 @@ function course() {
 
                 <div className="grid grid-cols-2 gap-5 mb-10">
                     <CourseCard
-                        href={"/js-canvas"}
+                        href={"/renritu"}
                         title={"連立方程式"}
                         desc={"二つの方程式を連立したもの"}
                     />

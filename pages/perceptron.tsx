@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 
-const Canvas = dynamic(() => import("@/components/canvas/rentiru"), {
+const Canvas = dynamic(() => import("@/components/canvas/perceptron"), {
     ssr: false,
 });
 import Side from "@/components/LearningDisplay/Side"
@@ -13,18 +13,15 @@ export default function JsCanvas() {
     return (
         <div className="pt-5 pb-20 px-10 flex bg-gray-100">
             <Side>
-            <h1 className="text-3xl font-bold mb-4">誤差逆伝播法の仕組み</h1>
-                <p className="mb-4">先ほどの動画で分かる通り、誤差逆伝播法は合成関数の特性を使い、後ろ向きから各パラメーターの変化量を求めていました。</p>
-                <p className="mb-4">早速、演習に取り組んでみましょう。</p>
+                <h1 className="text-3xl font-bold mb-4">パーセプトロンを使ってORを表現する</h1>
+                <p className="mb-4">先ほどの映像で、パーセプトロンを使えば線で分割可能なものは表現できることを学びました。</p>
+                <p className="mb-4">早速、問題に取り組んでみましょう。</p>
                 <SideCard
-                    title={"どのパラメーターが最も変化量が大きいですか？"}
-                    desc={"誤差逆伝播を使って、実際にどのパラメーターが一番変化するか調べてみましょう。"}
+                    title={"OR回路と同じ動きをするパラメーターを見つけてみよう"}
+                    desc={"実際にエディターのパーセプトロンの重みやパラメーターを動かして、OR回路と同じように動くようにしよう！"}
                 />
                 <div className="m-5"></div>
-                <SideCard
-                    title={"W11の重みを知るためにはどのような手順を踏めば良いですか？"}
-                    desc={"誤差逆伝播で、この重みの変化量を調べるためにはどのような手順を踏めば良いのでしょうか？実際に手を動かして変化量を求める式を導出してみましょう💪"}
-                />
+
             </Side>
 
             <div
