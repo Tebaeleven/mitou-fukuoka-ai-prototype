@@ -72,7 +72,8 @@ function drawGraph(){
         for (var x = startY; x < startY+graphSize; ++x) {
             var base = (y * width + x) * 4;
             // ピクセルに書き込む
-            if (calcFunc(-x/graphSize,y/graphSize)>0) {
+            if (calcXOR((x - startX) / graphSize, (y - startY) / graphSize) > 0) { // 修正: calcXOR関数に正しい引数を渡す
+
                 pixels[base + 0] = 0;  // Red
                 pixels[base + 1] = 0;  // Green
                 pixels[base + 2] = 255  // Blue
@@ -89,8 +90,14 @@ function drawGraph(){
     context.putImageData(imageData, 0, 0);
 }
 drawGraph()
-
-function calcFunc(x1,x2){
+function calcXOR(x1,x2){
+    let s1 = x1 * 0.5 + x2 * 0.5 - 0.2;
+    let s2 = x1 * -0.5 + x2 * -0.5 + 0.7;
+    let f1 = s1 > 0 ? 1 : 0; // 修正: f1とf2の計算を簡略化
+    let f2 = s2 > 0 ? 1 : 0;
+    return f1 !== f2 ? 1 : 0; // 修正: XORの結果を返す
+}
+function calcOR(x1,x2){
     let result =x1+x2-0.5
     if (result>0) {
         result=1
@@ -99,9 +106,10 @@ function calcFunc(x1,x2){
     }
     return result
 }
-console.log(calcFunc(0,1))
-
-
+console.log("xor",calcXOR(0,0))
+console.log("xor",calcXOR(1,0))
+console.log("xor",calcXOR(0,1))
+console.log("xor",calcXOR(1,1))
 export default function Canvas() {
     const [frame, setFrame] = useState(0);
     const handleClick = () => {
