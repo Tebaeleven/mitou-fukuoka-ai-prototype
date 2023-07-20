@@ -10,6 +10,7 @@ import { text } from "stream/consumers";
 import COLOR from "@/components/canvas/COLOR/colors";
 import classes from "./Canvas.module.css";
 import { point } from "@/components/canvas/utils/point";
+import { calcXOR } from "./calcLogic";
 
 let test = new Scene("root");
 
@@ -17,7 +18,7 @@ let lines = [];
 let nodes: Circle[] | { x: number }[] = [];
 let texts: any[] = [];
 let height = 400;
-let left = 280;
+let left = 250;
 let r = 60;
 
 for (let i = 0; i < 2; i++) {
@@ -139,6 +140,8 @@ console.log("アニメタスク", test.animeTask);
 // test.AddMove(circle, 100, 400);
 
 export default function Canvas() {
+    let canvas = document.getElementById("root");
+    var context = canvas.getContext('2d');
     const [frame, setFrame] = useState(0);
     const handleClick = () => {
         let frameCount = 0;
@@ -186,6 +189,8 @@ export default function Canvas() {
         s1.text = point(x1.text * w1.text + x2.text * w3.text - 0.2, 2);
         s2.text = point(x1.text * w2.text + x2.text * w4.text + 0.7, 2);
         y.text = point(f1.text * w5.text + f2.text * w6.text - 0.8, 2);
+        drawGraph()
+
         if (s1.text > 0) {
             f1.text = 1;
         } else {
@@ -207,49 +212,96 @@ export default function Canvas() {
         x1.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function X2(e: { target: { value: any } }) {
         let value = e.target.value;
         x2.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function W1(e: { target: { value: any } }) {
         let value = e.target.value;
         w1.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function W2(e: { target: { value: any } }) {
         let value = e.target.value;
         w2.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function W3(e: { target: { value: any } }) {
         let value = e.target.value;
         w3.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function W4(e: { target: { value: any } }) {
         let value = e.target.value;
         w4.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function W5(e: { target: { value: any } }) {
         let value = e.target.value;
         w5.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
     function W6(e: { target: { value: any } }) {
         let value = e.target.value;
         w6.text = value;
         calcAll();
         test.drawAll();
+        drawGraph()
     }
+    function drawGraph(){
+
+        // キャンバス全体のピクセル情報を取得
+        context.willReadFrequently = true;
+        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        let width = imageData.width, height = imageData.height;
+        var pixels = imageData.data;  // ピクセル配列：RGBA4要素で1ピクセル
+    
+        let graphSize=200
+        let startX=1050
+        let startY=250
+        // ピクセル単位で操作できる
+        for (var y = startY; y < startY+graphSize; ++y) {
+            for (var x = startX; x < startX+graphSize; ++x) {
+                var base = (y * width + x) * 4;
+                // ピクセルに書き込む
+                let x_normalized = (x - startX) / graphSize;
+                let y_normalized = (y - startY) / graphSize;
+                let result = calcXOR(x_normalized, y_normalized,w1.text,w2.text,w3.text,w4.text,w5.text,w6.text);
+
+                if (result> 0.5) {
+                    //青
+                    pixels[base + 0] = 0;  // Red
+                    pixels[base + 1] = 0;  // Green
+                    pixels[base + 2] = 255  // Blue
+                }else{
+                    //赤
+                    pixels[base + 0] = 255;  // Red
+                    pixels[base + 1] = 0;  // Green
+                    pixels[base + 2] = 0  // Blue
+                }
+                pixels[base + 3] = 255;  // Alpha
+            }
+        }
+    
+        // 変更した内容をキャンバスに書き戻す
+        context.putImageData(imageData, 0, 0);
+    }
+    drawGraph()
     return (
         <>
             <div id="canvasTop">

@@ -10,6 +10,7 @@ import { text } from "stream/consumers";
 import COLOR from "@/components/canvas/COLOR/colors";
 import classes from "./Canvas.module.css";
 import { point } from "@/components/canvas/utils/point";
+import { calcXOR } from "./calcLogic";
 
 let test = new Scene("root");
 
@@ -72,7 +73,7 @@ function drawGraph(){
         for (var x = startY; x < startY+graphSize; ++x) {
             var base = (y * width + x) * 4;
             // ピクセルに書き込む
-            if (calcXOR((x - startX) / graphSize, (y - startY) / graphSize) > 0) { // 修正: calcXOR関数に正しい引数を渡す
+            if (calcXOR((x - startX) / graphSize, (y - startY) / graphSize) > 0.5) { // 修正: calcXOR関数に正しい引数を渡す
 
                 pixels[base + 0] = 0;  // Red
                 pixels[base + 1] = 0;  // Green
@@ -90,26 +91,8 @@ function drawGraph(){
     context.putImageData(imageData, 0, 0);
 }
 drawGraph()
-function calcXOR(x1,x2){
-    let s1 = x1 * 0.5 + x2 * 0.5 - 0.2;
-    let s2 = x1 * -0.5 + x2 * -0.5 + 0.7;
-    let f1 = s1 > 0 ? 1 : 0; // 修正: f1とf2の計算を簡略化
-    let f2 = s2 > 0 ? 1 : 0;
-    return f1 !== f2 ? 1 : 0; // 修正: XORの結果を返す
-}
-function calcOR(x1,x2){
-    let result =x1+x2-0.5
-    if (result>0) {
-        result=1
-    }else{
-        result=0
-    }
-    return result
-}
-console.log("xor",calcXOR(0,0))
-console.log("xor",calcXOR(1,0))
-console.log("xor",calcXOR(0,1))
-console.log("xor",calcXOR(1,1))
+
+
 export default function Canvas() {
     const [frame, setFrame] = useState(0);
     const handleClick = () => {
