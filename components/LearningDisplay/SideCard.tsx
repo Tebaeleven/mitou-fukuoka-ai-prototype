@@ -1,6 +1,6 @@
 import React from "react";
 
-function sideCard({title,desc}) {
+function sideCard({title,desc,children}) {
     return (
         <>
             <div className="block max-w-sm p-6 bg-gray-50 border border-gray-500 rounded-lg shadow  ">
@@ -10,6 +10,8 @@ function sideCard({title,desc}) {
                 <p className="font-normal text-gray-700 ">
                     {desc}
                 </p>
+                {children}
+
                 <div className="text-center">
                 <button className="text-white bg-gray-900 hover:bg-black rounded-md text-sm px-5 py-2.5 mt-5 mr-4">
                     ヒント💡
@@ -18,7 +20,7 @@ function sideCard({title,desc}) {
                     できた！
                 </button>
                 </div>
-
+                
             </div>
         </>
     );

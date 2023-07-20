@@ -10,11 +10,11 @@ function course() {
                 
                 <div className="grid grid-cols-2 gap-5 mb-10">
                     <CourseCard
-                        href={"/perceptron"}
+                        href={"/js-canvas"}
                         title={"ニューラルネットワークの仕組み"}
-                        desc={"脳を模倣して作られたニューラルネットワークについて"}
+                        desc={"脳を模倣して作られた、さまざまな可能性を秘めているアルゴリズムです"}
                     />
-
+                    
                     <CourseCard
                         href={"/renritu"}
                         title={"誤差逆伝播法の仕組み"}

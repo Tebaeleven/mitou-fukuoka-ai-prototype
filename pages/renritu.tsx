@@ -13,7 +13,7 @@ export default function JsCanvas() {
     return (
         <div className="pt-5 pb-20 px-10 flex bg-gray-100">
             <Side>
-            <h1 className="text-3xl font-bold mb-4">誤差逆伝播法の仕組み</h1>
+                <h1 className="text-3xl font-bold mb-4">誤差逆伝播法の仕組み</h1>
                 <p className="mb-4">先ほどの動画で分かる通り、誤差逆伝播法は合成関数の特性を使い、後ろ向きから各パラメーターの変化量を求めていました。</p>
                 <p className="mb-4">早速、演習に取り組んでみましょう。</p>
                 <SideCard
