@@ -64,14 +64,23 @@ function drawGraph(){
     let width = imageData.width, height = imageData.height;
     var pixels = imageData.data;  // ピクセル配列：RGBA4要素で1ピクセル
 
+    let graphSize=500
+    let startX=100
+    let startY=100
     // ピクセル単位で操作できる
-    for (var y = 100; y < 500; ++y) {
-        for (var x = 100; x < 500; ++x) {
+    for (var y = startX; y < startX+graphSize; ++y) {
+        for (var x = startY; x < startY+graphSize; ++x) {
             var base = (y * width + x) * 4;
             // ピクセルに書き込む
-            pixels[base + 0] = x;  // Red
-            pixels[base + 1] = y;  // Green
-            pixels[base + 2] = Math.max(255 - x - y, 0);  // Blue
+            if (calcFunc(-x/graphSize,y/graphSize)>0) {
+                pixels[base + 0] = 0;  // Red
+                pixels[base + 1] = 0;  // Green
+                pixels[base + 2] = 255  // Blue
+            }else{
+                pixels[base + 0] = 255;  // Red
+                pixels[base + 1] = 0;  // Green
+                pixels[base + 2] = 0  // Blue
+            }
             pixels[base + 3] = 255;  // Alpha
         }
     }
@@ -81,6 +90,16 @@ function drawGraph(){
 }
 drawGraph()
 
+function calcFunc(x1,x2){
+    let result =x1+x2-0.5
+    if (result>0) {
+        result=1
+    }else{
+        result=0
+    }
+    return result
+}
+console.log(calcFunc(0,1))
 
 
 export default function Canvas() {
