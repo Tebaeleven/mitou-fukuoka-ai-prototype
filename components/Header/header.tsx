@@ -27,7 +27,7 @@ export default function Header() {
     };
     return (
         <header>
-            <nav className=" border-gray-200 px-6 py-4 bg-white drop-shadow-sm">
+            <nav className=" px-6 py-4 bg-white border-b-2 border-gray-300">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link href="/" className="flex items-center">
                         {/* <img
@@ -92,7 +92,7 @@ export default function Header() {
                     >
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <CustomLink href="/" title="ホーム" />
-                            <CustomLink href="/renritu" title="コース一覧" />
+                            <CustomLink href="/course" title="コース一覧" />
                             <CustomLink href="/dashboard" title="ダッシュボード" />
                             <CustomLink href="/search" title="検索" />
                             {/* <CustomLink href="/p5" title="p5" />
