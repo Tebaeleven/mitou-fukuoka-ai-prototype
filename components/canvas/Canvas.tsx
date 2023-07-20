@@ -18,7 +18,7 @@ let lines = [];
 let nodes: Circle[] | { x: number }[] = [];
 let texts: any[] = [];
 let height = 400;
-let left = 250;
+let left = 240;
 let r = 60;
 
 for (let i = 0; i < 2; i++) {
@@ -54,6 +54,11 @@ texts.push(new Text(nodes[2].x + 100, nodes[2].y, 1, 40, COLOR.YELLOW));
 texts.push(new Text(nodes[3].x + 100, nodes[3].y, 0, 40, COLOR.YELLOW));
 texts.push(new Text(nodes[4].x + 100, nodes[4].y, 0, 40, COLOR.YELLOW));
 
+texts.push(new Text(1050, 220, 1, 40, COLOR.WHITE));
+texts.push(new Text(1050, 470, 0, 40, COLOR.WHITE));
+texts.push(new Text(1250, 220, 0, 40, COLOR.WHITE));
+texts.push(new Text(1250, 470, 1, 40, COLOR.WHITE));
+
 lines.forEach((element) => {
     test.create(element);
 });
@@ -86,58 +91,6 @@ texts.forEach((element) => {
 
 console.log("アニメタスク", test.animeTask);
 
-// test.create(green);
-
-// test.AddMove(green.move(400, 100));
-// test.AddMove(red.move(100, 100));
-
-// test.AddMove(
-//     green.move(400, 400),
-//     red.move(100, 400),
-// );
-// test.AddMove(green.move(100, 100), red.move(100, 100));
-
-// test.AddMove(square.move(100, 100));
-// let square2 = obj.Square(400, 100, 50, "red");
-// let circle = obj.Circle(400, 400, 40, "orange", "black");
-// let circle2 = obj.Circle(200, 200, 40, "orange", "black");
-// console.log("da",square)
-// test.create(square);
-
-// test.create(square2);
-// test.create(circle);
-
-/**
- * TODO
- * 同じ時間から動かすものは配列でまとめて記載する。まとめて書かれて
- * ないものはその動作が終わってから動かすことにする。
- *
- * 今まで：
- * test.AddMove(square, 400, 100);
- * test.AddMove(circle, 100, 250);
- *
- * 改良案：
- * test.AddMove(
- *  [square, 400, 100],
- *  [circle, 100, 250]
- * );
- * //同期的に行う処理
- * test.AddMove(circle);
- */
-
-// test.AddMove(square, 250, 250)
-// test.AddMove(square2, 400, 250);
-// test.AddMove(square2, 0, 0);
-// test.AddMove(square2, 400, 400);
-// test.AddWait(50);
-
-// test.AddMove(square, 400, 100);
-// test.AddMove(circle, 100, 250);
-// test.AddWait(50);
-// test.AddMove(square, 100, 100);
-// test.AddWait(100);
-
-// test.AddMove(circle, 100, 400);
 
 export default function Canvas() {
     let canvas = document.getElementById("root");
@@ -189,8 +142,6 @@ export default function Canvas() {
         s1.text = point(x1.text * w1.text + x2.text * w3.text - 0.2, 2);
         s2.text = point(x1.text * w2.text + x2.text * w4.text + 0.7, 2);
         y.text = point(f1.text * w5.text + f2.text * w6.text - 0.8, 2);
-        drawGraph()
-
         if (s1.text > 0) {
             f1.text = 1;
         } else {
@@ -206,20 +157,46 @@ export default function Canvas() {
         } else {
             f3.text = 0;
         }
+        drawGraph()
+
     }
+    let px=1050
+    let py=246
+
     function X1(e: { target: { value: any } }) {
         let value = e.target.value;
         x1.text = value;
+        px=1050+Number(value)*200
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function X2(e: { target: { value: any } }) {
         let value = e.target.value;
         x2.text = value;
+        py=446-Number(value)*200
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
+    }
+    function drawPoint(){
+        console.log(px)
+        console.log(py)
+        context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        context.strokeStyle = "white";
+        context.beginPath();
+        context.arc(
+            px,
+            py,
+            10,
+            0,
+            10
+        );
+        context.fill();
+        context.lineWidth = 3;
+        context.stroke();
     }
     function W1(e: { target: { value: any } }) {
         let value = e.target.value;
@@ -227,6 +204,7 @@ export default function Canvas() {
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function W2(e: { target: { value: any } }) {
         let value = e.target.value;
@@ -234,6 +212,7 @@ export default function Canvas() {
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function W3(e: { target: { value: any } }) {
         let value = e.target.value;
@@ -241,6 +220,7 @@ export default function Canvas() {
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function W4(e: { target: { value: any } }) {
         let value = e.target.value;
@@ -248,6 +228,7 @@ export default function Canvas() {
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function W5(e: { target: { value: any } }) {
         let value = e.target.value;
@@ -255,6 +236,7 @@ export default function Canvas() {
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function W6(e: { target: { value: any } }) {
         let value = e.target.value;
@@ -262,6 +244,7 @@ export default function Canvas() {
         calcAll();
         test.drawAll();
         drawGraph()
+        drawPoint()
     }
     function drawGraph(){
 
@@ -272,29 +255,30 @@ export default function Canvas() {
         var pixels = imageData.data;  // ピクセル配列：RGBA4要素で1ピクセル
     
         let graphSize=200
-        let startX=1050
-        let startY=250
+        let startX=850
+        let startY=246
         // ピクセル単位で操作できる
-        for (var y = startY; y < startY+graphSize; ++y) {
-            for (var x = startX; x < startX+graphSize; ++x) {
-                var base = (y * width + x) * 4;
+        for (var y = 0; y < graphSize; ++y) {
+            for (var x = 0; x < graphSize; ++x) {
+                var base = ((startY + graphSize - 1 - y) * width + (startX + graphSize - 1 + x)) * 4;
                 // ピクセルに書き込む
-                let x_normalized = (x - startX) / graphSize;
-                let y_normalized = (y - startY) / graphSize;
-                let result = calcXOR(x_normalized, y_normalized,w1.text,w2.text,w3.text,w4.text,w5.text,w6.text);
-
-                if (result> 0.5) {
-                    //青
-                    pixels[base + 0] = 0;  // Red
-                    pixels[base + 1] = 0;  // Green
-                    pixels[base + 2] = 255  // Blue
-                }else{
+                let x_normalized = x / graphSize;
+                let y_normalized = y / graphSize;
+                let result = calcXOR(x_normalized, y_normalized, w1.text, w2.text, w3.text, w4.text, w5.text, w6.text);
+    
+                if (result > 0) {
                     //赤
-                    pixels[base + 0] = 255;  // Red
-                    pixels[base + 1] = 0;  // Green
-                    pixels[base + 2] = 0  // Blue
+                    pixels[base + 0] = 240; // Red
+                    pixels[base + 1] = 98; // Green
+                    pixels[base + 2] = 89; // Blue
+                } else {
+                    //青
+                    pixels[base + 0] = 89; // Red
+                    pixels[base + 1] = 196; // Green
+                    pixels[base + 2] = 220; // Blue
+
                 }
-                pixels[base + 3] = 255;  // Alpha
+                pixels[base + 3] = 255; // Alpha
             }
         }
     
