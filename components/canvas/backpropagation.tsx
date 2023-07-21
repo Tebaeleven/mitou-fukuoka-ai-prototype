@@ -298,7 +298,7 @@ export default function Canvas() {
                 style={{
                     position: "absolute",
                     top: 370,
-                    left: 230,
+                    left: 280,
                 }}
                 id="w4">
                     <NumberCounter
@@ -321,7 +321,7 @@ export default function Canvas() {
                 style={{
                     position: "absolute",
                     top: 370,
-                    left: 560,
+                    left: 600,
                 }}
                 id="w5">
                     <NumberCounter

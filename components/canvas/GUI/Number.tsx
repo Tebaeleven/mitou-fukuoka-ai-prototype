@@ -21,7 +21,7 @@ const NumberCounter = ({ color = "#59C4DC", size=30 ,min = -500,max=500,value=0}
         };
 
         const updateNumber = (event) => {
-            let deltaX = (event.clientX - currentX) /100;
+            let deltaX = point((event.clientX - currentX) /100,2)
             let distance = currentX - startX;
             currentX = event.clientX;
             let result = deltaX;
