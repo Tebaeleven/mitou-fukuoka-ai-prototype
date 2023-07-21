@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import classes from "./Number.module.css";
+import { point } from "../utils/point";
 
-const NumberCounter = ({ color = "#59C4DC", size=30}) => {
-    const [number, setNumber] = useState(0);
+const NumberCounter = ({ color = "#59C4DC", size=30 ,min = -500,max=500,value=0}) => {
+    const [number, setNumber] = useState(value);
     const [isHovered, setIsHovered] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
-
     const handleMouseDown = (event) => {
         event.preventDefault();
         let startX = event.clientX;
@@ -17,15 +17,14 @@ const NumberCounter = ({ color = "#59C4DC", size=30}) => {
         };
 
         const updateNumber = (event) => {
-            let deltaX = (event.clientX - currentX) /200;
+            let deltaX = (event.clientX - currentX) /20;
             let distance = currentX - startX;
             currentX = event.clientX;
             let result = deltaX;
 
             setNumber((prevNumber) => {
                 let updatedNumber = prevNumber + result;
-                let min = -2
-                let max=2
+
                 if (updatedNumber > max) {
                     updatedNumber = max;
                 } else if (updatedNumber < min) {
@@ -81,10 +80,10 @@ const NumberCounter = ({ color = "#59C4DC", size=30}) => {
                 } font-serif hover:cursor-col-resize`}
             >
                 {number > 0
-                    ? `+${number.toFixed(2)}`
+                    ? `${point(number,2)}`
                     : number < 0
                     ? `−${Math.abs(number).toFixed(2)}`
-                    : "±0.00"}
+                    : "0.00"}
             </p>
         </div>
     );

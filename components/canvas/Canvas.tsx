@@ -13,6 +13,8 @@ import { point } from "@/components/canvas/utils/point";
 import { calcXOR } from "./calcLogic";
 
 let test = new Scene("root");
+let canvas = document.getElementById("root");
+var context = canvas.getContext('2d');
 
 let lines = [];
 let nodes: Circle[] | { x: number }[] = [];
@@ -20,17 +22,18 @@ let texts: any[] = [];
 let height = 400;
 let left = 240;
 let r = 60;
+let offsetX=100
 
 for (let i = 0; i < 2; i++) {
-    lines.push(new Line(left, i * height + 150));
-    lines.push(new Line(left, i * height + 150));
-    nodes.push(new Circle(left, i * height + 150, r, "white"));
+    lines.push(new Line(left-offsetX, i * height + 150));
+    lines.push(new Line(left-offsetX, i * height + 150));
+    nodes.push(new Circle(left-offsetX, i * height + 150, r, "white"));
 }
 for (let i = 0; i < 2; i++) {
-    lines.push(new Line(left * 2.4, i * height + 150));
-    nodes.push(new Circle(left * 2.4, i * height + 150, r, "white"));
+    lines.push(new Line(left * 2.4-offsetX, i * height + 150));
+    nodes.push(new Circle(left * 2.4-offsetX, i * height + 150, r, "white"));
 }
-nodes.push(new Circle(left * 3.7, height - 50, r, "white"));
+nodes.push(new Circle(left * 3.7-offsetX, height - 50, r, "white"));
 
 //nodeの値
 for (let i = 0; i < 2; i++) {
@@ -54,10 +57,10 @@ texts.push(new Text(nodes[2].x + 100, nodes[2].y, 1, 40, COLOR.YELLOW));
 texts.push(new Text(nodes[3].x + 100, nodes[3].y, 0, 40, COLOR.YELLOW));
 texts.push(new Text(nodes[4].x + 100, nodes[4].y, 0, 40, COLOR.YELLOW));
 
-texts.push(new Text(1050, 220, 1, 40, COLOR.WHITE));
-texts.push(new Text(1050, 470, 0, 40, COLOR.WHITE));
-texts.push(new Text(1250, 220, 0, 40, COLOR.WHITE));
-texts.push(new Text(1250, 470, 1, 40, COLOR.WHITE));
+texts.push(new Text(930, 175, 1, 40, COLOR.WHITE));
+texts.push(new Text(930, 530, 0, 40, COLOR.WHITE));
+texts.push(new Text(1230, 175, 0, 40, COLOR.WHITE));
+texts.push(new Text(1230, 530, 1, 40, COLOR.WHITE));
 
 lines.forEach((element) => {
     test.create(element);
@@ -93,8 +96,7 @@ console.log("アニメタスク", test.animeTask);
 
 
 export default function Canvas() {
-    let canvas = document.getElementById("root");
-    var context = canvas.getContext('2d');
+
     const [frame, setFrame] = useState(0);
     const handleClick = () => {
         let frameCount = 0;
@@ -160,13 +162,13 @@ export default function Canvas() {
         drawGraph()
 
     }
-    let px=1050
-    let py=246
+    let px=1530
+    let py=200
 
     function X1(e: { target: { value: any } }) {
         let value = e.target.value;
         x1.text = value;
-        px=1050+Number(value)*200
+        px=930+Number(value)*300
         calcAll();
         test.drawAll();
         drawGraph()
@@ -175,7 +177,7 @@ export default function Canvas() {
     function X2(e: { target: { value: any } }) {
         let value = e.target.value;
         x2.text = value;
-        py=446-Number(value)*200
+        py=500-Number(value)*300
         calcAll();
         test.drawAll();
         drawGraph()
@@ -190,7 +192,7 @@ export default function Canvas() {
         context.arc(
             px,
             py,
-            10,
+            20,
             0,
             10
         );
@@ -254,13 +256,13 @@ export default function Canvas() {
         let width = imageData.width, height = imageData.height;
         var pixels = imageData.data;  // ピクセル配列：RGBA4要素で1ピクセル
     
-        let graphSize=200
-        let startX=850
-        let startY=246
+        let graphSize=300
+        let startX=630
+        let startY=200
         // ピクセル単位で操作できる
         for (var y = 0; y < graphSize; ++y) {
             for (var x = 0; x < graphSize; ++x) {
-                var base = ((startY + graphSize - 1 - y) * width + (startX + graphSize - 1 + x)) * 4;
+                var base = ((startY + graphSize - y) * width + (startX + graphSize + x)) * 4;
                 // ピクセルに書き込む
                 let x_normalized = x / graphSize;
                 let y_normalized = y / graphSize;

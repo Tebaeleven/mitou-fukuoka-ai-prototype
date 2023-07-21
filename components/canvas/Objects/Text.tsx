@@ -62,6 +62,10 @@ class Text extends Object {
             this.y + textHeight / 2
         );
     }
+    setColor(color){
+        this.color=color
+        return this
+    }
 }
 
 export default Text;

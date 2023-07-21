@@ -22,7 +22,7 @@ export default function JsCanvas() {
                 >
                 <div className="relative overflow-x-auto mt-6 mb-1 shadow-xl rounded-xl">
                     <table className="w-full text-sm text-left">
-                        <thead className="text-xs bg-gradient-to-r from-orange-300 to-orange-500">
+                        <thead className="text-xs bg-orange-500">
                         <tr>
                             <th scope="col" className="px-6 py-3">
                             入力1
@@ -80,9 +80,6 @@ export default function JsCanvas() {
                     </table>
                 </div>
                 </SideCard>
-                <div className="m-5"></div>
-
-
             </Side>
             <div
                 style={{

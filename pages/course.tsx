@@ -16,7 +16,7 @@ function course() {
                     />
                     
                     <CourseCard
-                        href={"/renritu"}
+                        href={"/backpropagation"}
                         title={"誤差逆伝播法の仕組み"}
                         desc={"微分の力を使って、パラメーターを最適化するアルゴリズム"}
                     />

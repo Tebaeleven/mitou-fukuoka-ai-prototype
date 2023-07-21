@@ -83,6 +83,10 @@ class Line extends Object {
         this.setData();
         return this;
     }
+    setColor(color){
+        this.color=color
+        return this;
+    }
 
     setData() {
         this.data = {
