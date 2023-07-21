@@ -131,20 +131,78 @@ export default function Canvas() {
         setFrame(frame);
         test.play(frame);
     };
+    const [w1, setW1] = useState(null);
+    const [w2, setW2] = useState(null);
+    const [w3, setW3] = useState(null);
+    const [w4, setW4] = useState(null);
+    const [w5, setW5] = useState(null);
+
+    const [e1, setE1] = useState(null);
+    const [e2, setE2] = useState(null);
+    const [e3, setE3] = useState(null);
+    const [e4, setE4] = useState(null);
+    const [e5, setE5] = useState(null);
 
     useEffect(() => {
-        let w1= document.querySelector('#w1 div ')
-        console.log("lkjdgfrdfklsgjljk",w1)
+        setW1(100);
+        setW2(200);
+        setW3(220);
+        setW4(2);
+        setW5(1.1);
+
+        setE1(2.2);
+        setE2(1.1);
+        setE3(1);
+        setE4(110);
+        setE5(200);
+
         const target=document.getElementById("canvasTop")
         const observer = new MutationObserver(records => {
-            // 変化が発生したときの処理を記述
-            console.log("感知")
+            let w1= Number(document.querySelector('#w1 p')?.textContent)
+            let w2= Number(document.querySelector('#w2 p')?.textContent)
+            let w3= Number(document.querySelector('#w3 p')?.textContent)
+            let w4= Number(document.querySelector('#w4 p')?.textContent)
+            let w5= Number(document.querySelector('#w5 p')?.textContent)
+
+            let e1= Number(document.querySelector('#e1 p')?.textContent)
+            let e2= Number(document.querySelector('#e2 p')?.textContent)
+            let e3= Number(document.querySelector('#e3 p')?.textContent)
+            let e4= Number(document.querySelector('#e4 p')?.textContent)
+            let e5= Number(document.querySelector('#e5 p')?.textContent)
+
+            
+            /**
+             * 誤差逆伝播
+             */
+            //一つ目のニューロン
+            e2=e3*w5
+            e5=e3*w2
+
+            //二つ目のニューロン
+            e1=e2*w4
+            e4=e2*w1
+
+            /**
+             * 順伝搬
+             */
+            w2=w1*w4
+            w3=w2*w5
+            
+            setW1(w1);
+            setW2(w2);
+            setW3(w3);
+            setW4(w4);
+            setW5(w5);
+
+            setE1(e1);
+            setE2(e2);
+            setE3(e3);
+            setE4(e4);
+            setE5(e5);
+
+
         })
-        observer.observe(target, {
-            attributes: true,
-            subtree: true,
-            characterData: true
-        })
+        observer.observe(target, {attributes: true,subtree: true,characterData: true})
     }, []);
     return (
         <>
@@ -155,7 +213,6 @@ export default function Canvas() {
                 >
                     Play
                 </button>
-
 
                 <div className="text-white text-xl inline-block">
                     <p className="">{frame}</p>
@@ -173,7 +230,7 @@ export default function Canvas() {
                         size={40}
                         max={200}
                         min={0}
-                        value={100}
+                        value={w1}
                     />
                 </div>
                 <div
@@ -181,13 +238,14 @@ export default function Canvas() {
                     position: "absolute",
                     top: 220,
                     left: 250,
-                }}>
+                }}
+                id="e1">
                     <NumberCounter 
                         color={COLOR.RED} 
                         size={40}
                         max={200}
                         min={0}
-                        value={2.2}
+                        value={e1}
                     />
                 </div>
 
@@ -196,11 +254,12 @@ export default function Canvas() {
                     position: "absolute",
                     top: 120,
                     left: 570,
-                }}>
+                }}
+                id="w2">
                     <NumberCounter
                         color={COLOR.BLUE}
                         size={40} 
-                        value={200}
+                        value={w2}
                     />
                 </div>
                 <div
@@ -208,8 +267,9 @@ export default function Canvas() {
                     position: "absolute",
                     top: 220,
                     left: 570,
-                }}>
-                    <NumberCounter color={COLOR.RED} size={40} value={1.1}></NumberCounter>
+                }}
+                id="e2">
+                    <NumberCounter color={COLOR.RED} size={40} value={e2}></NumberCounter>
                 </div>
 
                 <div
@@ -217,11 +277,12 @@ export default function Canvas() {
                     position: "absolute",
                     top: 120,
                     left: 890,
-                }}>
+                }}
+                id="w3">
                     <NumberCounter
                         color={COLOR.BLUE}
                         size={40} 
-                        value={220}
+                        value={w3}
                     />
                 </div>
                 <div
@@ -229,8 +290,8 @@ export default function Canvas() {
                     position: "absolute",
                     top: 220,
                     left: 890,
-                }}>
-                    <NumberCounter color={COLOR.RED} size={40} value={1}></NumberCounter>
+                }}id="e3">
+                    <NumberCounter color={COLOR.RED} size={40} value={e3}></NumberCounter>
                 </div>
 
                 <div
@@ -238,11 +299,12 @@ export default function Canvas() {
                     position: "absolute",
                     top: 370,
                     left: 230,
-                }}>
+                }}
+                id="w4">
                     <NumberCounter
                         color={COLOR.BLUE}
                         size={40} 
-                        value={2}
+                        value={w4}
                     />
                 </div>
                 <div
@@ -250,8 +312,9 @@ export default function Canvas() {
                     position: "absolute",
                     top: 370,
                     left: 430,
-                }}>
-                    <NumberCounter color={COLOR.RED} size={40} value={110}></NumberCounter>
+                }}
+                id="e4">
+                    <NumberCounter color={COLOR.RED} size={40} value={e4}></NumberCounter>
                 </div>
 
                 <div
@@ -259,11 +322,12 @@ export default function Canvas() {
                     position: "absolute",
                     top: 370,
                     left: 560,
-                }}>
+                }}
+                id="w5">
                     <NumberCounter
                         color={COLOR.BLUE}
                         size={40} 
-                        value={1.1}
+                        value={w5}
                     />
                 </div>
                 <div
@@ -271,8 +335,8 @@ export default function Canvas() {
                     position: "absolute",
                     top: 370,
                     left: 750,
-                }}>
-                    <NumberCounter color={COLOR.RED} size={40} value={200}></NumberCounter>
+                }}id="e5">
+                    <NumberCounter color={COLOR.RED} size={40} value={e5}></NumberCounter>
                 </div>
                 
                 <input

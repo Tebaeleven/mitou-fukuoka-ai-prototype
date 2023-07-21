@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Number.module.css";
 import { point } from "../utils/point";
 
 const NumberCounter = ({ color = "#59C4DC", size=30 ,min = -500,max=500,value=0}) => {
-    const [number, setNumber] = useState(value);
+    const [number, setNumber] = useState(0);
+    useEffect(() => {
+        setNumber(value)
+    }, [value]);
+
     const [isHovered, setIsHovered] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
     const handleMouseDown = (event) => {
@@ -17,7 +21,7 @@ const NumberCounter = ({ color = "#59C4DC", size=30 ,min = -500,max=500,value=0}
         };
 
         const updateNumber = (event) => {
-            let deltaX = (event.clientX - currentX) /20;
+            let deltaX = (event.clientX - currentX) /100;
             let distance = currentX - startX;
             currentX = event.clientX;
             let result = deltaX;
